@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Bibel Web Applikation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link
+		href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
+		rel="icon" type="image/x-icon" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="topnav.css">
+	<link rel="stylesheet" href="main.css">
+</head>
+
+<body onload="init()">
+	<div id="overlay" onclick="hideOverlay()"></div>
+	<div class="header">
+		<div class="topnav" id="topnav">
+			<a href="/home">Home</a>
+			<a href="/read">Lesen</a>
+			<a href="/search">Suchen</a>
+			<a href="/count">Zählen</a>
+			<a href="/strong" class="active">Urtext</a>
+			<!--
+				<div class="dropdown">
+					<button class="dropbtn">Dropdown
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<a href="#">Link 1</a>
+						<a href="#">Link 2</a>
+						<a href="#">Link 3</a>
+					</div>
+				</div>
+				-->
+			<a href="/about">Über</a>
+			<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="handleTopNav()">&#9776;</a>
+		</div>
+
+		<div class="headline">
+			<h2>Die Bibel lesen</h2>
+			<h5 id="strong">Nach der Übersetzung von Luther 1912 und Strong</h4>
+		</div>
+		<!--Make sure the form has the autocomplete function switched off:-->
+		<div class="form">
+			<form autocomplete="off" th:action="@{/strong}" th:object="${passage}" method="POST" id="readForm">
+				<div class="autocomplete">
+					<input id="inputBook" type="text" placeholder="Buch" name="book" th:field="*{book}">
+				</div>
+				<div class="select">
+					<select id="selectChapter" type="text" name="chapter" th:field="*{chapter}"
+						onchange="doSubmit()"></select>
+				</div>
+				<div class="navigation">
+					<span class="navigation disable" id="spanPrev" onclick="goToPrevChapter()"><<</span>
+				</div>
+				<div class="navigation">
+					<span class="navigation disable" id="spanNext" onclick="goToNextChapter()">>></span>
+				</div>
+				<input type="hidden" th:value="${bibleName}" name="bibleName" id="inputBibleName" />
+				<input type="hidden" th:field="*{verse}" name="verse" id="inputVerse" />
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="topnav.js"></script>
+	<script type="text/javascript" charset="utf-8" src="read.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var bibleName = "";
+		var books = /*[[${books}]]*/ "";
+		var chapters = /*[[${chapters}]]*/ "";
+		var concordance = /*[[${concordance}]]*/ "";
+		var selectedChapterValue = /*[[${passage.chapter}]]*/ "";
+		/*]]>*/
+		autocomplete(document.getElementById("inputBook"), books);
+	</script>
+	<div id="concordanceWrapper">
+		<div id="concordanceClose" onclick="hideConcordanceEntry()"></div>
+		<div id="concordanceContent"></div>
+	</div>
+	<div class="readContent">
+		<span th:if="${verses.size() == 0}"
+			th:utext="'Zum Lesen eines Kapitels kann erst das Buch und dann das Kapitel gewählt werden.'"></span>
+		<table>
+			<tr th:each="verse : ${verses}">
+				<td>
+					<span class="verse" th:id="${verse.number}" th:text="${verse.number}"></span>
+					<span class="verseText" th:utext="${verse.text}"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

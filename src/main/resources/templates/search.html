@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Bibel Web Applikation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link
+		href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
+		rel="icon" type="image/x-icon" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="topnav.css">
+	<link rel="stylesheet" href="main.css">
+</head>
+
+<body onload="init()">
+	<div id="overlay"></div>
+	<div class="header">
+		<div class="topnav" id="topnav">
+			<a href="/home">Home</a>
+			<a href="/read">Lesen</a>
+			<a href="/search" class="active">Suchen</a>
+			<a href="/count">Zählen</a>
+			<a href="/strong">Urtext</a>
+			<!-- <div class="dropdown">
+			<button class="dropbtn">Dropdown
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content">
+				<a href="#">Link 1</a>
+				<a href="#">Link 2</a>
+				<a href="#">Link 3</a>
+			</div>
+		</div> -->
+			<a href="/about">Über</a>
+			<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="handleTopNav()">&#9776;</a>
+		</div>
+
+		<div class="headline">
+			<h2>Die Bibel durchsuchen</h2>
+			<h5>Nach der Übersetzung von</h5>
+			<form th:action="@{/search}" method="POST" style="display: inline;" id="bibleNameForm">
+				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName" onchange="setBibleName()"></select>
+			</form>
+			<script th:inline="javascript">
+				/*<![CDATA[*/
+				var bibles = /*[[${bibles}]]*/ "";
+				var bibleName = /*[[${bible.name}]]*/ "";
+				/*]]>*/
+				var selectBible = document.getElementById("selectBibleName");
+				for (var i = 0; i < bibles.length; i++) {
+					selectBible.options.add(new Option(bibles[i]));
+				}
+				selectBible.value = bibleName;
+			</script>
+		</div>
+		<!--Make sure the form has the autocomplete function switched off:-->
+		<div class="form">
+			<form autocomplete="off" th:action="@{/search}" th:object="${search}" method="POST" id="searchForm">
+				<div class="autocomplete">
+					<input type="text" id="inputSearch" placeholder="Suche" name="search" th:field="*{search}">
+				</div>
+				<div class="select">
+					<select class="search" id="selectSearch" type="text" name="section" th:field="*{section}"
+						disabled="true" onchange="setSubmitSearch()">
+					</select>
+				</div>
+				<div class="search">
+					<input type="submit" id="submitSearch" value="Suchen" disabled="true">
+				</div>
+				<input type="hidden" th:value="${bibleName}" name="bibleName" id="inputBibleName">
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="topnav.js"></script>
+	<script type="text/javascript" charset="utf-8" src="search.js"></script>
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+    	var books = /*[[${books}]]*/ "";
+    	var selectedSearchValue = /*[[${search.section}]]*/ ""
+		/*]]>*/
+	</script>
+	<div class="searchContent">
+		<span th:if="${search.search == null}"
+			th:utext="'Für die Suche ist Groß- und Kleinschreibung nicht relevant. Ist der Suchbegriff ein Teil eines Wortes, gilt dies auch als Treffer.'"></span>
+		<span th:if="${search.search != null}" th:utext="'Die Suche nach <b>' + ${search.search} + '</b>'"></span>
+		<span th:if="${search.section != null && search.section == 'Alle'}" th:text="'in allen Büchern '"></span>
+		<span th:if="${search.section != null && (search.section == 'AT' || search.section == 'NT')}" th:text="'im ' + ${search.section}"></span>
+		<span th:if="${search.section != null && search.section != 'Alle' && search.section != 'AT' && search.section != 'NT'}" th:text="'in ' + ${search.section}"></span>
+		<span th:if="${search.section != null}" th:text="'hat'"></span>
+		<span th:if="${search.section != null && findings.size() == 1}" th:text="'einen Vers getroffen.'"></span>
+		<span th:if="${search.section != null && findings.size() > 1}"
+			th:text="${findings.size()} + ' Verse getroffen.'"></span>
+		<span th:if="${search.section != null && findings.size() == 0}" th:text="' keinen Treffer.'"></span>
+		<br><br>
+		<table>
+			<tr th:each="finding : ${findings}">
+				<td>
+					<span th:if="${finding != null}"
+						th:text="${finding.passage.book} + ' ' + ${finding.passage.chapter} + ', ' + ${finding.passage.verse}"
+						class="verse"></span>
+					<span th:if="${finding != null}" th:utext="${finding.verseText}"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>
