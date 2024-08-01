@@ -44,4 +44,8 @@ public class Passage {
 	public void setVerse(int verse) {
 		this.verse = verse;
 	}
+	
+	public String toString() {
+		return book + " " +  chapter + (verse > 0 ? ", " + verse : "");
+	}
 }

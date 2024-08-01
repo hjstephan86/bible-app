@@ -68,4 +68,8 @@ public class Section {
 	public void setVerseTo(int verseTo) {
 		this.verseTo = verseTo;
 	}
+	
+	public String toString() {
+		return bookFrom + " " + " " + chapterFrom + ", " + verseFrom + " : " + bookTo + " " + " " + chapterTo + ", " + verseTo;
+	}
 }

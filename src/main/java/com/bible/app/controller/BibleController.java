@@ -95,7 +95,7 @@ public class BibleController {
 			model.addAttribute("passage", new Passage());
 			model.addAttribute("verses", new ArrayList<Verse>());
 		}
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath() + " with " + passage);
 		return "read";
 	}
 
@@ -123,7 +123,7 @@ public class BibleController {
 			model.addAttribute("search", new Search());
 			model.addAttribute("findings", new ArrayList<Finding>());
 		}
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath() + " with " + search);
 		return "search";
 	}
 
@@ -155,7 +155,7 @@ public class BibleController {
 			model.addAttribute("section", new Section());
 			model.addAttribute("words", new ArrayList<Word>());
 		}
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath() + " with " + section);
 		return "count";
 	}
 

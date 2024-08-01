@@ -15,7 +15,7 @@ function init() {
 	if (inputBibleName != null) {
 		inputBibleName.value = bibleName;
 	}
-	// Go to a specific verse, if possible
+	// Go to a specific verse, if possible, e.g., Klagelieder 3, 8, Gebet >> 1. Könige 8, 29
 	var inputVerse = document.getElementById('inputVerse');
 	if (inputVerse != null && inputVerse.value > 0) {
 		var rectFirstElement = document.getElementById('1').getBoundingClientRect();

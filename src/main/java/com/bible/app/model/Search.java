@@ -19,4 +19,8 @@ public class Search {
 	public void setSection(String section) {
 		this.section = section;
 	}
+	
+	public String toString() {
+		return "\"" + search + "\" in " + section;		
+	}
 }
