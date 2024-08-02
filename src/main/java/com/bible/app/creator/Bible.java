@@ -279,7 +279,7 @@ public abstract class Bible {
 	private String[] getSplittedVerseText(Passage currentPassage) {
 		String verseText = bookMap.get(currentPassage.getBook()).getChapter().get(currentPassage.getChapter())
 				.getVerses().get(currentPassage.getVerse()).getText();
-		return verseText.replaceAll("[\\(\\)\\.\\;\\:\\,\\!\\?\\\"\\“\\”\\=\\d]", "").split(" ");
+		return verseText.replaceAll("[\\(\\)\\.\\;\\:\\,\\!\\?\\\"\\“\\”\\=\\–\\d]", "").split(" ");
 	}
 
 	private boolean toPassageReached(Passage currentPassage, Section section) {
