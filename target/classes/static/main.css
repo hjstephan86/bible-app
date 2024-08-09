@@ -303,6 +303,16 @@ td.count {
 	padding: 0 10px 0 0;
 }
 
+th.ignore {
+	text-align: center;
+	padding: 0 10px 0 0;
+}
+
+td.ignore {
+	text-align: center;
+	padding: 0 10px 0 0;
+}
+
 table.ignoreTable {
 	color: #777;
 }

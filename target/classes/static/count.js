@@ -146,10 +146,10 @@ function fillIgnoreTable() {
 	table.innerHTML = "";
 	if (ignoreWords.length > 0) {
 		var t = "";
-		var tr = "<tr><th class=\"count\">#</th><th>Ignoriert</th></tr>";
+		var tr = "<tr><th class=\"ignore\">#</th><th>Ignoriert</th></tr>";
 		t += tr;
 		for (var i = 0; i < currentIgnoreSize; i++) {
-			var tr = "<tr><td class=\"count\">" + ignoreWords[i].count + "</td>";
+			var tr = "<tr><td class=\"ignore\">" + ignoreWords[i].count + "</td>";
 			tr += "<td>" + ignoreWords[i].name + "<a href=\"javascript:void(0)\" onclick=\"addWord('" + ignoreWords[i].index + "');\" style=\"color: green; font-weight:bold;\">&nbsp+&nbsp</a></td></tr>";
 			t += tr;
 		}
