@@ -3,7 +3,8 @@ package com.bible.app.controller;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,14 +25,13 @@ import com.bible.app.model.Word;
 import com.bible.app.service.BibleService;
 import com.bible.app.text.Verse;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 public class BibleController {
 
 	@Autowired
 	private BibleService bibleService;
-
-	@Autowired
-	private HttpServletRequest request;
 
 	private Logger logger = LoggerFactory.getLogger(BibleController.class);
 
@@ -39,7 +39,7 @@ public class BibleController {
 	public String home(Model model) {
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info(getRemoteAddrAndRequestURL());
 		return "home";
 	}
 
@@ -48,7 +48,7 @@ public class BibleController {
 		bibleService.setActive(bibleName);
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info(getRemoteAddrAndRequestURL());
 		return "home";
 	}
 
@@ -56,7 +56,7 @@ public class BibleController {
 	public String about(Model model) {
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info(getRemoteAddrAndRequestURL());
 		return "about";
 	}
 
@@ -65,7 +65,7 @@ public class BibleController {
 		bibleService.setActive(bibleName);
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info(getRemoteAddrAndRequestURL());
 		return "about";
 	}
 
@@ -77,7 +77,7 @@ public class BibleController {
 		model.addAttribute("chapters", bibleService.getChaptersAsList());
 		model.addAttribute("passage", new Passage());
 		model.addAttribute("verses", new ArrayList<Verse>());
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info(getRemoteAddrAndRequestURL());
 		return "read";
 	}
 
@@ -95,7 +95,7 @@ public class BibleController {
 			model.addAttribute("passage", new Passage());
 			model.addAttribute("verses", new ArrayList<Verse>());
 		}
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath() + " with " + passage);
+		logger.info(getRemoteAddrAndRequestURL() + " with " + passage);
 		return "read";
 	}
 
@@ -106,7 +106,7 @@ public class BibleController {
 		model.addAttribute("books", bibleService.getBooksAsList());
 		model.addAttribute("search", new Search());
 		model.addAttribute("findings", new ArrayList<Finding>());
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info(getRemoteAddrAndRequestURL());
 		return "search";
 	}
 
@@ -123,7 +123,7 @@ public class BibleController {
 			model.addAttribute("search", new Search());
 			model.addAttribute("findings", new ArrayList<Finding>());
 		}
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath() + " with " + search);
+		logger.info(getRemoteAddrAndRequestURL() + " with " + search);
 		return "search";
 	}
 
@@ -136,7 +136,7 @@ public class BibleController {
 		model.addAttribute("verses", bibleService.getVersesAsListOfLists());
 		model.addAttribute("section", new Section());
 		model.addAttribute("words", new ArrayList<Word>());
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info(getRemoteAddrAndRequestURL());
 		return "count";
 	}
 
@@ -155,7 +155,7 @@ public class BibleController {
 			model.addAttribute("section", new Section());
 			model.addAttribute("words", new ArrayList<Word>());
 		}
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath() + " with " + section);
+		logger.info(getRemoteAddrAndRequestURL() + " with " + section);
 		return "count";
 	}
 
@@ -166,7 +166,7 @@ public class BibleController {
 		model.addAttribute("passage", new Passage());
 		model.addAttribute("verses", new ArrayList<Verse>());
 		model.addAttribute("concordance", new LinkedHashMap<String, Item>());
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info(getRemoteAddrAndRequestURL());
 		return "strong";
 	}
 
@@ -183,7 +183,13 @@ public class BibleController {
 			model.addAttribute("verses", new ArrayList<Verse>());
 			model.addAttribute("concordance", new LinkedHashMap<String, Item>());
 		}
-		logger.info("Remote address " + request.getRemoteAddr() + " requested " + request.getServletPath());
+		logger.info(getRemoteAddrAndRequestURL());
 		return "strong";
+	}
+
+	public String getRemoteAddrAndRequestURL() {
+		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		HttpServletRequest request = attributes.getRequest();
+		return "Remote address " + request.getRemoteAddr() + " requested " + request.getRequestURL();
 	}
 }

@@ -1,3 +1,3 @@
 # bible-app
-This is a bible application
+This is a Spring Boot bible application.
 
