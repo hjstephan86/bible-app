@@ -1,1 +1,4 @@
 /.metadata
+.mvn/
+.settings/
+.vscode/
