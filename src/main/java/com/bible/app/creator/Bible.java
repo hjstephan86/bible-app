@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 import com.bible.app.model.Finding;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
+import com.bible.app.model.SearchResult;
 import com.bible.app.model.Section;
 import com.bible.app.model.Word;
 import com.bible.app.text.Book;
@@ -92,8 +93,10 @@ public abstract class Bible {
 								.getPosition())));
 	}
 
-	public List<Finding> search(Search search) {
+	public SearchResult search(Search search) {
+		SearchResult searchResult = new SearchResult();
 		List<Finding> findings = new ArrayList<Finding>();
+		int count = 0;
 
 		Section section = getCurrentSection(search);
 
@@ -109,6 +112,7 @@ public abstract class Bible {
 
 			List<Integer> indices = getIndexOfIndices(verseText, searchText);
 			if (indices.size() > 0) {
+				count += indices.size();
 				Finding finding = new Finding();
 				finding.setPassage(
 						new Passage(currentPassage.getBook(), currentPassage.getChapter(), currentPassage.getVerse()));
@@ -118,7 +122,9 @@ public abstract class Bible {
 			goToNextPassage(currentPassage);
 		} while (!toPassageReached(currentPassage, section));
 
-		return findings;
+		searchResult.setFindings(findings);
+		searchResult.setCount(count);
+		return searchResult;
 	}
 
 	public List<Word> countWords(Section section) {
@@ -189,42 +195,42 @@ public abstract class Bible {
 		} else {
 			Book bookTo = null;
 			switch (search.getSection()) {
-			case "Alle":
-				section.setBookFrom("1. Mose");
-				section.setChapterFrom(1);
-				section.setVerseFrom(1);
-				bookTo = bookMap.get("Offenbarung");
-				section.setBookTo(bookTo.getName());
-				section.setChapterTo(getLastChapter(bookTo).getChapter());
-				section.setVerseTo(getLastVerse(getLastChapter(bookTo)).getNumber());
-				break;
-			case "AT":
-				section.setBookFrom("1. Mose");
-				section.setChapterFrom(1);
-				section.setVerseFrom(1);
-				bookTo = bookMap.get("Maleachi");
-				section.setBookTo(bookTo.getName());
-				section.setChapterTo(getLastChapter(bookTo).getChapter());
-				section.setVerseTo(getLastVerse(getLastChapter(bookTo)).getNumber());
-				break;
-			case "NT":
-				section.setBookFrom("Matthäus");
-				section.setChapterFrom(1);
-				section.setVerseFrom(1);
-				bookTo = bookMap.get("Offenbarung");
-				section.setBookTo(bookTo.getName());
-				section.setChapterTo(getLastChapter(bookTo).getChapter());
-				section.setVerseTo(getLastVerse(getLastChapter(bookTo)).getNumber());
-				break;
-			default:
-				section.setBookFrom("1. Mose");
-				section.setChapterFrom(1);
-				section.setVerseFrom(1);
-				bookTo = bookMap.get("Offenbarung");
-				section.setBookTo(bookTo.getName());
-				section.setChapterTo(getLastChapter(bookTo).getChapter());
-				section.setVerseTo(getLastVerse(getLastChapter(bookTo)).getNumber());
-				break;
+				case "Alle":
+					section.setBookFrom("1. Mose");
+					section.setChapterFrom(1);
+					section.setVerseFrom(1);
+					bookTo = bookMap.get("Offenbarung");
+					section.setBookTo(bookTo.getName());
+					section.setChapterTo(getLastChapter(bookTo).getChapter());
+					section.setVerseTo(getLastVerse(getLastChapter(bookTo)).getNumber());
+					break;
+				case "AT":
+					section.setBookFrom("1. Mose");
+					section.setChapterFrom(1);
+					section.setVerseFrom(1);
+					bookTo = bookMap.get("Maleachi");
+					section.setBookTo(bookTo.getName());
+					section.setChapterTo(getLastChapter(bookTo).getChapter());
+					section.setVerseTo(getLastVerse(getLastChapter(bookTo)).getNumber());
+					break;
+				case "NT":
+					section.setBookFrom("Matthäus");
+					section.setChapterFrom(1);
+					section.setVerseFrom(1);
+					bookTo = bookMap.get("Offenbarung");
+					section.setBookTo(bookTo.getName());
+					section.setChapterTo(getLastChapter(bookTo).getChapter());
+					section.setVerseTo(getLastVerse(getLastChapter(bookTo)).getNumber());
+					break;
+				default:
+					section.setBookFrom("1. Mose");
+					section.setChapterFrom(1);
+					section.setVerseFrom(1);
+					bookTo = bookMap.get("Offenbarung");
+					section.setBookTo(bookTo.getName());
+					section.setChapterTo(getLastChapter(bookTo).getChapter());
+					section.setVerseTo(getLastVerse(getLastChapter(bookTo)).getNumber());
+					break;
 			}
 		}
 		return section;

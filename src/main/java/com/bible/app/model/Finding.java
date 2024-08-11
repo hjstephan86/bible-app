@@ -1,8 +1,8 @@
 package com.bible.app.model;
 
 public class Finding {
-	Passage passage;
-	String verseText;
+	private Passage passage;
+	private String verseText;
 
 	public Passage getPassage() {
 		return passage;

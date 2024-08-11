@@ -35,7 +35,8 @@
 			<h2>Die Bibel durchsuchen</h2>
 			<h5>Nach der Übersetzung von</h5>
 			<form th:action="@{/search}" method="POST" style="display: inline;" id="bibleNameForm">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName" onchange="setBibleName()"></select>
+				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+					onchange="setBibleName()"></select>
 			</form>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
@@ -69,10 +70,10 @@
 	</div>
 	<script type="text/javascript" charset="utf-8" src="topnav.js"></script>
 	<script type="text/javascript" charset="utf-8" src="search.js"></script>
-		<script th:inline="javascript">
+	<script th:inline="javascript">
 		/*<![CDATA[*/
-    	var books = /*[[${books}]]*/ "";
-    	var selectedSearchValue = /*[[${search.section}]]*/ ""
+		var books = /*[[${books}]]*/ "";
+		var selectedSearchValue = /*[[${search.section}]]*/ ""
 		/*]]>*/
 	</script>
 	<div class="searchContent">
@@ -80,16 +81,21 @@
 			th:utext="'Für die Suche ist Groß- und Kleinschreibung nicht relevant. Ist der Suchbegriff ein Teil eines Wortes, gilt dies auch als Treffer.'"></span>
 		<span th:if="${search.search != null}" th:utext="'Die Suche nach <b>' + ${search.search} + '</b>'"></span>
 		<span th:if="${search.section != null && search.section == 'Alle'}" th:text="'in allen Büchern '"></span>
-		<span th:if="${search.section != null && (search.section == 'AT' || search.section == 'NT')}" th:text="'im ' + ${search.section}"></span>
-		<span th:if="${search.section != null && search.section != 'Alle' && search.section != 'AT' && search.section != 'NT'}" th:text="'in ' + ${search.section}"></span>
+		<span th:if="${search.section != null && (search.section == 'AT' || search.section == 'NT')}"
+			th:text="'im ' + ${search.section}"></span>
+		<span
+			th:if="${search.section != null && search.section != 'Alle' && search.section != 'AT' && search.section != 'NT'}"
+			th:text="'in ' + ${search.section}"></span>
 		<span th:if="${search.section != null}" th:text="'hat'"></span>
-		<span th:if="${search.section != null && findings.size() == 1}" th:text="'einen Vers getroffen.'"></span>
-		<span th:if="${search.section != null && findings.size() > 1}"
-			th:text="${findings.size()} + ' Verse getroffen.'"></span>
-		<span th:if="${search.section != null && findings.size() == 0}" th:text="' keinen Treffer.'"></span>
+		<span th:if="${search.section != null && searchResult.findings.size() == 1}"
+			th:text="'einen Vers getroffen und ingesamt ' + ${searchResult.count} + ' Treffer.'"></span>
+		<span th:if="${search.section != null && searchResult.findings.size() > 1}"
+			th:text="${searchResult.findings.size()} + ' Verse getroffen und ingesamt ' + ${searchResult.count} + ' Treffer.'"></span>
+		<span th:if="${search.section != null && searchResult.findings.size() == 0}"
+			th:text="' keinen Treffer.'"></span>
 		<br><br>
 		<table>
-			<tr th:each="finding : ${findings}">
+			<tr th:each="finding : ${searchResult.findings}">
 				<td>
 					<span th:if="${finding != null}"
 						th:text="${finding.passage.book} + ' ' + ${finding.passage.chapter} + ', ' + ${finding.passage.verse}"

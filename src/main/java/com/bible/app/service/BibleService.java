@@ -12,9 +12,9 @@ import org.springframework.web.context.annotation.SessionScope;
 import com.bible.app.creator.Bible;
 import com.bible.app.creator.BibleCreator;
 import com.bible.app.creator.bible.Luther1912Strong;
-import com.bible.app.model.Finding;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
+import com.bible.app.model.SearchResult;
 import com.bible.app.model.Section;
 import com.bible.app.model.Word;
 import com.bible.app.text.Verse;
@@ -90,7 +90,7 @@ public class BibleService {
 		return luther1912Strong.getVerses(passage);
 	}
 
-	public List<Finding> search(Search search) {
+	public SearchResult search(Search search) {
 		return active.search(search);
 	}
 

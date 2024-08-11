@@ -3,9 +3,6 @@ package com.bible.app.controller;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.bible.app.concordance.Item;
-import com.bible.app.model.Finding;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
+import com.bible.app.model.SearchResult;
 import com.bible.app.model.Section;
 import com.bible.app.model.Word;
 import com.bible.app.service.BibleService;
@@ -105,7 +104,7 @@ public class BibleController {
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
 		model.addAttribute("books", bibleService.getBooksAsList());
 		model.addAttribute("search", new Search());
-		model.addAttribute("findings", new ArrayList<Finding>());
+		model.addAttribute("searchResult", new SearchResult());
 		logger.info(getRemoteAddrAndRequestURL());
 		return "search";
 	}
@@ -118,10 +117,10 @@ public class BibleController {
 		model.addAttribute("books", bibleService.getBooksAsList());
 		if (search.getSearch() != null && search.getSection() != null) {
 			model.addAttribute("search", search);
-			model.addAttribute("findings", bibleService.search(search));
+			model.addAttribute("searchResult", bibleService.search(search));
 		} else {
 			model.addAttribute("search", new Search());
-			model.addAttribute("findings", new ArrayList<Finding>());
+			model.addAttribute("searchResult", new SearchResult());
 		}
 		logger.info(getRemoteAddrAndRequestURL() + " with " + search);
 		return "search";
