@@ -41,7 +41,7 @@ function addOption(selectSearch, name) {
 
 var inputSearch = document.getElementById("inputSearch");
 
-inputSearch.addEventListener("input", function(event) {
+inputSearch.addEventListener("input", function (event) {
 	var selectSearch = document.getElementById("selectSearch");
 	var submitSearch = document.getElementById("submitSearch");
 	if (inputSearch.value != '') {
