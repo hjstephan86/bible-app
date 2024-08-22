@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.bible.app.concordance.Item;
+import com.bible.app.helper.Helper;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
 import com.bible.app.model.SearchResult;
@@ -23,8 +22,6 @@ import com.bible.app.model.Section;
 import com.bible.app.model.Word;
 import com.bible.app.service.BibleService;
 import com.bible.app.text.Verse;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class BibleController {
@@ -38,7 +35,7 @@ public class BibleController {
 	public String home(Model model) {
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info(getRemoteAddrAndRequestURL());
+		logger.info(Helper.getRemoteAddrAndRequestURL());
 		return "home";
 	}
 
@@ -47,7 +44,7 @@ public class BibleController {
 		bibleService.setActive(bibleName);
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info(getRemoteAddrAndRequestURL());
+		logger.info(Helper.getRemoteAddrAndRequestURL());
 		return "home";
 	}
 
@@ -55,7 +52,7 @@ public class BibleController {
 	public String about(Model model) {
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info(getRemoteAddrAndRequestURL());
+		logger.info(Helper.getRemoteAddrAndRequestURL());
 		return "about";
 	}
 
@@ -64,7 +61,7 @@ public class BibleController {
 		bibleService.setActive(bibleName);
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info(getRemoteAddrAndRequestURL());
+		logger.info(Helper.getRemoteAddrAndRequestURL());
 		return "about";
 	}
 
@@ -76,7 +73,7 @@ public class BibleController {
 		model.addAttribute("chapters", bibleService.getChaptersAsList());
 		model.addAttribute("passage", new Passage());
 		model.addAttribute("verses", new ArrayList<Verse>());
-		logger.info(getRemoteAddrAndRequestURL());
+		logger.info(Helper.getRemoteAddrAndRequestURL());
 		return "read";
 	}
 
@@ -94,7 +91,7 @@ public class BibleController {
 			model.addAttribute("passage", new Passage());
 			model.addAttribute("verses", new ArrayList<Verse>());
 		}
-		logger.info(getRemoteAddrAndRequestURL() + " with " + passage);
+		logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + passage);
 		return "read";
 	}
 
@@ -105,7 +102,7 @@ public class BibleController {
 		model.addAttribute("books", bibleService.getBooksAsList());
 		model.addAttribute("search", new Search());
 		model.addAttribute("searchResult", new SearchResult());
-		logger.info(getRemoteAddrAndRequestURL());
+		logger.info(Helper.getRemoteAddrAndRequestURL());
 		return "search";
 	}
 
@@ -115,14 +112,16 @@ public class BibleController {
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
 		model.addAttribute("books", bibleService.getBooksAsList());
-		if (search.getSearch() != null && search.getSection() != null) {
+		if (search.getSearch() != null && search.getSection() != null
+				&& (search.getSection().matches("Alle|AT|NT")
+						|| bibleService.getActive().getBookMap().containsKey(search.getSection()))) {
 			model.addAttribute("search", search);
 			model.addAttribute("searchResult", bibleService.search(search));
 		} else {
 			model.addAttribute("search", new Search());
 			model.addAttribute("searchResult", new SearchResult());
 		}
-		logger.info(getRemoteAddrAndRequestURL() + " with " + search);
+		logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + search);
 		return "search";
 	}
 
@@ -135,7 +134,7 @@ public class BibleController {
 		model.addAttribute("verses", bibleService.getVersesAsListOfLists());
 		model.addAttribute("section", new Section());
 		model.addAttribute("words", new ArrayList<Word>());
-		logger.info(getRemoteAddrAndRequestURL());
+		logger.info(Helper.getRemoteAddrAndRequestURL());
 		return "count";
 	}
 
@@ -154,7 +153,7 @@ public class BibleController {
 			model.addAttribute("section", new Section());
 			model.addAttribute("words", new ArrayList<Word>());
 		}
-		logger.info(getRemoteAddrAndRequestURL() + " with " + section);
+		logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + section);
 		return "count";
 	}
 
@@ -165,7 +164,7 @@ public class BibleController {
 		model.addAttribute("passage", new Passage());
 		model.addAttribute("verses", new ArrayList<Verse>());
 		model.addAttribute("concordance", new LinkedHashMap<String, Item>());
-		logger.info(getRemoteAddrAndRequestURL());
+		logger.info(Helper.getRemoteAddrAndRequestURL());
 		return "strong";
 	}
 
@@ -182,13 +181,7 @@ public class BibleController {
 			model.addAttribute("verses", new ArrayList<Verse>());
 			model.addAttribute("concordance", new LinkedHashMap<String, Item>());
 		}
-		logger.info(getRemoteAddrAndRequestURL());
+		logger.info(Helper.getRemoteAddrAndRequestURL());
 		return "strong";
-	}
-
-	public String getRemoteAddrAndRequestURL() {
-		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-		HttpServletRequest request = attributes.getRequest();
-		return "Remote address " + request.getRemoteAddr() + " requested " + request.getRequestURL();
 	}
 }
