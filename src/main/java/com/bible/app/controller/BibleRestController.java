@@ -2,6 +2,7 @@ package com.bible.app.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,8 @@ import com.bible.app.model.Word;
 import com.bible.app.service.BibleService;
 import com.bible.app.text.Verse;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/v1/")
 public class BibleRestController {
@@ -35,18 +38,21 @@ public class BibleRestController {
     private Logger logger = LoggerFactory.getLogger(BibleRestController.class);
 
     @GetMapping("/hello")
+    @Operation(summary = "Welcome page")
     public String hello() {
         logger.info(Helper.getRemoteAddrAndRequestURL());
         return "Hello, welcome to the Bible Application REST API";
     }
 
     @GetMapping("/bibles")
+    @Operation(summary = "Get the list of available bible translations")
     public ResponseEntity<ArrayList<String>> bibles() {
         logger.info(Helper.getRemoteAddrAndRequestURL());
         return new ResponseEntity<>(bibleService.getBiblesAsList(), HttpStatus.OK);
     }
 
     @PostMapping("/bible")
+    @Operation(summary = "Set the active bible translation")
     public ResponseEntity<String> bible(@RequestParam String bible) {
         logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + bible);
         if (bibleService.getBibleMap().containsKey(bible)) {
@@ -56,7 +62,15 @@ public class BibleRestController {
         return new ResponseEntity<>("Could not activate " + bible + ".", HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/books")
+    @Operation(summary = "Get the list of bible books")
+    public ResponseEntity<Set<String>> books() {
+        logger.info(Helper.getRemoteAddrAndRequestURL());
+        return new ResponseEntity<>(bibleService.getActive().getBookMap().keySet(), HttpStatus.OK);
+    }
+
     @PostMapping("/read")
+    @Operation(summary = "Read the bible")
     public ResponseEntity<ArrayList<Verse>> read(@RequestBody Passage passage) {
         logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + passage);
         if (passage.getBook() != null && bibleService.passageExists(passage)) {
@@ -66,6 +80,7 @@ public class BibleRestController {
     }
 
     @PostMapping("/strong")
+    @Operation(summary = "Read the bible with strong concordance")
     public ResponseEntity<Strong> strong(@RequestBody Passage passage) {
         logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + passage);
         if (passage.getBook() != null && bibleService.passageExists(passage)) {
@@ -79,6 +94,7 @@ public class BibleRestController {
     }
 
     @PostMapping("/search")
+    @Operation(summary = "Search the bible")
     public ResponseEntity<SearchResult> search(@RequestBody Search search) {
         logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + search);
         if (search.getSearch() != null && search.getSection() != null
@@ -90,6 +106,7 @@ public class BibleRestController {
     }
 
     @PostMapping("/count")
+    @Operation(summary = "Count words in the bible")
     public ResponseEntity<List<Word>> count(@RequestBody Section section) {
         logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + section);
         if (section.getBookFrom() != null && section.getBookTo() != null && bibleService.sectionIsValid(section)) {

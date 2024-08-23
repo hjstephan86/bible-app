@@ -1,11 +1,25 @@
 package com.bible.app.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class Section {
+
+	@Schema(description = "The bible book to count from", example = "3. Mose", required = true)
 	private String bookFrom;
+
+	@Schema(description = "The chapter of the bible book to count from", example = "1", required = true)
 	private int chapterFrom;
+
+	@Schema(description = "The verse of the chapter of the bible book to count from", example = "1", required = true)
 	private int verseFrom;
+
+	@Schema(description = "The bible book to count to", example = "4. Mose", required = true)
 	private String bookTo;
+
+	@Schema(description = "The chapter of the bible book to count to", example = "3", required = true)
 	private int chapterTo;
+
+	@Schema(description = "The verse of the chapter of the bible book to count to", example = "5", required = true)
 	private int verseTo;
 
 	public Section() {
@@ -68,8 +82,9 @@ public class Section {
 	public void setVerseTo(int verseTo) {
 		this.verseTo = verseTo;
 	}
-	
+
 	public String toString() {
-		return bookFrom + " " + " " + chapterFrom + ", " + verseFrom + " : " + bookTo + " " + " " + chapterTo + ", " + verseTo;
+		return bookFrom + " " + " " + chapterFrom + ", " + verseFrom + " : " + bookTo + " " + " " + chapterTo + ", "
+				+ verseTo;
 	}
 }
