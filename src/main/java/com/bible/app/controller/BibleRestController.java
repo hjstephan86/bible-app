@@ -27,7 +27,9 @@ import com.bible.app.service.BibleService;
 import com.bible.app.text.Verse;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "REST Controller for Bible Application")
 @RestController
 @RequestMapping("/api/v1/")
 public class BibleRestController {
