@@ -10,6 +10,7 @@ import jakarta.servlet.SessionTrackingMode;
 
 @Configuration
 public class SessionConfig {
+
     @Bean
     public ServletContextInitializer initializer() {
         return servletContext -> {

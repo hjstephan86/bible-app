@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,30 +44,30 @@ public class BibleRestControllerTest {
 
     private final String API_PATH = "/api/v1/";
 
-    @Autowired
-    private MockMvc mockMvc;
-
     @MockBean
     private BibleService bibleService;
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
     public void testHello() throws Exception {
         this.mockMvc.perform(get(API_PATH + "hello"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, welcome to the Bible Application REST API")));
+                .andExpect(content().string("Hello, welcome to the Bible Application REST API"));
     }
 
     @Test
     public void testBibles() throws Exception {
         ArrayList<String> bibles = new ArrayList<String>();
-        String myBible = "My Bible";
-        bibles.add(myBible);
+        String bible = "Bible";
+        bibles.add(bible);
 
         when(bibleService.getBiblesAsList()).thenReturn(bibles);
 
         this.mockMvc.perform(get(API_PATH + "bibles"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString(myBible)));
+                .andExpect(content().string(containsString(bible)));
     }
 
     @Test
@@ -79,7 +80,7 @@ public class BibleRestControllerTest {
 
         this.mockMvc.perform(post(API_PATH + "bible", luther1912.getName()).param("bible", luther1912.getName()))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Bible " + luther1912.getName() + " activated.")));
+                .andExpect(content().string("Bible " + luther1912.getName() + " activated."));
     }
 
     @Test
@@ -91,7 +92,7 @@ public class BibleRestControllerTest {
 
         this.mockMvc.perform(post(API_PATH + "bible", luther1912.getName()).param("bible", luther1912.getName()))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(containsString("Could not activate " + luther1912.getName() + ".")));
+                .andExpect(content().string("Could not activate " + luther1912.getName() + "."));
     }
 
     @Test
@@ -100,10 +101,16 @@ public class BibleRestControllerTest {
 
         when(bibleService.getActive()).thenReturn(luther1912);
 
-        this.mockMvc.perform(get(API_PATH + "books"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("1. Mose")))
-                .andExpect(content().string(containsString("Offenbarung")));
+        MvcResult result = this.mockMvc.perform(get(API_PATH + "books"))
+                .andExpect(status().isOk()).andReturn();
+
+        assertTrue(result != null);
+
+        String json = result.getResponse().getContentAsString();
+        TypeToken<Set<String>> typeToken = new TypeToken<>() {
+        };
+        Set<String> booksResult = new Gson().fromJson(json, typeToken.getType());
+        assertTrue(booksResult.size() == 66);
     }
 
     @Test

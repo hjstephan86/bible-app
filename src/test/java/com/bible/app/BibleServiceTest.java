@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.bible.app.model.Finding;
@@ -18,8 +18,8 @@ import com.bible.app.service.BibleService;
 @SpringBootTest
 public class BibleServiceTest {
 
-    @InjectMocks
-    BibleService bibleService;
+    @Autowired
+    private BibleService bibleService;
 
     @Test
     public void testSearchDefault() {
