@@ -23,10 +23,8 @@ import com.bible.app.text.Verse;
 @SessionScope
 public class BibleService {
 
-	private Bible active;
-
 	private Map<String, Bible> bibleMap;
-
+	private Bible active;
 	private Bible luther1912Strong;
 
 	public BibleService() throws IOException {
@@ -48,6 +46,10 @@ public class BibleService {
 		bibleMap.put(asv.getName(), asv);
 
 		active = luther1912;
+	}
+
+	public Map<String, Bible> getBibleMap() {
+		return bibleMap;
 	}
 
 	public ArrayList<String> getBiblesAsList() {

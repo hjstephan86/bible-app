@@ -39,6 +39,10 @@ public abstract class Bible {
 	protected void readIgnore() throws IOException {
 	}
 
+	public Map<String, Book> getBookMap() {
+		return bookMap;
+	}
+
 	public ArrayList<Verse> getVerses(Passage passage) {
 		return new ArrayList<Verse>(
 				bookMap.get(passage.getBook()).getChapter().get(passage.getChapter()).getVerses().values());
