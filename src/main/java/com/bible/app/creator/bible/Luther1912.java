@@ -52,85 +52,89 @@ public class Luther1912 extends Bible {
 			Verse verse = null;
 			while (reader.hasNext()) {
 				switch (reader.next()) {
-				case XMLStreamConstants.START_ELEMENT:
-					if (reader.getName().toString().equals("BIBLEBOOK")) {
-						String bookName = reader.getAttributeValue(0);
-						if (!bookMap.containsKey(bookName)) {
-							newBook = new Book(bookName, Integer.parseInt(reader.getAttributeValue(1)) - 1);
-							bookMap.put(bookName, newBook);
-							if (oldBook != null) {
-								oldBook.setNextBook(newBook);
+					case XMLStreamConstants.START_ELEMENT:
+						if (reader.getName().toString().equals("BIBLEBOOK")) {
+							String bookName = reader.getAttributeValue(0);
+							if (!bookMap.containsKey(bookName)) {
+								newBook = new Book(bookName, Integer.parseInt(reader.getAttributeValue(1)) - 1);
+								bookMap.put(bookName, newBook);
+								if (oldBook != null) {
+									oldBook.setNextBook(newBook);
+								}
+								oldBook = newBook;
 							}
-							oldBook = newBook;
 						}
-					}
-					if (reader.getName().toString().equals("CHAPTER")) {
-						int chapterNum = Integer.parseInt(reader.getAttributeValue(0));
-						if (!newBook.getChapter().containsKey(chapterNum)) {
-							chapter = new Chapter(chapterNum);
-							newBook.getChapter().put(chapterNum, chapter);
+						if (reader.getName().toString().equals("CHAPTER")) {
+							int chapterNum = Integer.parseInt(reader.getAttributeValue(0));
+							if (!newBook.getChapter().containsKey(chapterNum)) {
+								chapter = new Chapter(chapterNum);
+								newBook.getChapter().put(chapterNum, chapter);
+							}
 						}
-					}
-					if (reader.getName().toString().equals("VERS")) {
-						int verseNum = Integer.parseInt(reader.getAttributeValue(0));
-						if (!chapter.getVerses().containsKey(verseNum)) {
-							verse = new Verse(verseNum);
-							chapter.getVerses().put(verseNum, verse);
+						if (reader.getName().toString().equals("VERS")) {
+							int verseNum = Integer.parseInt(reader.getAttributeValue(0));
+							if (!chapter.getVerses().containsKey(verseNum)) {
+								verse = new Verse(verseNum);
+								chapter.getVerses().put(verseNum, verse);
+							}
 						}
-					}
-					break;
-				case XMLStreamConstants.END_ELEMENT:
-					// System.out.println("End " + reader.getName());
-					break;
-				case XMLStreamConstants.CHARACTERS:
-				case XMLStreamConstants.SPACE:
-					String text = reader.getText();
-					if (!text.trim().isEmpty() && verse != null) {
-						verse.setText(text);
-					}
-					break;
+						break;
+					case XMLStreamConstants.END_ELEMENT:
+						// System.out.println("End " + reader.getName());
+						break;
+					case XMLStreamConstants.CHARACTERS:
+					case XMLStreamConstants.SPACE:
+						String text = reader.getText();
+						if (!text.trim().isEmpty() && verse != null) {
+							verse.setText(text);
+						}
+						break;
 				}
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
 
-//		bookMap = new LinkedHashMap<String, Book>();
-//		try (InputStream inputStream = getClass().getResourceAsStream("/bible/Luther1912.txt");
-//				BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-//			String line;
-//			Book oldBook = null, newBook = null;
-//			while ((line = br.readLine()) != null) {
-//				// Read book position
-//				int bookPosition = Integer.parseInt(line.substring(0, line.indexOf("#")));
-//				// Read books and store them.
-//				line = line.substring(line.indexOf("#") + 1);
-//				String book = line.substring(0, line.indexOf("#"));
-//				if (!bookMap.containsKey(book)) {
-//					newBook = new Book(book, bookPosition);
-//					bookMap.put(book, newBook);
-//					if (oldBook != null) {
-//						oldBook.setNextBook(newBook);
-//					}
-//				} else {
-//					oldBook = newBook;
-//				}
-//				// Read chapters and store them.
-//				line = line.substring(line.indexOf("#") + 1);
-//				int chapter = Integer.parseInt(line.substring(0, line.indexOf("#")));
-//				if (!bookMap.get(book).getChapter().containsKey(chapter)) {
-//					bookMap.get(book).getChapter().put(chapter, new Chapter(chapter));
-//				}
-//				// Read verses and store them.
-//				line = line.substring(line.indexOf("#") + 1);
-//				int verseNumber = Integer.parseInt(line.substring(0, line.indexOf("#")));
-//				if (!bookMap.get(book).getChapter().get(chapter).getVerses().containsKey(verseNumber)) {
-//					bookMap.get(book).getChapter().get(chapter).getVerses().put(verseNumber, new Verse(verseNumber));
-//					String verseText = line.substring(line.indexOf("#") + 1);
-//					bookMap.get(book).getChapter().get(chapter).getVerses().get(verseNumber).setText(verseText);
-//				}
-//			}
-//		}
+		// bookMap = new LinkedHashMap<String, Book>();
+		// try (InputStream inputStream =
+		// getClass().getResourceAsStream("/bible/Luther1912.txt");
+		// BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+		// String line;
+		// Book oldBook = null, newBook = null;
+		// while ((line = br.readLine()) != null) {
+		// // Read book position
+		// int bookPosition = Integer.parseInt(line.substring(0, line.indexOf("#")));
+		// // Read books and store them.
+		// line = line.substring(line.indexOf("#") + 1);
+		// String book = line.substring(0, line.indexOf("#"));
+		// if (!bookMap.containsKey(book)) {
+		// newBook = new Book(book, bookPosition);
+		// bookMap.put(book, newBook);
+		// if (oldBook != null) {
+		// oldBook.setNextBook(newBook);
+		// }
+		// } else {
+		// oldBook = newBook;
+		// }
+		// // Read chapters and store them.
+		// line = line.substring(line.indexOf("#") + 1);
+		// int chapter = Integer.parseInt(line.substring(0, line.indexOf("#")));
+		// if (!bookMap.get(book).getChapter().containsKey(chapter)) {
+		// bookMap.get(book).getChapter().put(chapter, new Chapter(chapter));
+		// }
+		// // Read verses and store them.
+		// line = line.substring(line.indexOf("#") + 1);
+		// int verseNumber = Integer.parseInt(line.substring(0, line.indexOf("#")));
+		// if
+		// (!bookMap.get(book).getChapter().get(chapter).getVerses().containsKey(verseNumber))
+		// {
+		// bookMap.get(book).getChapter().get(chapter).getVerses().put(verseNumber, new
+		// Verse(verseNumber));
+		// String verseText = line.substring(line.indexOf("#") + 1);
+		// bookMap.get(book).getChapter().get(chapter).getVerses().get(verseNumber).setText(verseText);
+		// }
+		// }
+		// }
 	}
 
 	public void readIgnore() throws IOException {
