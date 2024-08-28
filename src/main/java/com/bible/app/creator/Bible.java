@@ -109,22 +109,30 @@ public abstract class Bible {
 		currentPassage.setChapter(section.getChapterFrom());
 		currentPassage.setVerse(section.getVerseFrom());
 
-		String searchText = getSearchText(search.getSearch());
-		do {
-			String verseText = bookMap.get(currentPassage.getBook()).getChapter().get(currentPassage.getChapter())
-					.getVerses().get(currentPassage.getVerse()).getText();
+		if (isSearchValid(search.getSearch())) {
+			String searchText = getSearchText(search.getSearch());
+			boolean matchCase = searchText.startsWith("\"") && searchText.endsWith("\"");
+			searchText = matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
+			if (searchText.length() > 0) {
+				do {
+					String verseText = bookMap.get(currentPassage.getBook()).getChapter()
+							.get(currentPassage.getChapter())
+							.getVerses().get(currentPassage.getVerse()).getText();
 
-			List<Integer> indices = getIndexOfIndices(verseText, searchText);
-			if (indices.size() > 0) {
-				count += indices.size();
-				Finding finding = new Finding();
-				finding.setPassage(
-						new Passage(currentPassage.getBook(), currentPassage.getChapter(), currentPassage.getVerse()));
-				finding.setVerseText(getFormattedVerseText(indices, verseText, searchText));
-				findings.add(finding);
+					List<Integer> indices = getListOfMatchingIndices(verseText, searchText, matchCase);
+					if (indices.size() > 0) {
+						count += indices.size();
+						Finding finding = new Finding();
+						finding.setPassage(
+								new Passage(currentPassage.getBook(), currentPassage.getChapter(),
+										currentPassage.getVerse()));
+						finding.setVerseText(getFormattedVerseText(indices, verseText, searchText));
+						findings.add(finding);
+					}
+					goToNextPassage(currentPassage);
+				} while (!toPassageReached(currentPassage, section));
 			}
-			goToNextPassage(currentPassage);
-		} while (!toPassageReached(currentPassage, section));
+		}
 
 		searchResult.setFindings(findings);
 		searchResult.setCount(count);
@@ -160,6 +168,10 @@ public abstract class Bible {
 		return s.length() == 0 || ignore.contains(s.toLowerCase());
 	}
 
+	private boolean isSearchValid(String search) {
+		return search.length() > 0 && !search.equals("\"");
+	}
+
 	private String getFormattedVerseText(List<Integer> indices, String verseText, String searchText) {
 		for (int i = 0; i < indices.size(); i++) {
 			verseText = insertString(verseText, "<b>", indices.get(i) + (i * 7));
@@ -172,12 +184,14 @@ public abstract class Bible {
 		return originalString.substring(0, index) + stringToBeInserted + originalString.substring(index);
 	}
 
-	private List<Integer> getIndexOfIndices(String verseText, String searchText) {
+	private List<Integer> getListOfMatchingIndices(String verseText, String searchText, boolean matchCase) {
 		List<Integer> indices = new ArrayList<Integer>();
-		int index = verseText.toLowerCase().indexOf(searchText.toLowerCase());
+		verseText = matchCase ? verseText : verseText.toLowerCase();
+		searchText = matchCase ? searchText : searchText.toLowerCase();
+		int index = verseText.indexOf(searchText);
 		while (index >= 0) {
 			indices.add(index);
-			index = verseText.toLowerCase().indexOf(searchText.toLowerCase(), index + 1);
+			index = verseText.indexOf(searchText, index + 1);
 		}
 		return indices;
 	}

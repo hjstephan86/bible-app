@@ -29,13 +29,13 @@ public class BibleController {
 	@Autowired
 	private BibleService bibleService;
 
-	private Logger logger = LoggerFactory.getLogger(BibleController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BibleController.class);
 
 	@GetMapping({ "/", "/home" })
 	public String home(Model model) {
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info(Helper.getRemoteAddrAndRequestURL());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "home";
 	}
 
@@ -44,7 +44,7 @@ public class BibleController {
 		bibleService.setActive(bibleName);
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info(Helper.getRemoteAddrAndRequestURL());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "home";
 	}
 
@@ -52,7 +52,7 @@ public class BibleController {
 	public String about(Model model) {
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info(Helper.getRemoteAddrAndRequestURL());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "about";
 	}
 
@@ -61,7 +61,7 @@ public class BibleController {
 		bibleService.setActive(bibleName);
 		model.addAttribute("bible", bibleService.getActive());
 		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		logger.info(Helper.getRemoteAddrAndRequestURL());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "about";
 	}
 
@@ -73,7 +73,7 @@ public class BibleController {
 		model.addAttribute("chapters", bibleService.getChaptersAsList());
 		model.addAttribute("passage", new Passage());
 		model.addAttribute("verses", new ArrayList<Verse>());
-		logger.info(Helper.getRemoteAddrAndRequestURL());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "read";
 	}
 
@@ -91,7 +91,7 @@ public class BibleController {
 			model.addAttribute("passage", new Passage());
 			model.addAttribute("verses", new ArrayList<Verse>());
 		}
-		logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + passage);
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + passage);
 		return "read";
 	}
 
@@ -102,7 +102,7 @@ public class BibleController {
 		model.addAttribute("books", bibleService.getBooksAsList());
 		model.addAttribute("search", new Search());
 		model.addAttribute("searchResult", new SearchResult());
-		logger.info(Helper.getRemoteAddrAndRequestURL());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "search";
 	}
 
@@ -121,7 +121,7 @@ public class BibleController {
 			model.addAttribute("search", new Search());
 			model.addAttribute("searchResult", new SearchResult());
 		}
-		logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + search);
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + search);
 		return "search";
 	}
 
@@ -134,7 +134,7 @@ public class BibleController {
 		model.addAttribute("verses", bibleService.getVersesAsListOfLists());
 		model.addAttribute("section", new Section());
 		model.addAttribute("words", new ArrayList<Word>());
-		logger.info(Helper.getRemoteAddrAndRequestURL());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "count";
 	}
 
@@ -153,7 +153,7 @@ public class BibleController {
 			model.addAttribute("section", new Section());
 			model.addAttribute("words", new ArrayList<Word>());
 		}
-		logger.info(Helper.getRemoteAddrAndRequestURL() + " with " + section);
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + section);
 		return "count";
 	}
 
@@ -164,7 +164,7 @@ public class BibleController {
 		model.addAttribute("passage", new Passage());
 		model.addAttribute("verses", new ArrayList<Verse>());
 		model.addAttribute("concordance", new LinkedHashMap<String, Item>());
-		logger.info(Helper.getRemoteAddrAndRequestURL());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "strong";
 	}
 
@@ -181,7 +181,7 @@ public class BibleController {
 			model.addAttribute("verses", new ArrayList<Verse>());
 			model.addAttribute("concordance", new LinkedHashMap<String, Item>());
 		}
-		logger.info(Helper.getRemoteAddrAndRequestURL());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "strong";
 	}
 }

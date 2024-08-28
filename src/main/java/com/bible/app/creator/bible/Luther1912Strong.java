@@ -59,52 +59,53 @@ public class Luther1912Strong extends Bible {
 			String verseText = "";
 			while (reader.hasNext()) {
 				switch (reader.next()) {
-				case XMLStreamConstants.START_ELEMENT:
-					if (reader.getName().toString().equals("BIBLEBOOK")) {
-						String bookName = reader.getAttributeValue(0);
-						if (!bookMap.containsKey(bookName)) {
-							newBook = new Book(bookName, Integer.parseInt(reader.getAttributeValue(1)) - 1);
-							bookMap.put(bookName, newBook);
-							if (oldBook != null) {
-								oldBook.setNextBook(newBook);
+					case XMLStreamConstants.START_ELEMENT:
+						if (reader.getName().toString().equals("BIBLEBOOK")) {
+							String bookName = reader.getAttributeValue(0);
+							if (!bookMap.containsKey(bookName)) {
+								newBook = new Book(bookName, Integer.parseInt(reader.getAttributeValue(1)) - 1);
+								bookMap.put(bookName, newBook);
+								if (oldBook != null) {
+									oldBook.setNextBook(newBook);
+								}
+								oldBook = newBook;
 							}
-							oldBook = newBook;
 						}
-					}
-					if (reader.getName().toString().equals("CHAPTER")) {
-						int chapterNum = Integer.parseInt(reader.getAttributeValue(0));
-						if (!newBook.getChapter().containsKey(chapterNum)) {
-							chapter = new Chapter(chapterNum);
-							newBook.getChapter().put(chapterNum, chapter);
+						if (reader.getName().toString().equals("CHAPTER")) {
+							int chapterNum = Integer.parseInt(reader.getAttributeValue(0));
+							if (!newBook.getChapter().containsKey(chapterNum)) {
+								chapter = new Chapter(chapterNum);
+								newBook.getChapter().put(chapterNum, chapter);
+							}
 						}
-					}
-					if (reader.getName().toString().equals("VERS")) {
-						int verseNum = Integer.parseInt(reader.getAttributeValue(0));
-						if (!chapter.getVerses().containsKey(verseNum)) {
-							verse = new Verse(verseNum);
-							chapter.getVerses().put(verseNum, verse);
+						if (reader.getName().toString().equals("VERS")) {
+							int verseNum = Integer.parseInt(reader.getAttributeValue(0));
+							if (!chapter.getVerses().containsKey(verseNum)) {
+								verse = new Verse(verseNum);
+								chapter.getVerses().put(verseNum, verse);
+							}
 						}
-					}
-					if (reader.getName().toString().equals("gr")) {
-						String gr = "<gr " + reader.getAttributeName(0) + "=\"" + reader.getAttributeValue(0) + "\">"
-								+ reader.getElementText() + "</gr>";
-						verseText += gr;
-					}
-					break;
-				case XMLStreamConstants.END_ELEMENT:
-					if (reader.getName().toString().equals("VERS")) {
-						verse.setText(ReplaceGrWithHyperlink(verseText, newBook));
-						verseText = "";
-					}
-					// System.out.println("End " + reader.getName());
-					break;
-				case XMLStreamConstants.CHARACTERS:
-				case XMLStreamConstants.SPACE:
-					String text = reader.getText();
-					if (verse != null) {
-						verseText += text;
-					}
-					break;
+						if (reader.getName().toString().equals("gr")) {
+							String gr = "<gr " + reader.getAttributeName(0) + "=\"" + reader.getAttributeValue(0)
+									+ "\">"
+									+ reader.getElementText() + "</gr>";
+							verseText += gr;
+						}
+						break;
+					case XMLStreamConstants.END_ELEMENT:
+						if (reader.getName().toString().equals("VERS")) {
+							verse.setText(ReplaceGrWithHyperlink(verseText, newBook));
+							verseText = "";
+						}
+						// System.out.println("End " + reader.getName());
+						break;
+					case XMLStreamConstants.CHARACTERS:
+					case XMLStreamConstants.SPACE:
+						String text = reader.getText();
+						if (verse != null) {
+							verseText += text;
+						}
+						break;
 				}
 			}
 		} catch (Exception e) {
@@ -125,41 +126,41 @@ public class Luther1912Strong extends Bible {
 			String paragraph = "";
 			while (reader.hasNext()) {
 				switch (reader.next()) {
-				case XMLStreamConstants.START_ELEMENT:
-					if (reader.getName().toString().equals("item")) {
-						if (item != null) {
-							concordance.put(item.getId(), item);
+					case XMLStreamConstants.START_ELEMENT:
+						if (reader.getName().toString().equals("item")) {
+							if (item != null) {
+								concordance.put(item.getId(), item);
+							}
+							item = new Item();
+							item.setId(reader.getAttributeValue(0));
+						} else if (reader.getName().toString().equals("title") && item != null && description == null) {
+							item.setTitle(reader.getElementText());
+						} else if (reader.getName().toString().equals("description") && item != null) {
+							description = new Description();
+						} else if (reader.getName().toString().equals("title") && description != null) {
+							description.setTitle(reader.getElementText());
+						} else if (reader.getName().toString().equals("reflink")) {
+							description.getReflinks().add(reader.getAttributeValue(0));
 						}
-						item = new Item();
-						item.setId(reader.getAttributeValue(0));
-					} else if (reader.getName().toString().equals("title") && item != null && description == null) {
-						item.setTitle(reader.getElementText());
-					} else if (reader.getName().toString().equals("description") && item != null) {
-						description = new Description();
-					} else if (reader.getName().toString().equals("title") && description != null) {
-						description.setTitle(reader.getElementText());
-					} else if (reader.getName().toString().equals("reflink")) {
-						description.getReflinks().add(reader.getAttributeValue(0));
-					}
-					break;
-				case XMLStreamConstants.END_ELEMENT:
-					if (reader.getName().toString().equals("paragraph") && item != null) {
-						item.setParagraph(paragraph);
-						paragraph = "";
-					}
-					if (reader.getName().toString().equals("description") && item != null) {
-						item.getDescription().add(description);
-						description = null;
-					}
-					// System.out.println("End " + reader.getName());
-					break;
-				case XMLStreamConstants.CHARACTERS:
-				case XMLStreamConstants.SPACE:
-					String text = reader.getText();
-					if (!text.trim().isEmpty() && !text.equals("; ") && item != null) {
-						paragraph += text;
-					}
-					break;
+						break;
+					case XMLStreamConstants.END_ELEMENT:
+						if (reader.getName().toString().equals("paragraph") && item != null) {
+							item.setParagraph(paragraph);
+							paragraph = "";
+						}
+						if (reader.getName().toString().equals("description") && item != null) {
+							item.getDescription().add(description);
+							description = null;
+						}
+						// System.out.println("End " + reader.getName());
+						break;
+					case XMLStreamConstants.CHARACTERS:
+					case XMLStreamConstants.SPACE:
+						String text = reader.getText();
+						if (!text.trim().isEmpty() && !text.equals("; ") && item != null) {
+							paragraph += text;
+						}
+						break;
 				}
 			}
 		} catch (Exception e) {

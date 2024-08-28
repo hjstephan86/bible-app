@@ -1,0 +1,16 @@
+<ruleset name="CyclomaticComplexityRuleSet"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0
+        https://pmd.github.io/pmd-6.0.0/ruleset_xml_schema.xsd">
+
+    <description>
+        A simple ruleset to check for Cyclomatic Complexity in Java methods.
+    </description>
+    <rule ref="category/java/design.xml/CyclomaticComplexity">
+        <properties>
+            <property name="classReportLevel" value="80" />
+            <property name="methodReportLevel" value="1" />
+            <property name="cycloOptions" value="" />
+        </properties>
+    </rule>
+</ruleset>
