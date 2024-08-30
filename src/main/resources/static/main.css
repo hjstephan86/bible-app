@@ -132,11 +132,11 @@ select {
 	padding: 10px;
 	font-size: 16px;
 	width: 100px;
+	border-radius: 5px;
 }
 
 .autocomplete-items {
 	position: absolute;
-	border: 1px solid #d4d4d4;
 	border-bottom: none;
 	border-top: none;
 	z-index: 99;
@@ -150,7 +150,10 @@ select {
 	padding: 10px;
 	cursor: pointer;
 	background-color: #fff;
+	border-left: 1px solid #d4d4d4;
+	border-right: 1px solid #d4d4d4;
 	border-bottom: 1px solid #d4d4d4;
+	border-radius: 5px;
 }
 
 /*when hovering an item:*/
@@ -169,12 +172,14 @@ input {
 	background-color: #f1f1f1;
 	padding: 10px;
 	font-size: 16px;
+	border-radius: 5px;
 }
 
 input[type=text] {
 	background-color: #f1f1f1;
 	background-color: #eee;
 	width: 100%;
+	border-radius: 5px;
 }
 
 input[type=submit] {
@@ -232,6 +237,7 @@ span.navigation {
 	color: #fff;
 	padding: 11.5px;
 	cursor: pointer;
+	border-radius: 5px;
 }
 
 span.navigation.disable {
@@ -320,6 +326,7 @@ table.ignoreTable {
 span.wordsResultButton {
 	margin-top: 10px;
 	margin-bottom: 10px;
+	border-radius: 5px;
 	padding: 10px;
 	background: #355779;
 	display: inline-block;
