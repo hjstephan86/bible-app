@@ -112,6 +112,137 @@ public class BibleServiceTest {
     }
 
     @Test
+    public void testSearchAlleCaseSensitive() {
+        int expectedCount = 2347;
+        int expectedSearchResults = 1989;
+
+        String expectedBook = "Offenbarung";
+        int expectedChapter = 21;
+        int expectedVerse = 12;
+
+        String expectedVerseText = "Und sie hatte eine große und hohe Mauer und hatte zwölf Tore und auf den Toren zwölf Engel, und Namen darauf geschrieben, nämlich der zwölf Geschlechter der <b>Kinder</b> Israel.";
+
+        Search search = new Search();
+
+        String searchString = "Kinder";
+        String sectionString = "Alle";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        SearchResult searchResult = bibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+
+        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        assertEquals(expectedBook, finding.getPassage().getBook());
+        assertEquals(expectedChapter, finding.getPassage().getChapter());
+        assertEquals(expectedVerse, finding.getPassage().getVerse());
+        assertEquals(expectedVerseText, finding.getVerseText());
+
+        // Now, search for "kinder"
+        expectedCount = 54;
+        expectedSearchResults = 54;
+
+        expectedVerseText = "welches nicht kundgetan ist in den vorigen Zeiten den Menschen<b>kinder</b>n, wie es nun offenbart ist seinen heiligen Aposteln und Propheten durch den Geist,";
+        expectedBook = "Epheser";
+        expectedChapter = 3;
+        expectedVerse = 5;
+
+        searchString = "\"kinder\"";
+        search.setSearch(searchString);
+
+        searchResult = bibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+
+        finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        assertEquals(expectedBook, finding.getPassage().getBook());
+        assertEquals(expectedChapter, finding.getPassage().getChapter());
+        assertEquals(expectedVerse, finding.getPassage().getVerse());
+        assertEquals(expectedVerseText, finding.getVerseText());
+
+    }
+
+    @Test
+    public void testSearchAlleEmpty() {
+        int expectedCount = 0;
+        int expectedSearchResults = 0;
+
+        Search search = new Search();
+
+        String searchString = "";
+        String sectionString = "Alle";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        SearchResult searchResult = bibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+    }
+
+    @Test
+    public void testSearchAlleSpecialChar() {
+        int expectedCount = 0;
+        int expectedSearchResults = 0;
+
+        Search search = new Search();
+
+        // Test "
+        String searchString = "\"";
+        String sectionString = "Alle";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        SearchResult searchResult = bibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+
+        // Test &
+        searchString = "&";
+        sectionString = "Alle";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        searchResult = bibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+
+        // Test %
+        searchString = "%";
+        sectionString = "Alle";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        searchResult = bibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+    }
+
+    @Test
+    public void testSearchAlleCaseSensitiveEmpty() {
+        int expectedCount = 0;
+        int expectedSearchResults = 0;
+
+        Search search = new Search();
+
+        String searchString = "\"\"";
+        String sectionString = "Alle";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        SearchResult searchResult = bibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+    }
+
+    @Test
     public void testSearchAT() {
         int expectedCount = 2185;
         int expectedSearchResults = 1838;

@@ -78,7 +78,7 @@
 	</script>
 	<div class="searchContent">
 		<span th:if="${search.search == null}"
-			th:utext="'Für die Suche ist Groß- und Kleinschreibung nicht relevant. Ist der Suchbegriff ein Teil eines Wortes, gilt dies auch als Treffer.'"></span>
+			th:utext="'Für die Suche wird Groß- und Kleinschreibung nicht berücksichtigt. Groß- und Kleinschreibung wird berücksichtigt, wenn der Suchbegriff in Anführungszeichen gesetzt wird. Ist der Suchbegriff ein Teil eines Wortes, gilt dies auch als Treffer. Besteht der Suchbegriff aus mehreren Worten, werden alle Worte als ein gesamter Suchbegriff verwendet.'"></span>
 		<span th:if="${search.search != null}" th:utext="'Die Suche nach <b>' + ${search.search} + '</b>'"></span>
 		<span th:if="${search.section != null && search.section == 'Alle'}" th:text="'in allen Büchern '"></span>
 		<span th:if="${search.section != null && (search.section == 'AT' || search.section == 'NT')}"
