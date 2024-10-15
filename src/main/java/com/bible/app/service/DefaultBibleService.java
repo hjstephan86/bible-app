@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.bible.app.Constants;
 import com.bible.app.creator.Bible;
 import com.bible.app.creator.BibleCreator;
 import com.bible.app.creator.bible.Luther1912Strong;
@@ -30,13 +31,13 @@ public class DefaultBibleService implements BibleService {
 	public DefaultBibleService() throws IOException {
 		bibleMap = new LinkedHashMap<String, Bible>();
 
-		Bible luther1912 = BibleCreator.getBible("Luther 1912");
-		luther1912Strong = BibleCreator.getBible("Luther 1912 Strong");
-		Bible elberfelder1905 = BibleCreator.getBible("Elberfelder 1905");
-		Bible menge1939 = BibleCreator.getBible("Menge 1939");
-		Bible schlachter1951 = BibleCreator.getBible("Schlachter 1951");
-		Bible web = BibleCreator.getBible("World English Bible");
-		Bible asv = BibleCreator.getBible("American Standard Version");
+		Bible luther1912 = BibleCreator.getBible(Constants.BIBLE_LUTHER_1912);
+		luther1912Strong = BibleCreator.getBible(Constants.BIBLE_LUTHER_1912_STRONG);
+		Bible elberfelder1905 = BibleCreator.getBible(Constants.BIBLE_ELBERFELDER);
+		Bible menge1939 = BibleCreator.getBible(Constants.BIBLE_MENGE);
+		Bible schlachter1951 = BibleCreator.getBible(Constants.BIBLE_SCHLACHTER);
+		Bible web = BibleCreator.getBible(Constants.BIBLE_WORLD_ENG);
+		Bible asv = BibleCreator.getBible(Constants.BIBLE_AMERICAN_STD);
 
 		bibleMap.put(luther1912.getName(), luther1912);
 		bibleMap.put(elberfelder1905.getName(), elberfelder1905);

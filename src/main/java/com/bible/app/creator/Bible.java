@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import com.bible.app.Constants;
 import com.bible.app.model.Finding;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
@@ -111,7 +112,9 @@ public abstract class Bible {
 
 		if (isSearchValid(search.getSearch())) {
 			String searchText = getSearchText(search.getSearch());
-			boolean matchCase = searchText.startsWith("\"") && searchText.endsWith("\"");
+			boolean matchCase = searchText.startsWith(Constants.SEARCH_SYMBOL)
+					&& searchText.endsWith(Constants.SEARCH_SYMBOL)
+					&& searchText.length() > 1;
 			searchText = matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
 			if (searchText.length() > 0) {
 				do {

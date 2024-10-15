@@ -149,7 +149,7 @@ public class BibleServiceTest {
         expectedChapter = 3;
         expectedVerse = 5;
 
-        searchString = "\"kinder\"";
+        searchString = Constants.SEARCH_SYMBOL + "kinder" + Constants.SEARCH_SYMBOL;
         search.setSearch(searchString);
 
         searchResult = bibleService.search(search);
@@ -185,13 +185,13 @@ public class BibleServiceTest {
 
     @Test
     public void testSearchAlleSpecialChar() {
-        int expectedCount = 0;
-        int expectedSearchResults = 0;
+        int expectedCount = 1748;
+        int expectedSearchResults = 1546;
 
         Search search = new Search();
 
-        // Test "
-        String searchString = "\"";
+        // Test '
+        String searchString = Constants.SEARCH_SYMBOL;
         String sectionString = "Alle";
         search.setSearch(searchString);
         search.setSection(sectionString);
@@ -202,6 +202,9 @@ public class BibleServiceTest {
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
 
         // Test &
+        expectedCount = 0;
+        expectedSearchResults = 0;
+
         searchString = "&";
         sectionString = "Alle";
         search.setSearch(searchString);
