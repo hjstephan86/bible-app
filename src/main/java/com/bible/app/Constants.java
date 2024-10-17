@@ -9,5 +9,6 @@ public class Constants {
     public static final String BIBLE_WORLD_ENG = "World English Bible";
     public static final String BIBLE_AMERICAN_STD = "American Standard Version";
 
-    public static final String SEARCH_SYMBOL = "'";
+    public static final String SEARCH_MATCH_EXACT_SYMBOL = "\"";
+    public static final String SEARCH_MATCH_CASE_SYMBOL = "'";
 }

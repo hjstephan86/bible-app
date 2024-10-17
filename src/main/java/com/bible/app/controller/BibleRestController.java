@@ -96,7 +96,7 @@ public class BibleRestController {
     }
 
     @PostMapping("/search")
-    @Operation(summary = "Search the bible")
+    @Operation(summary = "Search the bible, use \"\" for exact and '' for case sensitive search")
     public ResponseEntity<SearchResult> search(@RequestBody Search search) {
         LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + search);
         if (search.getSearch() != null && search.getSection() != null
