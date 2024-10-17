@@ -19,7 +19,7 @@ import com.bible.app.service.BibleService;
 public class BibleServiceTest {
 
     @Autowired
-    private BibleService bibleService;
+    private BibleService activeBibleService;
 
     @Test
     public void testSearchDefault() {
@@ -39,7 +39,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = bibleService.search(search);
+        SearchResult searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -69,7 +69,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = bibleService.search(search);
+        SearchResult searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -99,7 +99,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = bibleService.search(search);
+        SearchResult searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -129,7 +129,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = bibleService.search(search);
+        SearchResult searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -140,7 +140,7 @@ public class BibleServiceTest {
         assertEquals(expectedVerse, finding.getPassage().getVerse());
         assertEquals(expectedVerseText, finding.getVerseText());
 
-        // Now, search for "kinder"
+        // Now, search for 'kinder'
         expectedCount = 54;
         expectedSearchResults = 54;
 
@@ -149,10 +149,10 @@ public class BibleServiceTest {
         expectedChapter = 3;
         expectedVerse = 5;
 
-        searchString = Constants.SEARCH_SYMBOL + "kinder" + Constants.SEARCH_SYMBOL;
+        searchString = Constants.SEARCH_MATCH_CASE_SYMBOL + "kinder" + Constants.SEARCH_MATCH_CASE_SYMBOL;
         search.setSearch(searchString);
 
-        searchResult = bibleService.search(search);
+        searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -163,6 +163,113 @@ public class BibleServiceTest {
         assertEquals(expectedVerse, finding.getPassage().getVerse());
         assertEquals(expectedVerseText, finding.getVerseText());
 
+    }
+
+    @Test
+    public void testSearchAlleMatchExcact() {
+        int expectedCount = 48575;
+        int expectedSearchResults = 23914;
+
+        String expectedBook = "Offenbarung";
+        int expectedChapter = 22;
+        int expectedVerse = 19;
+
+        String expectedVerseText = "<b>Und</b> wenn jemand davontut von den Worten des Buchs dieser Weissagung, so wird Gott abtun sein Teil vom Holz des Lebens <b>und</b> von der heiligen Stadt, davon in diesem Buch geschrieben ist.";
+
+        Search search = new Search();
+
+        String searchString = "Und";
+        String sectionString = "Alle";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        SearchResult searchResult = activeBibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+
+        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        assertEquals(expectedBook, finding.getPassage().getBook());
+        assertEquals(expectedChapter, finding.getPassage().getChapter());
+        assertEquals(expectedVerse, finding.getPassage().getVerse());
+        assertEquals(expectedVerseText, finding.getVerseText());
+
+        // Now, search for "Und"
+        expectedCount = 46323;
+        expectedSearchResults = 23529;
+
+        expectedVerseText = "<b>Und</b> wenn jemand davontut von den Worten des Buchs dieser Weissagung, so wird Gott abtun sein Teil vom Holz des Lebens <b>und</b> von der heiligen Stadt, davon in diesem Buch geschrieben ist.";
+        expectedBook = "Offenbarung";
+        expectedChapter = 22;
+        expectedVerse = 19;
+
+        searchString = Constants.SEARCH_MATCH_EXACT_SYMBOL + "Und" + Constants.SEARCH_MATCH_EXACT_SYMBOL;
+        search.setSearch(searchString);
+
+        searchResult = activeBibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+
+        finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        assertEquals(expectedBook, finding.getPassage().getBook());
+        assertEquals(expectedChapter, finding.getPassage().getChapter());
+        assertEquals(expectedVerse, finding.getPassage().getVerse());
+        assertEquals(expectedVerseText, finding.getVerseText());
+    }
+
+    @Test
+    public void testSearchAlleMatchExcactCaseSensitive() {
+        int expectedCount = 48575;
+        int expectedSearchResults = 23914;
+
+        String expectedBook = "Offenbarung";
+        int expectedChapter = 22;
+        int expectedVerse = 19;
+
+        String expectedVerseText = "<b>Und</b> wenn jemand davontut von den Worten des Buchs dieser Weissagung, so wird Gott abtun sein Teil vom Holz des Lebens <b>und</b> von der heiligen Stadt, davon in diesem Buch geschrieben ist.";
+
+        Search search = new Search();
+
+        String searchString = "Und";
+        String sectionString = "Alle";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        SearchResult searchResult = activeBibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+
+        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        assertEquals(expectedBook, finding.getPassage().getBook());
+        assertEquals(expectedChapter, finding.getPassage().getChapter());
+        assertEquals(expectedVerse, finding.getPassage().getVerse());
+        assertEquals(expectedVerseText, finding.getVerseText());
+
+        // Now, search for "'Und'"
+        expectedCount = 7730;
+        expectedSearchResults = 7072;
+
+        expectedVerseText = "<b>Und</b> wenn jemand davontut von den Worten des Buchs dieser Weissagung, so wird Gott abtun sein Teil vom Holz des Lebens und von der heiligen Stadt, davon in diesem Buch geschrieben ist.";
+        expectedBook = "Offenbarung";
+        expectedChapter = 22;
+        expectedVerse = 19;
+
+        searchString = Constants.SEARCH_MATCH_EXACT_SYMBOL + Constants.SEARCH_MATCH_CASE_SYMBOL + "Und"
+                + Constants.SEARCH_MATCH_CASE_SYMBOL + Constants.SEARCH_MATCH_EXACT_SYMBOL;
+        search.setSearch(searchString);
+
+        searchResult = activeBibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+
+        finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        assertEquals(expectedBook, finding.getPassage().getBook());
+        assertEquals(expectedChapter, finding.getPassage().getChapter());
+        assertEquals(expectedVerse, finding.getPassage().getVerse());
+        assertEquals(expectedVerseText, finding.getVerseText());
     }
 
     @Test
@@ -177,7 +284,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = bibleService.search(search);
+        SearchResult searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -191,12 +298,12 @@ public class BibleServiceTest {
         Search search = new Search();
 
         // Test '
-        String searchString = Constants.SEARCH_SYMBOL;
+        String searchString = Constants.SEARCH_MATCH_CASE_SYMBOL;
         String sectionString = "Alle";
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = bibleService.search(search);
+        SearchResult searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -210,7 +317,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        searchResult = bibleService.search(search);
+        searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -221,7 +328,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        searchResult = bibleService.search(search);
+        searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -239,7 +346,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = bibleService.search(search);
+        SearchResult searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -263,7 +370,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = bibleService.search(search);
+        SearchResult searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -293,7 +400,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = bibleService.search(search);
+        SearchResult searchResult = activeBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -321,7 +428,7 @@ public class BibleServiceTest {
         section.setChapterTo(22);
         section.setVerseTo(21);
 
-        List<Word> wordList = bibleService.countWords(section);
+        List<Word> wordList = activeBibleService.countWords(section);
 
         assertEquals(expectedWordSize, wordList.size());
 
@@ -340,16 +447,16 @@ public class BibleServiceTest {
         section.setBookTo("1. Mose");
         section.setChapterTo(2);
         section.setVerseTo(2);
-        assertEquals(bibleService.sectionIsValid(section), true);
+        assertEquals(activeBibleService.sectionIsValid(section), true);
 
         section.setChapterTo(1);
         section.setVerseTo(1);
-        assertEquals(bibleService.sectionIsValid(section), true);
+        assertEquals(activeBibleService.sectionIsValid(section), true);
 
         section.setVerseFrom(2);
-        assertEquals(bibleService.sectionIsValid(section), false);
+        assertEquals(activeBibleService.sectionIsValid(section), false);
 
         section.setBookFrom("2. Mose");
-        assertEquals(bibleService.sectionIsValid(section), false);
+        assertEquals(activeBibleService.sectionIsValid(section), false);
     }
 }

@@ -112,17 +112,28 @@ public abstract class Bible {
 
 		if (isSearchValid(search.getSearch())) {
 			String searchText = getSearchText(search.getSearch());
-			boolean matchCase = searchText.startsWith(Constants.SEARCH_SYMBOL)
-					&& searchText.endsWith(Constants.SEARCH_SYMBOL)
-					&& searchText.length() > 1;
-			searchText = matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
+			boolean matchExact = false;
+			boolean matchCase = false;
+			if (matchExactAndMatchCase(searchText)) {
+				matchExact = true;
+				matchCase = true;
+			} else if (matchExact(searchText)) {
+				matchExact = true;
+			} else if (matchCase(searchText)) {
+				matchCase = true;
+			}
+
+			searchText = matchExact && matchCase ? searchText.substring(2, searchText.length() - 2) : searchText;
+			searchText = !matchExact && matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
+			searchText = matchExact && !matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
+
 			if (searchText.length() > 0) {
 				do {
 					String verseText = bookMap.get(currentPassage.getBook()).getChapter()
 							.get(currentPassage.getChapter())
 							.getVerses().get(currentPassage.getVerse()).getText();
 
-					List<Integer> indices = getListOfMatchingIndices(verseText, searchText, matchCase);
+					List<Integer> indices = getListOfMatchingIndices(verseText, searchText, matchCase, matchExact);
 					if (indices.size() > 0) {
 						count += indices.size();
 						Finding finding = new Finding();
@@ -140,6 +151,28 @@ public abstract class Bible {
 		searchResult.setFindings(findings);
 		searchResult.setCount(count);
 		return searchResult;
+	}
+
+	private boolean matchCase(String searchText) {
+		return searchText.startsWith(Constants.SEARCH_MATCH_CASE_SYMBOL)
+				&& searchText.endsWith(Constants.SEARCH_MATCH_CASE_SYMBOL)
+				&& searchText.length() > 1;
+	}
+
+	private boolean matchExact(String searchText) {
+		return searchText.startsWith(Constants.SEARCH_MATCH_EXACT_SYMBOL)
+				&& searchText.endsWith(Constants.SEARCH_MATCH_EXACT_SYMBOL)
+				&& searchText.length() > 1;
+	}
+
+	private boolean matchExactAndMatchCase(String searchText) {
+		return ((searchText.startsWith(Constants.SEARCH_MATCH_CASE_SYMBOL + Constants.SEARCH_MATCH_EXACT_SYMBOL) &&
+				searchText.endsWith(Constants.SEARCH_MATCH_EXACT_SYMBOL + Constants.SEARCH_MATCH_CASE_SYMBOL))
+				|| (searchText.startsWith(Constants.SEARCH_MATCH_EXACT_SYMBOL + Constants.SEARCH_MATCH_CASE_SYMBOL)
+						&&
+						searchText.endsWith(
+								Constants.SEARCH_MATCH_CASE_SYMBOL + Constants.SEARCH_MATCH_EXACT_SYMBOL)))
+				&& searchText.length() > 3;
 	}
 
 	public List<Word> countWords(Section section) {
@@ -187,16 +220,34 @@ public abstract class Bible {
 		return originalString.substring(0, index) + stringToBeInserted + originalString.substring(index);
 	}
 
-	private List<Integer> getListOfMatchingIndices(String verseText, String searchText, boolean matchCase) {
+	private List<Integer> getListOfMatchingIndices(String verseText, String searchText, boolean matchCase,
+			boolean matchExact) {
 		List<Integer> indices = new ArrayList<Integer>();
 		verseText = matchCase ? verseText : verseText.toLowerCase();
 		searchText = matchCase ? searchText : searchText.toLowerCase();
 		int index = verseText.indexOf(searchText);
 		while (index >= 0) {
-			indices.add(index);
-			index = verseText.indexOf(searchText, index + 1);
+			if (matchExact) {
+				if (matchExact(index, verseText, searchText)) {
+					indices.add(index);
+				}
+				index = verseText.indexOf(searchText, index + 1);
+			} else {
+				indices.add(index);
+				index = verseText.indexOf(searchText, index + 1);
+			}
 		}
 		return indices;
+	}
+
+	private boolean matchExact(int index, String verseText, String searchText) {
+		char charBeforeMatch = index > 0 ? verseText.charAt(index - 1) : ' ';
+		char charAfterMatch = (index + searchText.length()) <= verseText.length() - 1
+				? verseText.charAt(index + searchText.length())
+				: ' ';
+		String regex = "[!@#$%^&*()_+\\-=\\[\\]{};':„\"\\\\|,.<>/?`~]";
+		return (Character.toString(charBeforeMatch).matches(regex) || charBeforeMatch == ' ')
+				&& (Character.toString(charAfterMatch).matches(regex) || charAfterMatch == ' ');
 	}
 
 	private String getSearchText(String search) {

@@ -35,7 +35,8 @@
 			<h2>Die Bibel</h2>
 			<h5>Nach der Übersetzung von</h5>
 			<form th:action="@{/home}" method="POST" style="display: inline;">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName" onchange="this.form.submit()"></select>
+				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+					onchange="this.form.submit()"></select>
 			</form>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
@@ -54,10 +55,14 @@
 	<div class="content">
 		Herzlich Willkommen auf der Web Applikation zur Bibel nach den Übersetzungen von Elberfelder 1905, Luther 1912,
 		Menge 1939 und Schlachter 1951 sowie der World English Bible und der American Standard Version.
-		Diese Applikation bietet die Möglichkeit zum Lesen eines Kapitels oder zum Suchen eines Begriffs im Text der
-		Bibel.
-		Es besteht auch die Möglichkeit, Wörter in einem vom Benutzer bestimmten Bibelabschnitt zählen zu lassen.
-		Zudem können die hebräischen und griechischen Wortwurzeln des Urtextes mit Hilfe des erstellten Verzeichnisses von Strong zur Übersetzung von Luther 1912 betrachtet werden.
+		Diese Applikation bietet die Möglichkeit zum Lesen eines Kapitels, zum Suchen eines Begriffs order zum Zählen
+		von Worten. Zudem können die hebräischen und griechischen Wortwurzeln des Urtextes mit Hilfe des erstellten
+		Verzeichnisses von Strong zur Übersetzung von Luther 1912 betrachtet werden.
+		<br>
+		Besonders hervorzuheben ist die Möglichkeit, <b>Worte</b> in einem vom Benutzer bestimmten Bibelabschnitt
+		<b>zählen</b> zu lassen. Dabei legt der Benutzer den Bibelabschnitt interaktiv fest und erhält alle gezählten
+		Worte in ihrer Häufigkeit absteigend sortiert. So lassen sich zum Beispiel die meisten Worte der gesamten Bibel
+		einer Bibelübersetzung ermitteln.
 	</div>
 </body>
 

@@ -32,10 +32,11 @@
 		</div>
 
 		<div class="headline">
-			<h2>Wörter der Bibel zählen</h2>
+			<h2>Worte der Bibel zählen</h2>
 			<h5>Nach der Übersetzung von</h5>
 			<form th:action="@{/count}" method="POST" style="display: inline;" id="bibleNameForm">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName" onchange="setBibleName()"></select>
+				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+					onchange="setBibleName()"></select>
 			</form>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
@@ -103,7 +104,7 @@
 	</script>
 	<div class="countContent">
 		<span th:if="${section.bookFrom == null}"
-			th:text="'Gezählt werden die Wörter in einem bestimmten Abschnitt. Der Abschnitt wird bestimmt von der ersten Stelle mit Buch, Kapitel und Vers bis zur zweiten Stelle mit Buch, Kapitel und Vers.'"></span>
+			th:text="'Gezählt werden die Worte in einem bestimmten Abschnitt. Der Abschnitt wird bestimmt von der ersten Stelle mit Buch, Kapitel und Vers bis zur zweiten Stelle mit Buch, Kapitel und Vers.'"></span>
 		<span th:if="${section.bookFrom != null}"
 			th:text="'Es wurden ' + ${words.size()} + ' unterschiedliche Wörter von ' + ${section.bookFrom} + ' ' + ${section.chapterFrom} + ', ' + ${section.verseFrom} + ' bis ' + ${section.bookTo} + ' ' +${section.chapterTo} + ', ' + ${section.verseTo} + ' gezählt.'"></span>
 		<span th:if="${section.bookFrom != null}"

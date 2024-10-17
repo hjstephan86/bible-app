@@ -1,17 +1,13 @@
 package com.bible.app.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.bible.app.Constants;
 import com.bible.app.creator.Bible;
-import com.bible.app.creator.BibleCreator;
 import com.bible.app.creator.bible.Luther1912Strong;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
@@ -24,110 +20,85 @@ import com.bible.app.text.Verse;
 @SessionScope
 public class DefaultBibleService implements BibleService {
 
-	private Map<String, Bible> bibleMap;
-	private Bible active;
-	private Bible luther1912Strong;
+    private final BiblesService defaultBiblesService;
+    private final Bible luther1912Strong;
+    private Bible activeBible;
 
-	public DefaultBibleService() throws IOException {
-		bibleMap = new LinkedHashMap<String, Bible>();
+    public DefaultBibleService(BiblesService defaultBiblesService) {
+        this.defaultBiblesService = defaultBiblesService;
+        this.activeBible = defaultBiblesService.getBibleMap().get(Constants.BIBLE_LUTHER_1912);
+        this.luther1912Strong = defaultBiblesService.getBibleMap().get(Constants.BIBLE_LUTHER_1912_STRONG);
+    }
 
-		Bible luther1912 = BibleCreator.getBible(Constants.BIBLE_LUTHER_1912);
-		luther1912Strong = BibleCreator.getBible(Constants.BIBLE_LUTHER_1912_STRONG);
-		Bible elberfelder1905 = BibleCreator.getBible(Constants.BIBLE_ELBERFELDER);
-		Bible menge1939 = BibleCreator.getBible(Constants.BIBLE_MENGE);
-		Bible schlachter1951 = BibleCreator.getBible(Constants.BIBLE_SCHLACHTER);
-		Bible web = BibleCreator.getBible(Constants.BIBLE_WORLD_ENG);
-		Bible asv = BibleCreator.getBible(Constants.BIBLE_AMERICAN_STD);
+    @Override
+    public Bible getActiveBible() {
+        return activeBible;
+    }
 
-		bibleMap.put(luther1912.getName(), luther1912);
-		bibleMap.put(elberfelder1905.getName(), elberfelder1905);
-		bibleMap.put(menge1939.getName(), menge1939);
-		bibleMap.put(schlachter1951.getName(), schlachter1951);
-		bibleMap.put(web.getName(), web);
-		bibleMap.put(asv.getName(), asv);
+    @Override
+    public void setActive(String bibleName) {
+        activeBible = defaultBiblesService.getBibleMap().get(bibleName);
+    }
 
-		active = luther1912;
-	}
+    @Override
+    public ArrayList<String> getBooksAsList() {
+        return activeBible.getBooksAsList();
+    }
 
-	@Override
-	public Map<String, Bible> getBibleMap() {
-		return bibleMap;
-	}
+    @Override
+    public ArrayList<String> getChaptersAsList() {
+        return activeBible.getChaptersAsList();
+    }
 
-	@Override
-	public ArrayList<String> getBiblesAsList() {
-		return new ArrayList<String>(bibleMap.keySet());
-	}
+    @Override
+    public ArrayList<String> getBooksAsListFromLuther1912Strong() {
+        return luther1912Strong.getBooksAsList();
+    }
 
-	@Override
-	public Bible getActive() {
-		return active;
-	}
+    @Override
+    public ArrayList<String> getChaptersAsListFromLuther1912Strong() {
+        return luther1912Strong.getChaptersAsList();
+    }
 
-	@Override
-	public void setActive(String bibleName) {
-		active = bibleMap.get(bibleName);
-	}
+    @Override
+    public ArrayList<ArrayList<String>> getVersesAsListOfLists() {
+        return activeBible.getVersesAsListOfLists();
+    }
 
-	@Override
-	public ArrayList<String> getBooksAsList() {
-		return active.getBooksAsList();
-	}
+    @Override
+    public ArrayList<Verse> getVerses(Passage passage) {
+        return activeBible.getVerses(passage);
+    }
 
-	@Override
-	public ArrayList<String> getChaptersAsList() {
-		return active.getChaptersAsList();
-	}
+    @Override
+    public ArrayList<Verse> getVersesFromLuther1912Strong(Passage passage) {
+        return luther1912Strong.getVerses(passage);
+    }
 
-	@Override
-	public ArrayList<String> getBooksAsListFromLuther1912Strong() {
-		return luther1912Strong.getBooksAsList();
-	}
+    @Override
+    public SearchResult search(Search search) {
+        return activeBible.search(search);
+    }
 
-	@Override
-	public ArrayList<String> getChaptersAsListFromLuther1912Strong() {
-		return luther1912Strong.getChaptersAsList();
-	}
+    @Override
+    public List<Word> countWords(Section section) {
+        return activeBible.countWords(section);
+    }
 
-	@Override
-	public ArrayList<ArrayList<String>> getVersesAsListOfLists() {
-		return active.getVersesAsListOfLists();
-	}
+    @Override
+    public boolean passageExists(Passage passage) {
+        return activeBible.passageExists(passage);
+    }
 
-	@Override
-	public ArrayList<Verse> getVerses(Passage passage) {
-		return active.getVerses(passage);
-	}
+    @Override
+    public boolean sectionIsValid(Section section) {
+        return activeBible.sectionIsValid(section);
+    }
 
-	@Override
-	public ArrayList<Verse> getVersesFromLuther1912Strong(Passage passage) {
-		return luther1912Strong.getVerses(passage);
-	}
-
-	@Override
-	public SearchResult search(Search search) {
-		return active.search(search);
-	}
-
-	@Override
-	public List<Word> countWords(Section section) {
-		return active.countWords(section);
-	}
-
-	@Override
-	public boolean passageExists(Passage passage) {
-		return active.passageExists(passage);
-	}
-
-	@Override
-	public boolean sectionIsValid(Section section) {
-		return active.sectionIsValid(section);
-	}
-
-	@Override
-	public Object getConcordance() {
-		if (luther1912Strong != null)
-			return ((Luther1912Strong) luther1912Strong).getConcordance();
-		return null;
-	}
+    @Override
+    public Object getConcordance() {
+        if (luther1912Strong != null)
+            return ((Luther1912Strong) luther1912Strong).getConcordance();
+        return null;
+    }
 }

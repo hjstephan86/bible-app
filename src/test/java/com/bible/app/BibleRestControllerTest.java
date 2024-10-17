@@ -33,6 +33,7 @@ import com.bible.app.model.Section;
 import com.bible.app.model.Strong;
 import com.bible.app.model.Word;
 import com.bible.app.service.BibleService;
+import com.bible.app.service.BiblesService;
 import com.bible.app.text.Book;
 import com.bible.app.text.Verse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,7 +46,10 @@ public class BibleRestControllerTest {
     private final String API_PATH = "/api/v1/";
 
     @MockBean
-    private BibleService bibleService;
+    private BibleService activeBibleService;
+
+    @MockBean
+    private BiblesService defaultBibleService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -63,7 +67,7 @@ public class BibleRestControllerTest {
         String bible = "Bible";
         bibles.add(bible);
 
-        when(bibleService.getBiblesAsList()).thenReturn(bibles);
+        when(defaultBibleService.getBiblesAsList()).thenReturn(bibles);
 
         this.mockMvc.perform(get(API_PATH + "bibles"))
                 .andExpect(status().isOk())
@@ -76,7 +80,7 @@ public class BibleRestControllerTest {
         Map<String, Bible> bibleMap = new HashMap<String, Bible>();
         bibleMap.put(luther1912.getName(), luther1912);
 
-        when(bibleService.getBibleMap()).thenReturn(bibleMap);
+        when(defaultBibleService.getBibleMap()).thenReturn(bibleMap);
 
         this.mockMvc.perform(post(API_PATH + "bible", luther1912.getName()).param("bible", luther1912.getName()))
                 .andExpect(status().isOk())
@@ -88,7 +92,7 @@ public class BibleRestControllerTest {
         Bible luther1912 = BibleCreator.getBible("Luther 1912");
         Map<String, Bible> bibleMap = new HashMap<String, Bible>();
 
-        when(bibleService.getBibleMap()).thenReturn(bibleMap);
+        when(defaultBibleService.getBibleMap()).thenReturn(bibleMap);
 
         this.mockMvc.perform(post(API_PATH + "bible", luther1912.getName()).param("bible", luther1912.getName()))
                 .andExpect(status().isBadRequest())
@@ -99,7 +103,7 @@ public class BibleRestControllerTest {
     public void testBooks() throws Exception {
         Bible luther1912 = BibleCreator.getBible("Luther 1912");
 
-        when(bibleService.getActive()).thenReturn(luther1912);
+        when(activeBibleService.getActiveBible()).thenReturn(luther1912);
 
         MvcResult result = this.mockMvc.perform(get(API_PATH + "books"))
                 .andExpect(status().isOk()).andReturn();
@@ -122,8 +126,8 @@ public class BibleRestControllerTest {
         ArrayList<Verse> verses = new ArrayList<Verse>(
                 book.getChapter().get(passage.getChapter()).getVerses().values());
 
-        when(bibleService.passageExists(any(Passage.class))).thenReturn(true);
-        when(bibleService.getVerses(any(Passage.class))).thenReturn(verses);
+        when(activeBibleService.passageExists(any(Passage.class))).thenReturn(true);
+        when(activeBibleService.getVerses(any(Passage.class))).thenReturn(verses);
 
         MvcResult result = this.mockMvc.perform(post(API_PATH + "read")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -144,7 +148,7 @@ public class BibleRestControllerTest {
         Book book = luther1912.getBookMap().get("3. Mose");
         Passage passage = new Passage(book.getName(), 2);
 
-        when(bibleService.passageExists(any(Passage.class))).thenReturn(false);
+        when(activeBibleService.passageExists(any(Passage.class))).thenReturn(false);
 
         this.mockMvc.perform(post(API_PATH + "read")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -167,8 +171,8 @@ public class BibleRestControllerTest {
         List<Word> words = new ArrayList<Word>();
         words.add(new Word("my Word", 21, false));
 
-        when(bibleService.sectionIsValid(any(Section.class))).thenReturn(true);
-        when(bibleService.countWords(any(Section.class))).thenReturn(words);
+        when(activeBibleService.sectionIsValid(any(Section.class))).thenReturn(true);
+        when(activeBibleService.countWords(any(Section.class))).thenReturn(words);
 
         MvcResult result = this.mockMvc.perform(post(API_PATH + "count")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -195,7 +199,7 @@ public class BibleRestControllerTest {
         List<Word> words = new ArrayList<Word>();
         words.add(new Word("my Word", 21, false));
 
-        when(bibleService.sectionIsValid(any(Section.class))).thenReturn(false);
+        when(activeBibleService.sectionIsValid(any(Section.class))).thenReturn(false);
 
         this.mockMvc.perform(post(API_PATH + "count")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -210,7 +214,7 @@ public class BibleRestControllerTest {
         search.setSearch("Kinder");
         search.setSection("1. Mose");
 
-        when(bibleService.getActive()).thenReturn(luther1912);
+        when(activeBibleService.getActiveBible()).thenReturn(luther1912);
 
         MvcResult result = this.mockMvc.perform(post(API_PATH + "search")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -248,9 +252,9 @@ public class BibleRestControllerTest {
         ArrayList<Verse> verses = new ArrayList<Verse>(
                 book.getChapter().get(passage.getChapter()).getVerses().values());
 
-        when(bibleService.passageExists(any(Passage.class))).thenReturn(true);
-        when(bibleService.getVersesFromLuther1912Strong(any(Passage.class))).thenReturn(verses);
-        when(bibleService.getConcordance()).thenReturn(((Luther1912Strong) luther1912Strong).getConcordance());
+        when(activeBibleService.passageExists(any(Passage.class))).thenReturn(true);
+        when(activeBibleService.getVersesFromLuther1912Strong(any(Passage.class))).thenReturn(verses);
+        when(activeBibleService.getConcordance()).thenReturn(((Luther1912Strong) luther1912Strong).getConcordance());
 
         MvcResult result = this.mockMvc.perform(post(API_PATH + "strong")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -271,7 +275,7 @@ public class BibleRestControllerTest {
         Book book = luther1912Strong.getBookMap().get("3. Mose");
         Passage passage = new Passage(book.getName(), 2);
 
-        when(bibleService.passageExists(any(Passage.class))).thenReturn(false);
+        when(activeBibleService.passageExists(any(Passage.class))).thenReturn(false);
 
         this.mockMvc.perform(post(API_PATH + "strong")
                 .contentType(MediaType.APPLICATION_JSON)

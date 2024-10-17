@@ -5,7 +5,14 @@
 }
 
 body {
-	font: 16px Arial;
+	font: 16px 'Ubuntu';
+}
+
+@font-face {
+	font-family: 'Ubuntu';
+	src: url('fonts/Ubuntu/Ubuntu-Regular-Webfont.woff2') format('woff2'),
+		url('fonts/Ubuntu/Ubuntu-Regular-Webfont.woff') format('woff'),
+		url('fonts/Ubuntu/Ubuntu-Regular.ttf') format('truetype');
 }
 
 div#overlay {
@@ -106,10 +113,11 @@ div.headline {
 }
 
 #selectBibleName {
+	font-family: 'Ubuntu';
 	border: 1px solid transparent;
 	background-color: #042647;
 	color: white;
-	margin-left: -5px;
+	margin-left: -4px;
 	padding: 10px 0px;
 	font-size: 14px;
 	width: 130px;
@@ -127,6 +135,7 @@ div.autocomplete {
 }
 
 select {
+	font-family: 'Ubuntu';
 	border: 1px solid transparent;
 	background-color: #f1f1f1;
 	padding: 10px;
@@ -168,6 +177,7 @@ select {
 }
 
 input {
+	font-family: 'Ubuntu';
 	border: 1px solid transparent;
 	background-color: #f1f1f1;
 	padding: 10px;
@@ -229,6 +239,7 @@ div.select {
 }
 
 div.navigation {
+	font-family: Arial;
 	display: inline-block;
 }
 
