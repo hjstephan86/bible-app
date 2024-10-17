@@ -4,8 +4,7 @@
 <head>
 	<title>Bibel Web Applikation</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="topnav.css">
-	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="css/general.css">
 </head>
 
 <body onload="init()">
@@ -28,14 +27,15 @@
 			</div>
 		</div> -->
 			<a href="/about">Über</a>
-			<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="handleTopNav()">&#9776;</a>
+			<a href="javascript:void(0);" class="icon" onclick="handleTopNav()">&#9776;</a>
 		</div>
 
 		<div class="headline">
-			<h2>Wörter der Bibel zählen</h2>
+			<h2>Worte der Bibel zählen</h2>
 			<h5>Nach der Übersetzung von</h5>
 			<form th:action="@{/count}" method="POST" style="display: inline;" id="bibleNameForm">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName" onchange="setBibleName()"></select>
+				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+					onchange="setBibleName()"></select>
 			</form>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
@@ -85,8 +85,8 @@
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript" charset="utf-8" src="topnav.js"></script>
-	<script type="text/javascript" charset="utf-8" src="count.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/top-navigation.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/count.js"></script>
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var books = /*[[${books}]]*/ "";
@@ -102,8 +102,12 @@
 		autocomplete(document.getElementById("inputBookTo"), books);
 	</script>
 	<div class="countContent">
-		<span th:if="${section.bookFrom == null}"
-			th:text="'Gezählt werden die Wörter in einem bestimmten Abschnitt. Der Abschnitt wird bestimmt von der ersten Stelle mit Buch, Kapitel und Vers bis zur zweiten Stelle mit Buch, Kapitel und Vers.'"></span>
+		<span th:if="${section.bookFrom == null}" th:utext="'Hier kann der Benutzer Worte in der Bibel zählen lassen. Dabei legt er 
+			den Bibelabschnitt interaktiv fest und erhält alle gezählten Worte in ihrer Häufigkeit absteigend sortiert. So lassen sich zum Beispiel die meisten Worte der
+			gesamten Bibel einer Übersetzung oder eines kurzen Textes zur Vorbereitung ermitteln. 
+			<br><br>
+			Gezählt werden die Worte in dem vom Benutzer bestimmten Abschnitt. Der Abschnitt wird bestimmt von der ersten Stelle mit 
+			Buch, Kapitel und Vers bis zur zweiten Stelle mit Buch, Kapitel und Vers.'"></span>
 		<span th:if="${section.bookFrom != null}"
 			th:text="'Es wurden ' + ${words.size()} + ' unterschiedliche Wörter von ' + ${section.bookFrom} + ' ' + ${section.chapterFrom} + ', ' + ${section.verseFrom} + ' bis ' + ${section.bookTo} + ' ' +${section.chapterTo} + ', ' + ${section.verseTo} + ' gezählt.'"></span>
 		<span th:if="${section.bookFrom != null}"

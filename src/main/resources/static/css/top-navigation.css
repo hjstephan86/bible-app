@@ -1,13 +1,8 @@
 @charset "UTF-8";
 
-body {
-	margin: 0;
-	font-family: Arial
-}
-
 .topnav {
 	overflow: hidden;
-	background-color: #042647;
+	background-color: #2c2c2c;
 	position: sticky;
 }
 
@@ -21,13 +16,14 @@ body {
 	font-size: 17px;
 }
 
-.active {
-	background-color: #355779;
-	color: white;
+.topnav .active {
+	background-color: #f4f4f4;
+	color: #2c2c2c;
 }
 
 .topnav .icon {
 	display: none;
+	font-size: 17px;
 }
 
 .dropdown {
@@ -66,8 +62,8 @@ body {
 
 .topnav a:hover,
 .dropdown:hover .dropbtn {
-	background-color: #555;
-	color: white;
+	background-color: #2c2c2c;
+	color: rgb(225, 145, 0);
 }
 
 .dropdown-content a:hover {

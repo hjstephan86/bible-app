@@ -4,8 +4,7 @@
 <head>
 	<title>Bibel Web Applikation</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="topnav.css">
-	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="css/general.css">
 </head>
 
 <body onload="init()">
@@ -28,7 +27,7 @@
 			</div>
 		</div> -->
 			<a href="/about">Über</a>
-			<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="handleTopNav()">&#9776;</a>
+			<a href="javascript:void(0);" class="icon" onclick="handleTopNav()">&#9776;</a>
 		</div>
 
 		<div class="headline">
@@ -68,8 +67,8 @@
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript" charset="utf-8" src="topnav.js"></script>
-	<script type="text/javascript" charset="utf-8" src="search.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/top-navigation.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/search.js"></script>
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var books = /*[[${books}]]*/ "";
@@ -77,8 +76,14 @@
 		/*]]>*/
 	</script>
 	<div class="searchContent">
-		<span th:if="${search.search == null}"
-			th:utext="'Für die Suche wird Groß- und Kleinschreibung nicht berücksichtigt. Groß- und Kleinschreibung wird berücksichtigt, wenn der Suchbegriff in Anführungszeichen gesetzt wird. Ist der Suchbegriff ein Teil eines Wortes, gilt dies auch als Treffer. Besteht der Suchbegriff aus mehreren Worten, werden alle Worte als ein gesamter Suchbegriff verwendet.'"></span>
+		<span th:if="${search.search == null}" th:utext="'Die Suche ist benutzerfreundlich und schnell. Der Suchbegriff kann eingegeben und danach gesucht werden.
+			Besteht der Suchbegriff aus mehreren Worten, werden alle Worte als ein gesamter Suchbegriff verwendet.
+			<br><br>
+			Bei der Suche können auch einfache umschließende Anführungszeichen (z.B. \'Kinder\') für eine case sensitive Suche verwendet werden.
+			Es können doppelte umschließende Anführungszeichen (z.B. &quot;Kinder&quot;) für eine exakte Suche verwendet werden.
+			Beide Möglichkeiten lassen sich auch miteinander kombinieren (z.B. &quot;\'Kinder\'&quot;).
+			'">
+		</span>
 		<span th:if="${search.search != null}" th:utext="'Die Suche nach <b>' + ${search.search} + '</b>'"></span>
 		<span th:if="${search.section != null && search.section == 'Alle'}" th:text="'in allen Büchern '"></span>
 		<span th:if="${search.section != null && (search.section == 'AT' || search.section == 'NT')}"

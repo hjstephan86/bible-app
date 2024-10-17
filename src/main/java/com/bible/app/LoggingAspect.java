@@ -28,9 +28,12 @@ public class LoggingAspect {
         Object result = proceedingJoinPoint.proceed();
         stopWatch.stop();
 
-        LOGGER.info("Execution time of " + className + "." + methodName + ": "
-                + stopWatch.getTotalTimeMillis() + "ms");
+        String runtime = stopWatch.getTotalTimeMillis() + "ms";
+        if (stopWatch.getTotalTimeMillis() == 0) {
+            runtime = (stopWatch.getTotalTimeNanos() / 1000) + "μs";
+        }
 
+        LOGGER.info("Runtime of " + className + "." + methodName + ": " + runtime);
         return result;
     }
 }

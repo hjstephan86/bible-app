@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,56 +20,61 @@ import com.bible.app.model.SearchResult;
 import com.bible.app.model.Section;
 import com.bible.app.model.Word;
 import com.bible.app.service.BibleService;
+import com.bible.app.service.BiblesService;
 import com.bible.app.text.Verse;
 
 @Controller
 public class BibleController {
 
-	@Autowired
-	private BibleService bibleService;
-
+	private final BibleService defaultBibleService;
+	private final BiblesService defaultBiblesService;
 	private static final Logger LOGGER = LoggerFactory.getLogger(BibleController.class);
+
+	public BibleController(BibleService defaultBibleService, BiblesService defauBiblesService) {
+		this.defaultBiblesService = defauBiblesService;
+		this.defaultBibleService = defaultBibleService;
+	}
 
 	@GetMapping({ "/", "/home" })
 	public String home(Model model) {
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
 		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "home";
 	}
 
 	@PostMapping({ "/", "/home" })
 	public String home(Model model, @RequestParam String bibleName) {
-		bibleService.setActive(bibleName);
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
+		defaultBibleService.setActive(bibleName);
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
 		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "home";
 	}
 
 	@GetMapping("/about")
 	public String about(Model model) {
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
 		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "about";
 	}
 
 	@PostMapping("/about")
 	public String about(Model model, @RequestParam String bibleName) {
-		bibleService.setActive(bibleName);
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
+		defaultBibleService.setActive(bibleName);
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
 		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
 		return "about";
 	}
 
 	@GetMapping("/read")
 	public String read(Model model) {
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		model.addAttribute("books", bibleService.getBooksAsList());
-		model.addAttribute("chapters", bibleService.getChaptersAsList());
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsList());
 		model.addAttribute("passage", new Passage());
 		model.addAttribute("verses", new ArrayList<Verse>());
 		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
@@ -79,14 +83,14 @@ public class BibleController {
 
 	@PostMapping("/read")
 	public String read(@ModelAttribute("passage") Passage passage, @RequestParam String bibleName, Model model) {
-		bibleService.setActive(bibleName);
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		model.addAttribute("books", bibleService.getBooksAsList());
-		model.addAttribute("chapters", bibleService.getChaptersAsList());
-		if (passage.getBook() != null && bibleService.passageExists(passage)) {
+		defaultBibleService.setActive(bibleName);
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsList());
+		if (passage.getBook() != null && defaultBibleService.passageExists(passage)) {
 			model.addAttribute("passage", passage);
-			model.addAttribute("verses", bibleService.getVerses(passage));
+			model.addAttribute("verses", defaultBibleService.getVerses(passage));
 		} else {
 			model.addAttribute("passage", new Passage());
 			model.addAttribute("verses", new ArrayList<Verse>());
@@ -97,9 +101,9 @@ public class BibleController {
 
 	@GetMapping("/search")
 	public String search(Model model) {
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		model.addAttribute("books", bibleService.getBooksAsList());
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
 		model.addAttribute("search", new Search());
 		model.addAttribute("searchResult", new SearchResult());
 		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
@@ -108,15 +112,15 @@ public class BibleController {
 
 	@PostMapping("/search")
 	public String search(@ModelAttribute("search") Search search, @RequestParam String bibleName, Model model) {
-		bibleService.setActive(bibleName);
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		model.addAttribute("books", bibleService.getBooksAsList());
+		defaultBibleService.setActive(bibleName);
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
 		if (search.getSearch() != null && search.getSection() != null
 				&& (search.getSection().matches("Alle|AT|NT")
-						|| bibleService.getActive().getBookMap().containsKey(search.getSection()))) {
+						|| defaultBibleService.getActiveBible().getBookMap().containsKey(search.getSection()))) {
 			model.addAttribute("search", search);
-			model.addAttribute("searchResult", bibleService.search(search));
+			model.addAttribute("searchResult", defaultBibleService.search(search));
 		} else {
 			model.addAttribute("search", new Search());
 			model.addAttribute("searchResult", new SearchResult());
@@ -127,11 +131,11 @@ public class BibleController {
 
 	@GetMapping("/count")
 	public String count(Model model) {
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		model.addAttribute("books", bibleService.getBooksAsList());
-		model.addAttribute("chapters", bibleService.getChaptersAsList());
-		model.addAttribute("verses", bibleService.getVersesAsListOfLists());
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsList());
+		model.addAttribute("verses", defaultBibleService.getVersesAsListOfLists());
 		model.addAttribute("section", new Section());
 		model.addAttribute("words", new ArrayList<Word>());
 		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
@@ -140,15 +144,16 @@ public class BibleController {
 
 	@PostMapping("/count")
 	public String count(@ModelAttribute("section") Section section, @RequestParam String bibleName, Model model) {
-		bibleService.setActive(bibleName);
-		model.addAttribute("bible", bibleService.getActive());
-		model.addAttribute("bibles", bibleService.getBiblesAsList());
-		model.addAttribute("books", bibleService.getBooksAsList());
-		model.addAttribute("chapters", bibleService.getChaptersAsList());
-		model.addAttribute("verses", bibleService.getVersesAsListOfLists());
-		if (section.getBookFrom() != null && section.getBookTo() != null && bibleService.sectionIsValid(section)) {
+		defaultBibleService.setActive(bibleName);
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsList());
+		model.addAttribute("verses", defaultBibleService.getVersesAsListOfLists());
+		if (section.getBookFrom() != null && section.getBookTo() != null
+				&& defaultBibleService.sectionIsValid(section)) {
 			model.addAttribute("section", section);
-			model.addAttribute("words", bibleService.countWords(section));
+			model.addAttribute("words", defaultBibleService.countWords(section));
 		} else {
 			model.addAttribute("section", new Section());
 			model.addAttribute("words", new ArrayList<Word>());
@@ -159,8 +164,8 @@ public class BibleController {
 
 	@GetMapping("/strong")
 	public String strong(Model model) {
-		model.addAttribute("books", bibleService.getBooksAsListFromLuther1912Strong());
-		model.addAttribute("chapters", bibleService.getChaptersAsListFromLuther1912Strong());
+		model.addAttribute("books", defaultBibleService.getBooksAsListFromLuther1912Strong());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsListFromLuther1912Strong());
 		model.addAttribute("passage", new Passage());
 		model.addAttribute("verses", new ArrayList<Verse>());
 		model.addAttribute("concordance", new LinkedHashMap<String, Item>());
@@ -170,12 +175,12 @@ public class BibleController {
 
 	@PostMapping("/strong")
 	public String strong(@ModelAttribute("passage") Passage passage, @RequestParam String bibleName, Model model) {
-		model.addAttribute("books", bibleService.getBooksAsListFromLuther1912Strong());
-		model.addAttribute("chapters", bibleService.getChaptersAsListFromLuther1912Strong());
-		if (passage.getBook() != null && bibleService.passageExists(passage)) {
+		model.addAttribute("books", defaultBibleService.getBooksAsListFromLuther1912Strong());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsListFromLuther1912Strong());
+		if (passage.getBook() != null && defaultBibleService.passageExists(passage)) {
 			model.addAttribute("passage", passage);
-			model.addAttribute("verses", bibleService.getVersesFromLuther1912Strong(passage));
-			model.addAttribute("concordance", bibleService.getConcordance());
+			model.addAttribute("verses", defaultBibleService.getVersesFromLuther1912Strong(passage));
+			model.addAttribute("concordance", defaultBibleService.getConcordance());
 		} else {
 			model.addAttribute("passage", new Passage());
 			model.addAttribute("verses", new ArrayList<Verse>());

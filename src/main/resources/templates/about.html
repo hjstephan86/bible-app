@@ -4,8 +4,7 @@
 <head>
 	<title>Bibel Web Applikation</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="topnav.css">
-	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="css/general.css">
 </head>
 
 <body>
@@ -28,14 +27,15 @@
 			</div>
 		</div> -->
 			<a href="/about" class="active">Über</a>
-			<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="handleTopNav()">&#9776;</a>
+			<a href="javascript:void(0);" class="icon" onclick="handleTopNav()">&#9776;</a>
 		</div>
-		<script type="text/javascript" charset="utf-8" src="topnav.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/top-navigation.js"></script>
 		<div class="headline">
 			<h2>Die Bibel</h2>
 			<h5>Nach der Übersetzung von</h5>
 			<form th:action="@{/about}" method="POST" style="display: inline;">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName" onchange="this.form.submit()"></select>
+				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+					onchange="this.form.submit()"></select>
 			</form>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
@@ -52,15 +52,24 @@
 	</div>
 	<br>
 	<div class="content">
-		Diese Web Applikation wurde mit Hilfe von <a href="https://www.java.com/de/" target="new">Java</a>, <a
+		<h3>Über</h3>
+		Diese Seite wurde mit <a href="https://www.java.com/de/" target="new">Java</a>, <a
 			href="https://spring.io/projects/spring-boot" target="new">Spring Boot</a> und <a
 			href="https://www.thymeleaf.org/" target="new">Thymeleaf</a> realisiert.
-		Das Frontend wurde entwickelt mit <a href="https://wiki.selfhtml.org/wiki/HTML"
-			target="new">HTML</a>, <a href="https://www.w3.org/Style/CSS/" target="new">CSS</a> und <a
+		Das Frontend wurde entwickelt mit <a href="https://wiki.selfhtml.org/wiki/HTML" target="new">HTML</a>, <a
+			href="https://www.w3.org/Style/CSS/" target="new">CSS</a> und <a
 			href="https://wiki.selfhtml.org/wiki/JavaScript" target="new">JavaScript</a>.
-		Der Bibeltext der Übersetzung von Luther 1912 mit Strong-Verzeichnis und Konkordanz und die Bibeltexte der Übersetzungen von Elberfelder 1905, Menge 1939 und Schlachter 1951 ist bezogen von <a href="https://www.toledot.info/die-welt-der-bibel.php?t=download/bibel" target="new">toledot</a>.
-			Der Bibeltext der World English Bible und der American Standard Version ist bezogen von <a href="https://www.biblesupersearch.com/bible-downloads/" target="new">biblesupersearch</a>.
-		Zuletzt geändert wurde diese Applikation im Mai 2024.
+		Der Bibeltext der Übersetzung von Luther 1912 mit Strong-Verzeichnis und Konkordanz und die Texte der
+		Übersetzungen von Elberfelder 1905, Menge 1939 und Schlachter 1951 sind bezogen von <a
+			href="https://www.toledot.info/die-welt-der-bibel.php?t=download/bibel" target="new">toledot</a>.
+		Die Texte der World English Bible und der American Standard Version sind bezogen von <a
+			href="https://www.biblesupersearch.com/bible-downloads/" target="new">biblesupersearch</a>.
+		<h3 class="text">Kontakt</h3>
+		Bei <a href="https://github.com/hjstephan86/bible-app" target="new">github.com/hjstephan86</a> sind die Sourcen.
+		An <a href="mailto:stephan@123-bibel.de">stephan@123-bibel.de</a> kann Feedback gegeben werden.
+		<br><br>
+		Nein, für das iPhone 4 ist diese Seite nicht optimiert.
+
 	</div>
 </body>
 

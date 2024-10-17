@@ -4,8 +4,7 @@
 <head>
 	<title>Bibel Web Applikation</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="topnav.css">
-	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="css/general.css">
 </head>
 
 <body>
@@ -28,14 +27,15 @@
 			</div>
 		</div> -->
 			<a href="/about">Über</a>
-			<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="handleTopNav()">&#9776;</a>
+			<a href="javascript:void(0);" class="icon" onclick="handleTopNav()">&#9776;</a>
 		</div>
-		<script type="text/javascript" charset="utf-8" src="topnav.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/top-navigation.js"></script>
 		<div class="headline">
 			<h2>Die Bibel</h2>
 			<h5>Nach der Übersetzung von</h5>
 			<form th:action="@{/home}" method="POST" style="display: inline;">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName" onchange="this.form.submit()"></select>
+				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+					onchange="this.form.submit()"></select>
 			</form>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
@@ -52,12 +52,18 @@
 	</div>
 	<br>
 	<div class="content">
-		Herzlich Willkommen auf der Web Applikation zur Bibel nach den Übersetzungen von Elberfelder 1905, Luther 1912,
-		Menge 1939 und Schlachter 1951 sowie der World English Bible und der American Standard Version.
-		Diese Applikation bietet die Möglichkeit zum Lesen eines Kapitels oder zum Suchen eines Begriffs im Text der
-		Bibel.
-		Es besteht auch die Möglichkeit, Wörter in einem vom Benutzer bestimmten Bibelabschnitt zählen zu lassen.
-		Zudem können die hebräischen und griechischen Wortwurzeln des Urtextes mit Hilfe des erstellten Verzeichnisses von Strong zur Übersetzung von Luther 1912 betrachtet werden.
+		<h3>Willkommen</h3>
+		Jetzt noch eine Seite zur Bibel? Die Antwort: Ja! Diese Seite bietet die Möglichkeit, <b>Worte in der Bibel</b>
+		einfach <b>zählen</b> zu lassen. Dabei legt der Benutzer den Bibelabschnitt interaktiv fest und erhält alle
+		gezählten Worte in ihrer Häufigkeit absteigend sortiert. So lassen sich zum Beispiel die meisten Worte der
+		gesamten Bibel einer Bibelübersetzung oder eines kurzen Textes zur Vorbereitung ermitteln.
+		<h3 class="text">Lesen, Suchen und Strong</h3>
+		Es gibt die Übersetzungen von Elberfelder 1905, Luther 1912, Menge 1939 und Schlachter 1951 sowie die
+		World English Bible und die American Standard Version. In diesen kann man kapitelweise <b>lesen</b> und
+		Begriffe <b>suchen</b>. Die Suche ist benutzerfreundlich und schnell. Zudem können auch die hebräischen
+		und griechischen Wortwurzeln des Urtextes mit Hilfe des erstellten Verzeichnisses von <b>Strong</b> zur
+		Übersetzung von
+		Luther 1912 betrachtet werden.
 	</div>
 </body>
 
