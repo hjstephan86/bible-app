@@ -78,7 +78,7 @@
 	</script>
 	<div class="searchContent">
 		<span th:if="${search.search == null}"
-			th:utext="'Einfache umschließende Anführungszeichen (z.B. \'Kinder\') können für eine case sensitive Suche und dopplete umschließende Anführungszeichen (z.B. &quot;Kinder&quot;) können für ein exakte Suche verwendet werden. Besteht der Suchbegriff aus mehreren Worten, werden alle Worte als ein gesamter Suchbegriff verwendet.'"></span>
+			th:utext="'Einfache umschließende Anführungszeichen (z.B. \'Kinder\') können für eine case sensitive Suche und dopplete umschließende Anführungszeichen (z.B. &quot;Kinder&quot;) können für eine exakte Suche verwendet werden. Besteht der Suchbegriff aus mehreren Worten, werden alle Worte als ein gesamter Suchbegriff verwendet.'"></span>
 		<span th:if="${search.search != null}" th:utext="'Die Suche nach <b>' + ${search.search} + '</b>'"></span>
 		<span th:if="${search.section != null && search.section == 'Alle'}" th:text="'in allen Büchern '"></span>
 		<span th:if="${search.section != null && (search.section == 'AT' || search.section == 'NT')}"
