@@ -80,6 +80,16 @@ h2 {
 	margin-bottom: -5px;
 }
 
+h3 {
+	color: #355779;
+	margin-top: 114px;
+	margin-bottom: 5px;
+}
+
+h3.text {
+	margin-top: 1em;
+}
+
 h5 {
 	color: #fff;
 	font-weight: normal;
@@ -136,11 +146,11 @@ div.autocomplete {
 
 select {
 	font-family: 'Ubuntu';
-	border: 1px solid transparent;
+	border: 0;
 	background-color: #f1f1f1;
 	padding: 10px;
 	font-size: 16px;
-	width: 100px;
+	width: 95px;
 	border-radius: 5px;
 }
 
@@ -196,7 +206,7 @@ input[type=submit] {
 	background-color: DodgerBlue;
 	color: #fff;
 	cursor: pointer;
-	width: 100px;
+	width: 95px;
 }
 
 input[type=submit]:disabled {
@@ -211,7 +221,7 @@ input[type=submit]:disabled {
 
 div.submit {
 	padding-top: 10px;
-	padding-left: 309px;
+	padding-left: 302px;
 }
 
 div.search {
@@ -226,7 +236,7 @@ div.search {
 
 	div.submit {
 		padding-top: 10px;
-		padding-left: 263px;
+		padding-left: 257px;
 	}
 
 	div#concordanceWrapper {
