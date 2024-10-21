@@ -4,8 +4,7 @@
 <head>
 	<title>Bibel Web Applikation</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="topnav.css">
-	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="general.css">
 </head>
 
 <body onload="init()">
@@ -63,7 +62,8 @@
 						onchange="doSubmit()"></select>
 				</div>
 				<div class="navigation">
-					<span class="navigation disable" id="spanPrev" onclick="goToPrevChapter()"><<</span>
+					<span class="navigation disable" id="spanPrev" onclick="goToPrevChapter()">
+						<< </span>
 				</div>
 				<div class="navigation">
 					<span class="navigation disable" id="spanNext" onclick="goToNextChapter()">>></span>
@@ -84,7 +84,7 @@
 	</script>
 	<div class="readContent">
 		<span th:if="${verses.size() == 0}"
-			th:utext="'Zum Lesen eines Kapitels kann erst das Buch und dann das Kapitel gewählt werden.'"></span>
+			th:utext="'Zum Lesen eines Kapitels kann einfach das Buch eingegeben werden. Eine Liste mit passenden Büchern wird dann vorgeschlagen, aus der das Buch ausgewählt werden kann.'"></span>
 		<table>
 			<tr th:each="verse : ${verses}">
 				<td>
