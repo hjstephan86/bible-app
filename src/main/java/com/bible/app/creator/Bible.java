@@ -67,7 +67,11 @@ public abstract class Bible {
 
 	public boolean passageExists(Passage passage) {
 		return (bookMap.get(passage.getBook()) != null
-				&& bookMap.get(passage.getBook()).getChapter().get(passage.getChapter()) != null);
+				&& bookMap.get(passage.getBook()).getChapter().get(passage.getChapter()) != null
+				&& (passage.getVerse() > 0
+						? bookMap.get(passage.getBook()).getChapter().get(passage.getChapter()).getVerses()
+								.get(passage.getVerse()) != null
+						: true));
 	}
 
 	public boolean sectionIsValid(Section section) {

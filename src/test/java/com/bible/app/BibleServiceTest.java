@@ -1,6 +1,8 @@
 package com.bible.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.bible.app.model.Finding;
+import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
 import com.bible.app.model.SearchResult;
 import com.bible.app.model.Section;
@@ -19,7 +22,7 @@ import com.bible.app.service.BibleService;
 public class BibleServiceTest {
 
     @Autowired
-    private BibleService activeBibleService;
+    private BibleService defaultBibleService;
 
     @Test
     public void testSearchDefault() {
@@ -39,7 +42,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -69,7 +72,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -99,7 +102,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -129,7 +132,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -152,7 +155,7 @@ public class BibleServiceTest {
         searchString = Constants.SEARCH_MATCH_CASE_SYMBOL + "kinder" + Constants.SEARCH_MATCH_CASE_SYMBOL;
         search.setSearch(searchString);
 
-        searchResult = activeBibleService.search(search);
+        searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -183,7 +186,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -206,7 +209,7 @@ public class BibleServiceTest {
         searchString = Constants.SEARCH_MATCH_EXACT_SYMBOL + "Und" + Constants.SEARCH_MATCH_EXACT_SYMBOL;
         search.setSearch(searchString);
 
-        searchResult = activeBibleService.search(search);
+        searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -236,7 +239,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -260,7 +263,7 @@ public class BibleServiceTest {
                 + Constants.SEARCH_MATCH_CASE_SYMBOL + Constants.SEARCH_MATCH_EXACT_SYMBOL;
         search.setSearch(searchString);
 
-        searchResult = activeBibleService.search(search);
+        searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -284,7 +287,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -303,7 +306,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -317,7 +320,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        searchResult = activeBibleService.search(search);
+        searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -328,7 +331,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        searchResult = activeBibleService.search(search);
+        searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -346,7 +349,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -370,7 +373,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -400,7 +403,7 @@ public class BibleServiceTest {
         search.setSearch(searchString);
         search.setSection(sectionString);
 
-        SearchResult searchResult = activeBibleService.search(search);
+        SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
@@ -428,7 +431,7 @@ public class BibleServiceTest {
         section.setChapterTo(22);
         section.setVerseTo(21);
 
-        List<Word> wordList = activeBibleService.countWords(section);
+        List<Word> wordList = defaultBibleService.countWords(section);
 
         assertEquals(expectedWordSize, wordList.size());
 
@@ -447,16 +450,32 @@ public class BibleServiceTest {
         section.setBookTo("1. Mose");
         section.setChapterTo(2);
         section.setVerseTo(2);
-        assertEquals(activeBibleService.sectionIsValid(section), true);
+        assertEquals(defaultBibleService.sectionIsValid(section), true);
 
         section.setChapterTo(1);
         section.setVerseTo(1);
-        assertEquals(activeBibleService.sectionIsValid(section), true);
+        assertEquals(defaultBibleService.sectionIsValid(section), true);
 
         section.setVerseFrom(2);
-        assertEquals(activeBibleService.sectionIsValid(section), false);
+        assertEquals(defaultBibleService.sectionIsValid(section), false);
 
         section.setBookFrom("2. Mose");
-        assertEquals(activeBibleService.sectionIsValid(section), false);
+        assertEquals(defaultBibleService.sectionIsValid(section), false);
+    }
+
+    @Test
+    public void testPassageExists() {
+        String book = "1. Mose";
+        int chapter = 1;
+        int verse = 1;
+
+        Passage passage = new Passage(book, chapter);
+        assertTrue(defaultBibleService.passageExists(passage));
+
+        passage = new Passage(book, chapter, verse);
+        assertTrue(defaultBibleService.passageExists(passage));
+
+        passage = new Passage(book, chapter, 100);
+        assertFalse(defaultBibleService.passageExists(passage));
     }
 }

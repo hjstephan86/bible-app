@@ -69,6 +69,58 @@ public class BibleController {
 		return "about";
 	}
 
+	@GetMapping("/readBy")
+	public String readBy(Model model, @RequestParam String book, @RequestParam int chapter, @RequestParam int verse) {
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsList());
+
+		Passage passage = new Passage();
+		ArrayList<Verse> verses = new ArrayList<>();
+		if (book != null && chapter > 0) {
+			passage.setBook(book);
+			passage.setChapter(chapter);
+			passage.setVerse(verse);
+			if (defaultBibleService.passageExists(passage)) {
+				verses = defaultBibleService.getVerses(passage);
+			} else {
+				passage = new Passage();
+			}
+		}
+		model.addAttribute("passage", passage);
+		model.addAttribute("verses", verses);
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
+		return "read";
+	}
+
+	@GetMapping("/readStrBy")
+	public String readStrBy(Model model, @RequestParam String book, @RequestParam int chapter,
+			@RequestParam int verse) {
+		model.addAttribute("books", defaultBibleService.getBooksAsListFromLuther1912Strong());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsListFromLuther1912Strong());
+
+		Passage passage = new Passage();
+		ArrayList<Verse> verses = new ArrayList<>();
+		Object concordance = new LinkedHashMap<String, Item>();
+		if (book != null && chapter > 0) {
+			passage.setBook(book);
+			passage.setChapter(chapter);
+			passage.setVerse(verse);
+			if (defaultBibleService.passageExists(passage)) {
+				verses = defaultBibleService.getVersesFromLuther1912Strong(passage);
+				concordance = defaultBibleService.getConcordance();
+			} else {
+				passage = new Passage();
+			}
+		}
+		model.addAttribute("passage", passage);
+		model.addAttribute("verses", verses);
+		model.addAttribute("concordance", concordance);
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
+		return "strong";
+	}
+
 	@GetMapping("/read")
 	public String read(Model model) {
 		model.addAttribute("bible", defaultBibleService.getActiveBible());
@@ -91,11 +143,12 @@ public class BibleController {
 		if (passage.getBook() != null && defaultBibleService.passageExists(passage)) {
 			model.addAttribute("passage", passage);
 			model.addAttribute("verses", defaultBibleService.getVerses(passage));
+			LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + passage);
 		} else {
 			model.addAttribute("passage", new Passage());
 			model.addAttribute("verses", new ArrayList<Verse>());
+			LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with no valid passage");
 		}
-		LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + passage);
 		return "read";
 	}
 
@@ -121,11 +174,12 @@ public class BibleController {
 						|| defaultBibleService.getActiveBible().getBookMap().containsKey(search.getSection()))) {
 			model.addAttribute("search", search);
 			model.addAttribute("searchResult", defaultBibleService.search(search));
+			LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + search);
 		} else {
 			model.addAttribute("search", new Search());
 			model.addAttribute("searchResult", new SearchResult());
+			LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with no valid search");
 		}
-		LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + search);
 		return "search";
 	}
 
@@ -154,11 +208,12 @@ public class BibleController {
 				&& defaultBibleService.sectionIsValid(section)) {
 			model.addAttribute("section", section);
 			model.addAttribute("words", defaultBibleService.countWords(section));
+			LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + section);
 		} else {
 			model.addAttribute("section", new Section());
 			model.addAttribute("words", new ArrayList<Word>());
+			LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with no valid section");
 		}
-		LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + section);
 		return "count";
 	}
 

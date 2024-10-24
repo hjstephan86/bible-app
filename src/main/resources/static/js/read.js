@@ -15,11 +15,13 @@ function init() {
 	if (inputBibleName != null) {
 		inputBibleName.value = bibleName;
 	}
-	// Go to a specific verse, if possible, e.g., Klagelieder 3, 8, Gebet >> 1. Könige 8, 29
-	var inputVerse = document.getElementById('inputVerse');
-	if (inputVerse != null && inputVerse.value > 0) {
+	// Go to a specific verse, if possible, e.g., from Klagelieder 3, 8, "Gebet" to 1. Könige 8, 29
+	const urlParams = new URLSearchParams(window.location.search);
+	const verse = parseInt(urlParams.get('verse'));
+	if (verse != null && verse > 0) {
+		// For simplicity just check the lower bound here
 		var rectFirstElement = document.getElementById('1').getBoundingClientRect();
-		var rectScrollTo = document.getElementById(inputVerse.value).getBoundingClientRect();
+		var rectScrollTo = document.getElementById(verse).getBoundingClientRect();
 		window.scrollBy(0, (rectScrollTo.top - rectFirstElement.top));
 	}
 }
@@ -220,7 +222,13 @@ function showConcordanceEntry(id, a) {
 		html += "<td style=\"vertical-align: top;\">" + descrTitles[0] + "</td>";
 		html += "<td>";
 		for (var j = 0; j < item.description[i].reflinks.length; j++) {
-			html += "<a href=\"#\" onclick=\"goToPassage('" + item.description[i].reflinks[j] + "')\">" + getPassage(item.description[i].reflinks[j]) + "</a>";
+
+			const reflinks = item.description[i].reflinks[j].split(';');
+			var book = books[reflinks[0] - 1];
+			var chapter = reflinks[1];
+			var verse = reflinks[2];
+
+			html += "<a href=\"/readStrBy?book=" + book + "&chapter=" + chapter + "&verse=" + verse + "\">" + getPassage(item.description[i].reflinks[j]) + "</a>";
 			if (j < item.description[i].reflinks.length - 1) {
 				html += "; ";
 			}
@@ -269,23 +277,4 @@ function hideConcordanceEntry() {
 	var overlay = document.getElementById("overlay");
 	overlay.style.zIndex = "3";
 	overlay.style.display = "none";
-}
-
-function goToPassage(reflink) {
-	const reflinks = reflink.split(';');
-	var book = books[reflinks[0] - 1];
-	var chapter = reflinks[1];
-	var verse = reflinks[2];
-
-	var inputBook = document.getElementById('inputBook');
-	var selectChapter = document.getElementById('selectChapter');
-	var inputVerse = document.getElementById('inputVerse');
-
-	inputBook.value = book;
-	// Populate chapters before setting the chapter to a valid value
-	populateChapters(inputBook.value);
-	selectChapter.value = chapter;
-	inputVerse.value = verse;
-
-	document.getElementById('readForm').submit();
 }
