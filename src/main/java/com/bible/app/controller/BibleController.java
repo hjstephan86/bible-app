@@ -69,6 +69,58 @@ public class BibleController {
 		return "about";
 	}
 
+	@GetMapping("/readBy")
+	public String readBy(Model model, @RequestParam String book, @RequestParam int chapter, @RequestParam int verse) {
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsList());
+
+		Passage passage = new Passage();
+		ArrayList<Verse> verses = new ArrayList<>();
+		if (book != null && chapter > 0) {
+			passage.setBook(book);
+			passage.setChapter(chapter);
+			passage.setVerse(verse);
+			if (defaultBibleService.passageExists(passage)) {
+				verses = defaultBibleService.getVerses(passage);
+			} else {
+				passage = new Passage();
+			}
+		}
+		model.addAttribute("passage", passage);
+		model.addAttribute("verses", verses);
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
+		return "read";
+	}
+
+	@GetMapping("/readStrBy")
+	public String readStrBy(Model model, @RequestParam String book, @RequestParam int chapter,
+			@RequestParam int verse) {
+		model.addAttribute("books", defaultBibleService.getBooksAsListFromLuther1912Strong());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsListFromLuther1912Strong());
+
+		Passage passage = new Passage();
+		ArrayList<Verse> verses = new ArrayList<>();
+		Object concordance = new LinkedHashMap<String, Item>();
+		if (book != null && chapter > 0) {
+			passage.setBook(book);
+			passage.setChapter(chapter);
+			passage.setVerse(verse);
+			if (defaultBibleService.passageExists(passage)) {
+				verses = defaultBibleService.getVersesFromLuther1912Strong(passage);
+				concordance = defaultBibleService.getConcordance();
+			} else {
+				passage = new Passage();
+			}
+		}
+		model.addAttribute("passage", passage);
+		model.addAttribute("verses", verses);
+		model.addAttribute("concordance", concordance);
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
+		return "strong";
+	}
+
 	@GetMapping("/read")
 	public String read(Model model) {
 		model.addAttribute("bible", defaultBibleService.getActiveBible());

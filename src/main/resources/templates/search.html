@@ -103,7 +103,7 @@
 			<tr th:each="finding : ${searchResult.findings}">
 				<td>
 					<span th:if="${finding != null}"
-						th:text="${finding.passage.book} + ' ' + ${finding.passage.chapter} + ', ' + ${finding.passage.verse}"
+						th:utext="'<a href=&quot;/readBy?book=' + ${finding.passage.book} + '&chapter=' + ${finding.passage.chapter} + '&verse=' + ${finding.passage.verse} + '&quot;>' + ${finding.passage.book} + ' ' + ${finding.passage.chapter} + ', ' + ${finding.passage.verse} + '</a>'"
 						class="verse"></span>
 					<span th:if="${finding != null}" th:utext="${finding.verseText}"></span>
 				</td>

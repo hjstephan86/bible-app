@@ -88,7 +88,7 @@
 		<table>
 			<tr th:each="verse : ${verses}">
 				<td>
-					<span class="verse" th:text="${verse.number}"></span>
+					<span class="verse" th:id="${verse.number}" th:text="${verse.number}"></span>
 					<span class="verseText" th:text="${verse.text}"></span>
 				</td>
 			</tr>
