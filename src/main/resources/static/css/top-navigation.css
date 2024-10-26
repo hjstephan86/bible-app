@@ -2,7 +2,7 @@
 
 .topnav {
 	overflow: hidden;
-	background-color: #2c2c2c;
+	background-color: var(--ubuntu-brown);
 	position: sticky;
 }
 
@@ -18,12 +18,13 @@
 
 .topnav .active {
 	background-color: #f4f4f4;
-	color: #2c2c2c;
+	color: var(--ubuntu-brown);
 }
 
 .topnav .icon {
 	display: none;
 	font-size: 17px;
+	background-color: transparent;
 }
 
 .dropdown {
@@ -62,8 +63,8 @@
 
 .topnav a:hover,
 .dropdown:hover .dropbtn {
-	background-color: #2c2c2c;
-	color: rgb(225, 145, 0);
+	background-color: var(--ubuntu-brown);
+	color: var(--ubuntu-orange);
 }
 
 .dropdown-content a:hover {
@@ -75,7 +76,7 @@
 	display: block;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
 
 	.topnav a:not(:first-child),
 	.dropdown .dropbtn {
@@ -85,10 +86,11 @@
 	.topnav a.icon {
 		float: right;
 		display: block;
+		background-color: transparent;
 	}
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
 	.topnav.responsive {
 		position: relative;
 	}

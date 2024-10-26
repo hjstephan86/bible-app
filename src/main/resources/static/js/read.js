@@ -211,7 +211,7 @@ function showConcordanceEntry(id, a) {
 	var divConcordanceContent = document.getElementById("concordanceContent");
 
 	var html = "";
-	html += "<b><span style=\"color:#2c2c2c;\">" + a.innerHTML + "</span> " + item.title + " </b><span>" + item.id + "</span><br><br>";
+	html += "<b><span style=\"color:var(--ubuntu-brown);\">" + a.innerHTML + "</span> " + item.title + " </b><span>" + item.id + "</span><br><br>";
 	html += item.paragraph + "<br><br>";
 	html += "<table>";
 	html += "<tr><th style=\"text-align: center;\">#</th><th style=\"text-align: left;\">Übersetzt</th><th style=\"text-align: left;\">Parallelstellen</th></tr>";

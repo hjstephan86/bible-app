@@ -1,5 +1,7 @@
 @charset "UTF-8";
+
 @import url('top-navigation.css');
+@import url('div.css');
 
 @font-face {
 	font-family: 'Ubuntu';
@@ -8,68 +10,27 @@
 		url('../fonts/Ubuntu/Ubuntu-Regular.ttf') format('truetype');
 }
 
+:root {
+	--ubuntu-orange: #e95420;
+	--ubuntu-brown: #2e2018;
+}
+
 * {
 	box-sizing: border-box;
 }
 
+*:focus {
+	outline: none;
+}
+
 body {
-	margin: 0;
 	font: 16px 'Ubuntu';
-}
-
-div#overlay {
-	position: fixed;
-	display: none;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.6);
-	z-index: 3;
-}
-
-div#concordanceWrapper {
-	display: none;
-	color: #888;
-	position: fixed;
-	background-color: #fff;
-	top: 200;
-	left: 50%;
-	width: 500px;
-	transform: translate(-50%, 0%);
-	border: 1px solid #ddd;
-	z-index: 2;
-}
-
-div#concordanceContent {
-	display: none;
-	padding: 10px 5px;
-	background-color: #fff;
-	overflow-y: scroll;
-	height: 100%;
-}
-
-div#concordanceClose {
-	display: none;
-	position: fixed;
-	top: 0;
-	right: 0;
-	padding: 2px 10px;
-	cursor: pointer;
-	font-size: 24px;
-	font-weight: bold;
-	color: #ddd;
-}
-
-div#concordanceClose:hover {
-	color: #c82c1c;
+	margin: 0;
 }
 
 a {
 	text-decoration: none;
-	color: rgb(225, 145, 0);
+	color: var(--ubuntu-orange);
 }
 
 a:hover {
@@ -94,59 +55,32 @@ h3.text {
 }
 
 h5 {
-	color: #fff;
+	color: var(--ubuntu-orange);
+	font-size: 14px;
 	font-weight: normal;
 	display: inline;
-	font-size: 14px;
 }
 
 h5#strong {
-	color: #fff;
-	font-weight: normal;
+	color: var(--ubuntu-orange);
 	font-size: 14px;
+	font-weight: normal;
 	display: block;
-	margin: 0px;
 	padding-top: 12px;
 	padding-bottom: 10px;
-}
-
-div.header {
-	position: fixed;
-	left: 0px;
-	right: 0px;
-	top: 0px;
-	z-index: 4;
-}
-
-div.headline {
-	margin-top: -20px;
-	padding-top: 10px;
-	padding-left: 10px;
-	background: #2c2c2c;
+	margin: 0px;
 }
 
 select#selectBibleName {
 	font-family: 'Ubuntu';
 	border: 0px;
-	background-color: #2c2c2c;
-	color: white;
+	background-color: var(--ubuntu-brown);
+	color: var(--ubuntu-orange);
 	/* Support FF and Chrome */
 	margin-left: 0px;
 	padding: 10px 0px;
 	font-size: 14px;
 	width: 130px;
-}
-
-div.form {
-	padding: 10px;
-	background: #f4f4f4;
-	border-bottom: 1px solid #ddd;
-}
-
-div.autocomplete {
-	position: relative;
-	display: inline-block;
-	width: 200px;
 }
 
 select {
@@ -206,7 +140,7 @@ input[type=text] {
 }
 
 input[type=submit] {
-	background-color: #2c2c2c;
+	background-color: var(--ubuntu-brown);
 	color: #fff;
 	cursor: pointer;
 	width: 95px;
@@ -218,20 +152,77 @@ input[type=submit]:disabled {
 	cursor: pointer;
 }
 
-*:focus {
-	outline: none;
+span.navigation {
+	background-color: var(--ubuntu-brown);
+	border: 1px solid #ddd;
+	color: #fff;
+	padding: 10.5px;
+	cursor: pointer;
+	border-radius: 5px;
 }
 
-div.submit {
-	padding-top: 10px;
-	padding-left: 302px;
+span.navigation.disable {
+	background-color: darkgray;
+	cursor: default;
 }
 
-div.search {
+table {
+	border-collapse: collapse;
+}
+
+span.verse {
+	color: var(--ubuntu-orange);
+	font-weight: bold;
+	text-align: right;
+}
+
+span.verseText {
+	color: #333;
+}
+
+th.count {
+	text-align: center;
+	padding: 0 10px;
+}
+
+td.count {
+	text-align: center;
+	padding: 2px 5px;
+}
+
+th.ignore {
+	text-align: center;
+	padding: 0 10px;
+}
+
+td.ignore {
+	text-align: center;
+	padding: 2px 5px;
+}
+
+table.ignoreTable {
+	color: #777;
+}
+
+span.wordsResultButton {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	padding: 10px;
+	background: var(--ubuntu-brown);
 	display: inline-block;
+	color: #fff;
+	cursor: pointer;
+	width: 80px;
+	text-align: center;
 }
 
-@media screen and (max-width: 600px) {
+span.wordsResultButton.disable {
+	background-color: darkgray;
+	cursor: default;
+}
+
+@media screen and (max-width: 768px) {
 	div.autocomplete {
 		width: 150px;
 		display: inline-block;
@@ -246,7 +237,7 @@ div.search {
 	}
 
 	div.submit {
-		padding-top: 10px;
+		padding-top: 5px;
 		padding-left: 252px;
 	}
 
@@ -257,122 +248,4 @@ div.search {
 	div#concordanceWrapper {
 		width: 330px;
 	}
-}
-
-div.select {
-	display: inline-block;
-}
-
-div.navigation {
-	font-family: Arial;
-	display: inline-block;
-}
-
-span.navigation {
-	background-color: #2c2c2c;
-	color: #fff;
-	padding: 11.5px;
-	cursor: pointer;
-	border-radius: 5px;
-}
-
-span.navigation.disable {
-	background-color: darkgray;
-	cursor: default;
-}
-
-div.passageFrom {
-	padding-top: 0px;
-}
-
-div.passageTo {
-	padding-top: 10px;
-}
-
-div.content {
-	margin-top: 104px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;
-	text-align: justify;
-}
-
-div.readContent {
-	margin-top: 185px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;
-	text-align: justify;
-}
-
-div.searchContent {
-	margin-top: 185px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;
-	text-align: justify;
-}
-
-div.countContent {
-	margin-top: 285px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;
-	text-align: justify;
-}
-
-table {
-	border-collapse: collapse;
-}
-
-span.verse {
-	color: #000;
-	font-weight: bold;
-	text-align: right;
-}
-
-span.verseText {
-	color: #333;
-}
-
-th.count {
-	text-align: center;
-	padding: 0 10px 0 0;
-}
-
-td.count {
-	text-align: center;
-	padding: 0 10px 0 0;
-}
-
-th.ignore {
-	text-align: center;
-	padding: 0 10px 0 0;
-}
-
-td.ignore {
-	text-align: center;
-	padding: 0 10px 0 0;
-}
-
-table.ignoreTable {
-	color: #777;
-}
-
-span.wordsResultButton {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	border-radius: 5px;
-	padding: 10px;
-	background: #2c2c2c;
-	display: inline-block;
-	color: #fff;
-	cursor: pointer;
-	width: 80px;
-	text-align: center;
-}
-
-span.wordsResultButton.disable {
-	background-color: darkgray;
-	cursor: default;
 }

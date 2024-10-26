@@ -1,0 +1,134 @@
+div#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 3;
+}
+
+div.header {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    z-index: 4;
+}
+
+div.headline {
+    margin-top: -20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    background: var(--ubuntu-brown);
+}
+
+div.form {
+    padding: 5px 10px;
+    background: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+}
+
+div.autocomplete {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+}
+
+div.submit {
+    padding-top: 5px;
+    padding-left: 302px;
+}
+
+div.search {
+    display: inline-block;
+}
+
+div.select {
+    display: inline-block;
+}
+
+div.navigation {
+    font-family: Arial;
+    display: inline-block;
+}
+
+div.passageFrom {
+    padding-top: 0px;
+}
+
+div.passageTo {
+    padding-top: 5px;
+}
+
+div.content {
+    margin-top: 104px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    text-align: justify;
+}
+
+div.readContent {
+    margin-top: 175px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    text-align: justify;
+}
+
+div.searchContent {
+    margin-top: 175px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    text-align: justify;
+}
+
+div.countContent {
+    margin-top: 265px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    text-align: justify;
+}
+
+div#concordanceWrapper {
+    display: none;
+    color: #888;
+    position: fixed;
+    background-color: #fff;
+    top: 200;
+    left: 50%;
+    width: 500px;
+    transform: translate(-50%, 0%);
+    border: 1px solid #ddd;
+    z-index: 2;
+}
+
+div#concordanceContent {
+    display: none;
+    padding: 10px 5px;
+    background-color: #fff;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+div#concordanceClose {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 2px 10px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ddd;
+}
+
+div#concordanceClose:hover {
+    color: #c82c1c;
+}
