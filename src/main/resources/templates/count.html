@@ -32,11 +32,13 @@
 
 		<div class="headline">
 			<h2>Worte der Bibel zählen</h2>
-			<h5>Nach der Übersetzung von</h5>
-			<form th:action="@{/count}" method="POST" style="display: inline;" id="bibleNameForm">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
-					onchange="setBibleName()"></select>
-			</form>
+			<div class="translation">
+				<h5>Nach der Übersetzung von</h5>
+				<form th:action="@{/count}" method="POST" style="display: inline;" id="bibleNameForm">
+					<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+						onchange="doSubmit()"></select>
+				</form>
+			</div>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
 				var bibles = /*[[${bibles}]]*/ "";
@@ -77,9 +79,9 @@
 						<select id="selectVerseTo" type="text" name="verseTo" th:field="*{verseTo}"
 							onchange="checkSubmit()"></select>
 					</div>
-				</div>
-				<div class="submit">
-					<input type="submit" id="submitCount" value="Zählen" onclick="doSubmit()" disabled="true">
+					<div class="submit">
+						<input type="submit" id="submitCount" value="Zähle" onclick="doSubmit()" disabled="true">
+					</div>
 				</div>
 				<input type="hidden" th:value="${bibleName}" name="bibleName" id="inputBibleName">
 			</form>

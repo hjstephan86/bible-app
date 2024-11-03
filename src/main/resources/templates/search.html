@@ -32,11 +32,13 @@
 
 		<div class="headline">
 			<h2>Die Bibel durchsuchen</h2>
-			<h5>Nach der Übersetzung von</h5>
-			<form th:action="@{/search}" method="POST" style="display: inline;" id="bibleNameForm">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
-					onchange="setBibleName()"></select>
-			</form>
+			<div class="translation">
+				<h5>Nach der Übersetzung von</h5>
+				<form th:action="@{/search}" method="POST" style="display: inline;" id="bibleNameForm">
+					<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+						onchange="doSubmit()"></select>
+				</form>
+			</div>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
 				var bibles = /*[[${bibles}]]*/ "";
@@ -57,11 +59,11 @@
 				</div>
 				<div class="select">
 					<select class="search" id="selectSearch" type="text" name="section" th:field="*{section}"
-						disabled="true" onchange="setSubmitSearch()">
+						disabled="true">
 					</select>
 				</div>
 				<div class="search">
-					<input type="submit" id="submitSearch" value="Suchen" disabled="true">
+					<input type="submit" id="submitSearch" value="Suche" disabled="true">
 				</div>
 				<input type="hidden" th:value="${bibleName}" name="bibleName" id="inputBibleName">
 			</form>

@@ -32,11 +32,13 @@
 		<script type="text/javascript" charset="utf-8" src="js/top-navigation.js"></script>
 		<div class="headline">
 			<h2>Die Bibel</h2>
-			<h5>Nach der Übersetzung von</h5>
-			<form th:action="@{/home}" method="POST" style="display: inline;">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
-					onchange="this.form.submit()"></select>
-			</form>
+			<div class="translation">
+				<h5>Nach der Übersetzung von</h5>
+				<form th:action="@{/home}" method="POST" style="display: inline;">
+					<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+						onchange="this.form.submit()"></select>
+				</form>
+			</div>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
 				var bibles = /*[[${bibles}]]*/ "";
@@ -53,7 +55,8 @@
 	<br>
 	<div class="content">
 		<h3>Willkommen</h3>
-		Jetzt noch eine Seite zur Bibel? Die Antwort: Ja! Diese Seite bietet die Möglichkeit, <b>Worte in der Bibel</b>
+		Jetzt noch eine Seite zur Bibel? Die Antwort: Ja! Diese Seite bietet die Möglichkeit, <b>Worte in der
+			Bibel</b>
 		einfach <b>zählen</b> zu lassen. Dabei legt der Benutzer den Bibelabschnitt interaktiv fest und erhält alle
 		gezählten Worte in ihrer Häufigkeit absteigend sortiert. So lassen sich zum Beispiel die meisten Worte der
 		gesamten Bibel einer Bibelübersetzung oder eines kurzen Textes zur Vorbereitung ermitteln.

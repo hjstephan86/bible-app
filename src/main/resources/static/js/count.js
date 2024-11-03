@@ -6,10 +6,7 @@ function init() {
 
 	if (inputBookFrom.value == '') {
 		selectChapterFrom.disabled = true;
-		selectChapterFrom.options.add(new Option("Kapitel"));
-
 		selectVerseFrom.disabled = true;
-		selectVerseFrom.options.add(new Option("Vers"));
 	} else {
 		populateChapters(inputBookFrom.value, inputBookFrom.name);
 		selectChapterFrom.value = chapterFrom;
@@ -23,14 +20,11 @@ function init() {
 
 	if (inputBookTo.value == '') {
 		selectChapterTo.disabled = true;
-		selectChapterTo.options.add(new Option("Kapitel"));
-
 		selectVerseTo.disabled = true;
-		selectVerseTo.options.add(new Option("Vers"));
 	} else {
 		populateChapters(inputBookTo.value, inputBookTo.name);
 		selectChapterTo.value = chapterTo;
-		populateVersesTo();
+		populateVersesTo()
 		selectVerseTo.value = verseTo;
 	}
 	// Initialize the submit button
@@ -41,15 +35,6 @@ function init() {
 	checkResultSize();
 	// Set the bible name
 	document.getElementById('inputBibleName').value = bibleName;
-}
-
-function setBibleName() {
-	if (!document.getElementById('submitCount').disabled) {
-		document.getElementById('inputBibleName').value = document.getElementById('selectBibleName').value;
-		document.getElementById('countForm').submit();
-	} else {
-		document.getElementById('bibleNameForm').submit();
-	}
 }
 
 var countWords = [];
@@ -218,7 +203,6 @@ function populateVersesFrom() {
 
 	selectVerseFrom.disabled = false;
 	selectVerseFrom.options.length = 0;
-	selectVerseFrom.options.add(new Option("Vers"));
 
 	var bookValue = inputBookFrom.value;
 	var chapterValue = selectChapterFrom.value;
@@ -237,7 +221,6 @@ function populateVersesTo() {
 
 	selectVerseTo.disabled = false;
 	selectVerseTo.options.length = 0;
-	selectVerseTo.options.add(new Option("Vers"));
 
 	var bookValue = inputBookTo.value;
 	var chapterValue = selectChapterTo.value;
@@ -255,7 +238,6 @@ function populateChapters(bookValue, inputName) {
 		if (selectChapterFrom != null) {
 			selectChapterFrom.disabled = false;
 			selectChapterFrom.options.length = 0;
-			selectChapterFrom.options.add(new Option("Kapitel"));
 
 			var numOfChapter = chapters[books.indexOf(bookValue)];
 			for (var c = 1; c <= numOfChapter; c++) {
@@ -265,10 +247,9 @@ function populateChapters(bookValue, inputName) {
 			// In case the chapters are populated again, disable the verse selection in case a verse was selected.
 			// If the user selected a chapter, the verse selection will be activated again and verses populated.
 			var selectVerseFrom = document.getElementById('selectVerseFrom');
-			if (selectVerseFrom != null && selectVerseFrom.value != 'Verse') {
+			if (selectVerseFrom != null && selectVerseFrom.value != ' ') {
 				selectVerseFrom.disabled = true;
 				selectVerseFrom.options.length = 0;
-				selectVerseFrom.options.add(new Option("Vers"));
 			}
 		}
 	} else if (inputName.endsWith('To')) {
@@ -276,7 +257,6 @@ function populateChapters(bookValue, inputName) {
 		if (selectChapterTo != null) {
 			selectChapterTo.disabled = false;
 			selectChapterTo.options.length = 0;
-			selectChapterTo.options.add(new Option("Kapitel"));
 
 			var numOfChapter = chapters[books.indexOf(bookValue)];
 			for (var c = 1; c <= numOfChapter; c++) {
@@ -286,10 +266,9 @@ function populateChapters(bookValue, inputName) {
 			// In case the chapters are populated again, disable the verse selection in case a verse was selected.
 			// If the user selected a chapter, the verse selection will be activated again and verses populated.
 			var selectVerseTo = document.getElementById('selectVerseTo');
-			if (selectVerseTo != null && selectVerseTo.value != 'Verse') {
+			if (selectVerseTo != null && selectVerseTo.value != "") {
 				selectVerseTo.disabled = true;
 				selectVerseTo.options.length = 0;
-				selectVerseTo.options.add(new Option("Vers"));
 			}
 		}
 	} else { }
@@ -336,6 +315,11 @@ function autocomplete(input, possibleValues) {
 					/*insert the value for the autocomplete text field:*/
 					input.value = this.getElementsByTagName("input")[0].value;
 					populateChapters(input.value, input.name);
+					if (input.name.endsWith('From')) {
+						populateVersesFrom();
+					} else if (input.name.endsWith('To')) {
+						populateVersesTo();
+					}
 					/*close the list of autocompleted values,
 					(or any other open lists of autocompleted values:*/
 					closeAllLists();
@@ -410,8 +394,8 @@ function checkSubmit() {
 	var selectChapterTo = document.getElementById('selectChapterTo');
 	var selectVerseTo = document.getElementById('selectVerseTo');
 
-	if (inputBookFrom.value != '' && selectChapterFrom.value != 'Kapitel' && selectVerseFrom.value != 'Vers' &&
-		inputBookTo.value != '' && selectChapterTo.value != 'Kapitel' && selectVerseTo.value != 'Vers'
+	if (inputBookFrom.value != '' && selectChapterFrom.value != '' && selectVerseFrom.value != '' &&
+		inputBookTo.value != '' && selectChapterTo.value != '' && selectVerseTo.value != ''
 		&&
 		(
 			(books.indexOf(inputBookFrom.value) == books.indexOf(inputBookTo.value) && selectChapterFrom.value == selectChapterTo.value && selectVerseFrom.value <= selectVerseTo.value)
@@ -426,11 +410,6 @@ function checkSubmit() {
 }
 
 function doSubmit() {
-	var selectVerseFrom = document.getElementById('selectVerseFrom');
-	var selectVerseTo = document.getElementById('selectVerseTo');
-
-	if (/*selectChapterFrom.value != 'Kapitel' && selectChapterTo.value != 'Kapitel' &&*/
-		selectVerseFrom.value != 'Vers' && selectVerseTo.value != 'Vers') {
-		document.getElementById('countForm').submit();
-	}
+	document.getElementById('inputBibleName').value = document.getElementById('selectBibleName').value;
+	document.getElementById('countForm').submit();
 }

@@ -32,11 +32,13 @@
 		<script type="text/javascript" charset="utf-8" src="js/top-navigation.js"></script>
 		<div class="headline">
 			<h2>Die Bibel</h2>
-			<h5>Nach der Übersetzung von</h5>
-			<form th:action="@{/about}" method="POST" style="display: inline;">
-				<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
-					onchange="this.form.submit()"></select>
-			</form>
+			<div class="translation">
+				<h5>Nach der Übersetzung von</h5>
+				<form th:action="@{/about}" method="POST" style="display: inline;">
+					<select id="selectBibleName" type="text" th:value="${bibleName}" name="bibleName"
+						onchange="this.form.submit()"></select>
+				</form>
+			</div>
 			<script th:inline="javascript">
 				/*<![CDATA[*/
 				var bibles = /*[[${bibles}]]*/ "";

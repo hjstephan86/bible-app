@@ -1,251 +1,211 @@
 @charset "UTF-8";
 
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
 @import url('top-navigation.css');
 @import url('div.css');
 
-@font-face {
-	font-family: 'Ubuntu';
-	src: url('../fonts/Ubuntu/Ubuntu-Regular-Webfont.woff2') format('woff2'),
-		url('../fonts/Ubuntu/Ubuntu-Regular-Webfont.woff') format('woff'),
-		url('../fonts/Ubuntu/Ubuntu-Regular.ttf') format('truetype');
-}
-
 :root {
-	--ubuntu-orange: #e95420;
 	--ubuntu-brown: #2e2018;
+	--ubuntu-orange: #e95420
 }
 
 * {
-	box-sizing: border-box;
+	box-sizing: border-box
 }
 
 *:focus {
-	outline: none;
+	outline: none
 }
 
 body {
 	font: 16px 'Ubuntu';
-	margin: 0;
+	margin: 0
 }
 
 a {
-	text-decoration: none;
 	color: var(--ubuntu-orange);
+	text-decoration: none
 }
 
 a:hover {
-	color: #000;
+	color: #000
 }
 
 h2 {
 	color: #fff;
 	font-weight: normal;
-	margin-bottom: -5px;
+	margin-bottom: 10px
 }
 
 h3 {
-	color: #000;
+	color: #444;
 	font-weight: bold;
-	margin-top: 114px;
 	margin-bottom: 5px;
+	margin-top: 128px
 }
 
 h3.text {
-	margin-top: 1em;
+	margin-top: 1em
 }
 
 h5 {
 	color: var(--ubuntu-orange);
-	font-size: 14px;
-	font-weight: normal;
 	display: inline;
-}
-
-h5#strong {
-	color: var(--ubuntu-orange);
 	font-size: 14px;
 	font-weight: normal;
-	display: block;
-	padding-top: 12px;
-	padding-bottom: 10px;
-	margin: 0px;
-}
-
-select#selectBibleName {
-	font-family: 'Ubuntu';
-	border: 0px;
-	background-color: var(--ubuntu-brown);
-	color: var(--ubuntu-orange);
-	/* Support FF and Chrome */
-	margin-left: 0px;
-	padding: 10px 0px;
-	font-size: 14px;
-	width: 130px;
+	padding: 10px 0px
 }
 
 select {
-	font-family: 'Ubuntu';
+	background-color: #fff;
+	border-radius: 5px;
 	border: 1px solid #ddd;
-	background-color: #fff;
-	padding: 9px;
-	font-size: 16px;
-	width: 95px;
-	border-radius: 5px;
+	box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.2);
+	color: #444;
+	font-family: 'Ubuntu';
+	font-size: 14px;
+	padding: 14px 10px;
+	width: 105px
 }
 
-.autocomplete-items {
-	position: absolute;
-	border-bottom: none;
-	border-top: none;
-	z-index: 99;
-	/* Position the autocomplete items to be the same width as the container */
-	top: 100%;
-	left: 0;
-	right: 0;
-}
-
-.autocomplete-items div {
-	padding: 10px;
-	cursor: pointer;
-	background-color: #fff;
-	border-left: 1px solid #d4d4d4;
-	border-right: 1px solid #d4d4d4;
-	border-bottom: 1px solid #d4d4d4;
-	border-radius: 5px;
-}
-
-/* When hovering an item */
-.autocomplete-items div:hover {
-	background-color: #e9e9e9;
-}
-
-/* When navigating through the items using the arrow keys */
-.autocomplete-active {
-	background-color: #f4f4f4 !important;
+select#selectBibleName {
+	background-color: var(--ubuntu-brown);
+	border: 0px;
+	box-shadow: none;
+	color: var(--ubuntu-orange);
+	font-size: 14px;
+	margin-left: 0px;
+	padding: 0px;
+	width: 130px
 }
 
 input {
-	font-family: 'Ubuntu';
-	border: 1px solid #ddd;
 	background-color: #eee;
-	padding: 10px;
-	font-size: 16px;
 	border-radius: 5px;
+	border: 1px solid #ddd;
+	box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.2);
+	color: #444;
+	font-family: 'Ubuntu';
+	font-size: 14px;
+	padding: 14px 10px
 }
 
 input[type=text] {
 	background-color: #fff;
-	width: 100%;
 	border-radius: 5px;
+	width: 201px
 }
 
 input[type=submit] {
 	background-color: var(--ubuntu-brown);
 	color: #fff;
 	cursor: pointer;
-	width: 95px;
+	width: 105px
 }
 
 input[type=submit]:disabled {
 	background-color: darkgray;
 	color: #fff;
-	cursor: pointer;
+	cursor: pointer
 }
 
 span.navigation {
 	background-color: var(--ubuntu-brown);
+	border-radius: 5px;
 	border: 1px solid #ddd;
 	color: #fff;
-	padding: 10.5px;
 	cursor: pointer;
-	border-radius: 5px;
+	padding: 14px
 }
 
 span.navigation.disable {
 	background-color: darkgray;
-	cursor: default;
+	cursor: default
 }
 
 table {
-	border-collapse: collapse;
+	border-collapse: collapse
 }
 
 span.verse {
 	color: var(--ubuntu-orange);
 	font-weight: bold;
-	text-align: right;
+	text-align: right
 }
 
 span.verseText {
-	color: #333;
+	color: #333
 }
 
 th.count {
-	text-align: center;
 	padding: 0 10px;
+	text-align: center
 }
 
 td.count {
-	text-align: center;
 	padding: 2px 5px;
+	text-align: center
 }
 
 th.ignore {
-	text-align: center;
 	padding: 0 10px;
+	text-align: center
 }
 
 td.ignore {
-	text-align: center;
 	padding: 2px 5px;
+	text-align: center
 }
 
 table.ignoreTable {
-	color: #777;
+	color: #777
 }
 
 span.wordsResultButton {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	border-radius: 5px;
-	padding: 10px;
 	background: var(--ubuntu-brown);
-	display: inline-block;
+	border-radius: 5px;
 	color: #fff;
 	cursor: pointer;
-	width: 80px;
+	display: inline-block;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding: 10px;
 	text-align: center;
+	width: 80px
 }
 
 span.wordsResultButton.disable {
 	background-color: darkgray;
-	cursor: default;
+	cursor: default
 }
 
 @media screen and (max-width: 768px) {
+	div#concordanceWrapper {
+		width: 330px
+	}
+
 	div.autocomplete {
-		width: 150px;
 		display: inline-block;
+		width: 145px
 	}
 
-	select#selectVerseFrom {
-		width: 85px;
+	select {
+		width: 60px
 	}
 
-	select#selectVerseTo {
-		width: 85px;
-	}
-
-	div.submit {
-		padding-top: 5px;
-		padding-left: 252px;
+	select.search {
+		width: 90px
 	}
 
 	input[type=submit] {
-		width: 85px;
+		width: 63px
+	}
+
+	input[type=text] {
+		width: 145px
 	}
 
 	div#concordanceWrapper {
-		width: 330px;
+		width: 330px
 	}
 }

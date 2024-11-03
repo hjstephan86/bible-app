@@ -3,7 +3,6 @@ function init() {
 	var selectChapter = document.getElementById('selectChapter');
 	if (inputBook.value == '') {
 		selectChapter.disabled = true;
-		selectChapter.options.add(new Option("Kapitel"));
 	} else {
 		populateChapters(inputBook.value);
 		selectChapter.value = selectedChapterValue;
@@ -23,16 +22,6 @@ function init() {
 		var rectFirstElement = document.getElementById('1').getBoundingClientRect();
 		var rectScrollTo = document.getElementById(verse).getBoundingClientRect();
 		window.scrollBy(0, (rectScrollTo.top - rectFirstElement.top));
-	}
-}
-
-function setBibleName() {
-	var selectChapter = document.getElementById('selectChapter');
-	if (selectChapter.value != 'Kapitel') {
-		document.getElementById('inputBibleName').value = document.getElementById('selectBibleName').value;
-		document.getElementById('readForm').submit();
-	} else {
-		document.getElementById('bibleNameForm').submit();
 	}
 }
 
@@ -76,7 +65,6 @@ function populateChapters(bookValue) {
 	selectChapter.disabled = false;
 
 	selectChapter.options.length = 0;
-	selectChapter.options.add(new Option("Kapitel"));
 	var chapterCount = chapters[books.indexOf(bookValue)];
 	for (var c = 1; c <= chapterCount; c++) {
 		selectChapter.options.add(new Option(c));
@@ -123,10 +111,10 @@ function autocomplete(input, possibleValues) {
 					/*insert the value for the autocomplete text field:*/
 					input.value = this.getElementsByTagName("input")[0].value;
 					populateChapters(input.value);
-					initNavigation();
 					/*close the list of autocompleted values,
 					(or any other open lists of autocompleted values:*/
 					closeAllLists();
+					doSubmit();
 				});
 				a.appendChild(b);
 			}
@@ -191,19 +179,16 @@ function autocomplete(input, possibleValues) {
 }
 
 function doSubmit() {
-	var selectChapter = document.getElementById('selectChapter');
-	if (selectChapter.value != 'Kapitel') {
-		var inputVerse = document.getElementById('inputVerse');
-		if (inputVerse != null) {
-			inputVerse.value = "0";
-		}
-		document.getElementById('readForm').submit();
+	var selectBibleName = document.getElementById('selectBibleName');
+	if (selectBibleName != null) {
+		document.getElementById('inputBibleName').value = selectBibleName.value;
 	}
+	document.getElementById('readForm').submit();
 }
 
 function showConcordanceEntry(id, a) {
 	var divConcordanceWrapper = document.getElementById("concordanceWrapper");
-	divConcordanceWrapper.style.height = 'calc(90vh - 175px)';
+	divConcordanceWrapper.style.height = 'calc(90vh - 200px)';
 	divConcordanceWrapper.style.display = "block";
 
 	const ids = id.split(' ');

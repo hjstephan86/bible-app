@@ -34,7 +34,9 @@
 
 		<div class="headline">
 			<h2>Die Bibel lesen</h2>
-			<h5 id="strong">Nach der Übersetzung von Luther 1912 und Strong</h4>
+			<div class="translation">
+				<h5>Nach der Übersetzung von Luther 1912 und Strong</h5>
+			</div>
 		</div>
 		<!--Make sure the form has the autocomplete function switched off:-->
 		<div class="form">
@@ -44,7 +46,7 @@
 				</div>
 				<div class="select">
 					<select id="selectChapter" type="text" name="chapter" th:field="*{chapter}"
-						onchange="doSubmit()"></select>
+						onchange="submit()"></select>
 				</div>
 				<div class="navigation">
 					<span class="navigation disable" id="spanPrev" onclick="goToPrevChapter()">
