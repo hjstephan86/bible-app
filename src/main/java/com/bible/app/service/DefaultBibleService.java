@@ -1,12 +1,14 @@
 package com.bible.app.service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.bible.app.Constants;
+import com.bible.app.concordance.Item;
 import com.bible.app.creator.Bible;
 import com.bible.app.creator.bible.Luther1912Strong;
 import com.bible.app.model.Passage;
@@ -96,7 +98,7 @@ public class DefaultBibleService implements BibleService {
     }
 
     @Override
-    public Object getConcordance() {
+    public LinkedHashMap<String, Item> getConcordance() {
         if (luther1912Strong != null)
             return ((Luther1912Strong) luther1912Strong).getConcordance();
         return null;

@@ -11,4 +11,6 @@ public class Constants {
 
     public static final String SEARCH_MATCH_EXACT_SYMBOL = "\"";
     public static final String SEARCH_MATCH_CASE_SYMBOL = "'";
+
+    public static final int FLOOD_SEARCH_MAX_LENGTH = 6;
 }

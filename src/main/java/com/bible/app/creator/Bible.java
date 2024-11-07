@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.bible.app.Constants;
 import com.bible.app.model.Finding;
@@ -105,10 +107,9 @@ public abstract class Bible {
 	public SearchResult search(Search search) {
 		SearchResult searchResult = new SearchResult();
 		List<Finding> findings = new ArrayList<Finding>();
-		int count = 0;
+		int hitCount = 0;
 
 		Section section = getCurrentSection(search);
-
 		Passage currentPassage = new Passage();
 		currentPassage.setBook(section.getBookFrom());
 		currentPassage.setChapter(section.getChapterFrom());
@@ -116,60 +117,98 @@ public abstract class Bible {
 
 		if (isSearchValid(search.getSearch())) {
 			String searchText = getSearchText(search.getSearch());
-			boolean matchExact = false;
-			boolean matchCase = false;
-			if (matchExactAndMatchCase(searchText)) {
-				matchExact = true;
-				matchCase = true;
-			} else if (matchExact(searchText)) {
-				matchExact = true;
-			} else if (matchCase(searchText)) {
-				matchCase = true;
+
+			boolean shouldMatchExact = false;
+			boolean shouldMatchCase = false;
+			if (isFloodSearch(searchText)) {
+				searchResult.setFloodSearch(true);
+			} else {
+				if (shouldMatchExactAndShouldMatchCase(searchText)) {
+					shouldMatchExact = true;
+					shouldMatchCase = true;
+				} else if (shouldMatchExact(searchText)) {
+					shouldMatchExact = true;
+				} else if (shouldMatchCase(searchText)) {
+					shouldMatchCase = true;
+				}
 			}
-
-			searchText = matchExact && matchCase ? searchText.substring(2, searchText.length() - 2) : searchText;
-			searchText = !matchExact && matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
-			searchText = matchExact && !matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
-
-			if (searchText.length() > 0) {
-				do {
-					String verseText = bookMap.get(currentPassage.getBook()).getChapter()
-							.get(currentPassage.getChapter())
-							.getVerses().get(currentPassage.getVerse()).getText();
-
-					List<Integer> indices = getListOfMatchingIndices(verseText, searchText, matchCase, matchExact);
-					if (indices.size() > 0) {
-						count += indices.size();
-						Finding finding = new Finding();
-						finding.setPassage(
-								new Passage(currentPassage.getBook(), currentPassage.getChapter(),
-										currentPassage.getVerse()));
-						finding.setVerseText(getFormattedVerseText(indices, verseText, searchText));
-						findings.add(finding);
-					}
-					goToNextPassage(currentPassage);
-				} while (!toPassageReached(currentPassage, section));
-			}
+			hitCount = search(searchResult, findings, hitCount, section, currentPassage, searchText, shouldMatchExact,
+					shouldMatchCase);
 		}
 
 		searchResult.setFindings(findings);
-		searchResult.setCount(count);
+		searchResult.setHitCount(hitCount);
 		return searchResult;
 	}
 
-	private boolean matchCase(String searchText) {
+	private int search(SearchResult searchResult, List<Finding> findings, int hitCount, Section section,
+			Passage currentPassage, String searchText, boolean matchExact, boolean matchCase) {
+		searchText = searchResult.isFloodSearch() ? searchText.substring(2, searchText.length()) : searchText;
+		searchText = matchExact && matchCase ? searchText.substring(2, searchText.length() - 2) : searchText;
+		searchText = !matchExact && matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
+		searchText = matchExact && !matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
+
+		if (searchText.length() > 0) {
+			do {
+				String verseText = bookMap.get(currentPassage.getBook()).getChapter()
+						.get(currentPassage.getChapter())
+						.getVerses().get(currentPassage.getVerse()).getText();
+
+				String[] hitOrder = new String[verseText.length()];
+				List<Integer> indices = getListOfMatchingIndices(verseText, hitOrder, searchText,
+						searchResult.isFloodSearch(), matchCase, matchExact);
+				if (indices.size() > 0) {
+					hitCount += indices.size();
+					Finding finding = new Finding();
+					finding.setPassage(
+							new Passage(currentPassage.getBook(), currentPassage.getChapter(),
+									currentPassage.getVerse()));
+					finding.setVerseText(
+							getFormattedVerseText(indices, hitOrder, verseText, searchText,
+									searchResult.isFloodSearch()));
+					findings.add(finding);
+				}
+				goToNextPassage(currentPassage);
+			} while (!toPassageReached(currentPassage, section));
+		}
+		return hitCount;
+	}
+
+	private boolean isFloodSearch(String searchText) {
+		if (searchText.toLowerCase().startsWith("f " + Constants.SEARCH_MATCH_EXACT_SYMBOL)
+				&& searchText.toLowerCase().endsWith(Constants.SEARCH_MATCH_EXACT_SYMBOL)) {
+			return false;
+		}
+		if (searchText.toLowerCase().startsWith("f " + Constants.SEARCH_MATCH_CASE_SYMBOL)
+				&& searchText.toLowerCase().endsWith(Constants.SEARCH_MATCH_CASE_SYMBOL)) {
+			return false;
+		}
+		String[] searchTextArr = searchText.split(" ");
+		if (!((searchText.toLowerCase().startsWith("f ") && searchTextArr.length > 2
+				&& searchTextArr.length <= Constants.FLOOD_SEARCH_MAX_LENGTH))) {
+			return false;
+		}
+		for (int i = 1; i < searchTextArr.length; i++) {
+			if (searchTextArr[i].length() < 2) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean shouldMatchCase(String searchText) {
 		return searchText.startsWith(Constants.SEARCH_MATCH_CASE_SYMBOL)
 				&& searchText.endsWith(Constants.SEARCH_MATCH_CASE_SYMBOL)
 				&& searchText.length() > 1;
 	}
 
-	private boolean matchExact(String searchText) {
+	private boolean shouldMatchExact(String searchText) {
 		return searchText.startsWith(Constants.SEARCH_MATCH_EXACT_SYMBOL)
 				&& searchText.endsWith(Constants.SEARCH_MATCH_EXACT_SYMBOL)
 				&& searchText.length() > 1;
 	}
 
-	private boolean matchExactAndMatchCase(String searchText) {
+	private boolean shouldMatchExactAndShouldMatchCase(String searchText) {
 		return ((searchText.startsWith(Constants.SEARCH_MATCH_CASE_SYMBOL + Constants.SEARCH_MATCH_EXACT_SYMBOL) &&
 				searchText.endsWith(Constants.SEARCH_MATCH_EXACT_SYMBOL + Constants.SEARCH_MATCH_CASE_SYMBOL))
 				|| (searchText.startsWith(Constants.SEARCH_MATCH_EXACT_SYMBOL + Constants.SEARCH_MATCH_CASE_SYMBOL)
@@ -179,43 +218,31 @@ public abstract class Bible {
 				&& searchText.length() > 3;
 	}
 
-	public List<Word> countWords(Section section) {
-		HashMap<String, Word> words = new HashMap<String, Word>();
+	private boolean isSearchValid(String searchText) {
+		Pattern pattern = Pattern.compile("<[^>]+>");
+		Matcher matcher = pattern.matcher(searchText);
+		if (matcher.find()) {
+			return false;
+		}
+		return searchText.length() > 0 && !searchText.equals("\"");
+	}
 
-		Passage currentPassage = new Passage();
-		currentPassage.setBook(section.getBookFrom());
-		currentPassage.setChapter(section.getChapterFrom());
-		currentPassage.setVerse(section.getVerseFrom());
-
-		do {
-			String[] arrWords = getSplittedVerseText(currentPassage);
-			for (String s : arrWords) {
-				if (words.containsKey(s)) {
-					words.get(s).setCount(words.get(s).getCount() + 1);
-				} else {
-					words.put(s, new Word(s, 1, ignore(s)));
+	private String getFormattedVerseText(List<Integer> indices, String[] hitOrder, String verseText, String searchText,
+			boolean isFloodSearch) {
+		if (isFloodSearch) {
+			int verseHitCount = 0;
+			for (int i = 0; i < hitOrder.length; i++) {
+				if (hitOrder[i] != null && !hitOrder[i].isEmpty()) {
+					verseText = insertString(verseText, "<b>", i + (verseHitCount * 7));
+					verseText = insertString(verseText, "</b>", i + (verseHitCount * 7) + hitOrder[i].length() + 3);
+					verseHitCount++;
 				}
 			}
-			goToNextPassage(currentPassage);
-		} while (!toPassageReached(currentPassage, section));
-
-		List<Word> wordList = new ArrayList<Word>(words.values());
-		Collections.sort(wordList);
-		return wordList;
-	}
-
-	private boolean ignore(String s) {
-		return s.length() == 0 || ignore.contains(s.toLowerCase());
-	}
-
-	private boolean isSearchValid(String search) {
-		return search.length() > 0 && !search.equals("\"");
-	}
-
-	private String getFormattedVerseText(List<Integer> indices, String verseText, String searchText) {
-		for (int i = 0; i < indices.size(); i++) {
-			verseText = insertString(verseText, "<b>", indices.get(i) + (i * 7));
-			verseText = insertString(verseText, "</b>", indices.get(i) + (i * 7) + searchText.length() + 3);
+		} else {
+			for (int i = 0; i < indices.size(); i++) {
+				verseText = insertString(verseText, "<b>", indices.get(i) + (i * 7));
+				verseText = insertString(verseText, "</b>", indices.get(i) + (i * 7) + searchText.length() + 3);
+			}
 		}
 		return verseText;
 	}
@@ -224,21 +251,36 @@ public abstract class Bible {
 		return originalString.substring(0, index) + stringToBeInserted + originalString.substring(index);
 	}
 
-	private List<Integer> getListOfMatchingIndices(String verseText, String searchText, boolean matchCase,
-			boolean matchExact) {
+	private List<Integer> getListOfMatchingIndices(String verseText, String[] hitOrder, String searchText,
+			boolean isFloodSearch, boolean shouldMatchCase, boolean shouldMatchExact) {
 		List<Integer> indices = new ArrayList<Integer>();
-		verseText = matchCase ? verseText : verseText.toLowerCase();
-		searchText = matchCase ? searchText : searchText.toLowerCase();
-		int index = verseText.indexOf(searchText);
-		while (index >= 0) {
-			if (matchExact) {
-				if (matchExact(index, verseText, searchText)) {
-					indices.add(index);
+		if (isFloodSearch) {
+			String[] searchTextArr = searchText.split(" ");
+			for (String searchTextElem : searchTextArr) {
+				int index = verseText.indexOf(searchTextElem);
+				if (index < 0) {
+					return new ArrayList<Integer>();
 				}
-				index = verseText.indexOf(searchText, index + 1);
-			} else {
-				indices.add(index);
-				index = verseText.indexOf(searchText, index + 1);
+				while (index >= 0) {
+					hitOrder[index] = searchTextElem;
+					indices.add(index);
+					index = verseText.indexOf(searchTextElem, index + 1);
+				}
+			}
+		} else {
+			verseText = shouldMatchCase ? verseText : verseText.toLowerCase();
+			searchText = shouldMatchCase ? searchText : searchText.toLowerCase();
+			int index = verseText.indexOf(searchText);
+			while (index >= 0) {
+				if (shouldMatchExact) {
+					if (matchExact(index, verseText, searchText)) {
+						indices.add(index);
+					}
+					index = verseText.indexOf(searchText, index + 1);
+				} else {
+					indices.add(index);
+					index = verseText.indexOf(searchText, index + 1);
+				}
 			}
 		}
 		return indices;
@@ -356,6 +398,35 @@ public abstract class Bible {
 
 	private Verse getLastVerse(Chapter chapter) {
 		return chapter.getVerses().get(chapter.getVerses().size());
+	}
+
+	public List<Word> countWords(Section section) {
+		HashMap<String, Word> words = new HashMap<String, Word>();
+
+		Passage currentPassage = new Passage();
+		currentPassage.setBook(section.getBookFrom());
+		currentPassage.setChapter(section.getChapterFrom());
+		currentPassage.setVerse(section.getVerseFrom());
+
+		do {
+			String[] arrWords = getSplittedVerseText(currentPassage);
+			for (String s : arrWords) {
+				if (words.containsKey(s)) {
+					words.get(s).setCount(words.get(s).getCount() + 1);
+				} else {
+					words.put(s, new Word(s, 1, ignore(s)));
+				}
+			}
+			goToNextPassage(currentPassage);
+		} while (!toPassageReached(currentPassage, section));
+
+		List<Word> wordList = new ArrayList<Word>(words.values());
+		Collections.sort(wordList);
+		return wordList;
+	}
+
+	private boolean ignore(String s) {
+		return s.length() == 0 || ignore.contains(s.toLowerCase());
 	}
 
 	private String[] getSplittedVerseText(Passage currentPassage) {

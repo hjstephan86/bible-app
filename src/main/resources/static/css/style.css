@@ -64,7 +64,7 @@ select {
 	color: #444;
 	font-family: 'Ubuntu';
 	font-size: 14px;
-	padding: 14px 10px;
+	padding: 14px 5px;
 	width: 105px
 }
 
@@ -77,6 +77,14 @@ select#selectBibleName {
 	margin-left: 0px;
 	padding: 0px;
 	width: 130px
+}
+
+select#selectChapter {
+	color: #444;
+}
+
+select#selectChapter.white {
+	color: #fff;
 }
 
 input {

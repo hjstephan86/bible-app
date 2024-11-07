@@ -5,6 +5,7 @@ function init() {
 		selectChapter.disabled = true;
 	} else {
 		populateChapters(inputBook.value);
+		selectChapter.classList.remove("white");
 		selectChapter.value = selectedChapterValue;
 	}
 	// Initialize the navigation
@@ -46,6 +47,7 @@ function goToPrevChapter() {
 	var inputBook = document.getElementById('inputBook');
 	var selectChapter = document.getElementById('selectChapter');
 	if (inputBook.value != '' && parseInt(selectChapter.value) > 1) {
+		selectChapter.classList.add("white");
 		selectChapter.value = (parseInt(selectChapter.value) - 1).toString();
 		document.getElementById('readForm').submit();
 	}
@@ -55,6 +57,7 @@ function goToNextChapter() {
 	var inputBook = document.getElementById('inputBook');
 	var selectChapter = document.getElementById('selectChapter');
 	if (inputBook.value != '' && parseInt(selectChapter.value) < parseInt(chapters[books.indexOf(inputBook.value)])) {
+		selectChapter.classList.add("white");
 		selectChapter.value = (parseInt(selectChapter.value) + 1).toString();
 		document.getElementById('readForm').submit();
 	}
@@ -63,6 +66,7 @@ function goToNextChapter() {
 function populateChapters(bookValue) {
 	var selectChapter = document.getElementById('selectChapter');
 	selectChapter.disabled = false;
+	selectChapter.classList.add("white");
 
 	selectChapter.options.length = 0;
 	var chapterCount = chapters[books.indexOf(bookValue)];
@@ -192,7 +196,14 @@ function showConcordanceEntry(id, a) {
 	divConcordanceWrapper.style.display = "block";
 
 	const ids = id.split(' ');
-	var item = concordance[ids[0]];
+	const item = concordance[ids[0]];
+	const description = Object.values(item.description);
+	description.sort((a, b) => {
+		const numberA = parseInt(a.title.match(/\d+$/)[0]);
+		const numberB = parseInt(b.title.match(/\d+$/)[0]);
+		return numberB - numberA;
+	});
+
 	var divConcordanceContent = document.getElementById("concordanceContent");
 
 	var html = "";
@@ -200,21 +211,21 @@ function showConcordanceEntry(id, a) {
 	html += item.paragraph + "<br><br>";
 	html += "<table>";
 	html += "<tr><th style=\"text-align: center;\">#</th><th style=\"text-align: left;\">Übersetzt</th><th style=\"text-align: left;\">Parallelstellen</th></tr>";
-	for (var i = 0; i < item.description.length; i++) {
+	for (var i = 0; i < description.length; i++) {
 		html += "<tr>";
-		const descrTitles = item.description[i].title.split(', ');
+		const descrTitles = description[i].title.split(', ');
 		html += "<td style=\"vertical-align: top; text-align: center;\">" + descrTitles[1] + "</td>";
 		html += "<td style=\"vertical-align: top;\">" + descrTitles[0] + "</td>";
 		html += "<td>";
-		for (var j = 0; j < item.description[i].reflinks.length; j++) {
+		for (var j = 0; j < description[i].reflinks.length; j++) {
 
-			const reflinks = item.description[i].reflinks[j].split(';');
+			const reflinks = description[i].reflinks[j].split(';');
 			var book = books[reflinks[0] - 1];
 			var chapter = reflinks[1];
 			var verse = reflinks[2];
 
-			html += "<a href=\"/readStrBy?book=" + book + "&chapter=" + chapter + "&verse=" + verse + "\">" + getPassage(item.description[i].reflinks[j]) + "</a>";
-			if (j < item.description[i].reflinks.length - 1) {
+			html += "<a href=\"/readStrBy?book=" + book + "&chapter=" + chapter + "&verse=" + verse + "\">" + getPassage(description[i].reflinks[j]) + "</a>";
+			if (j < description[i].reflinks.length - 1) {
 				html += "; ";
 			}
 		}

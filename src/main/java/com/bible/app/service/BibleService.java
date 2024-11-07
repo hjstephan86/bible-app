@@ -1,8 +1,10 @@
 package com.bible.app.service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.bible.app.concordance.Item;
 import com.bible.app.creator.Bible;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
@@ -39,6 +41,6 @@ public interface BibleService {
 
     boolean sectionIsValid(Section section);
 
-    Object getConcordance();
+    LinkedHashMap<String, Item> getConcordance();
 
 }

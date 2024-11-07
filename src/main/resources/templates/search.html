@@ -81,12 +81,19 @@
 		<span th:if="${search.search == null}" th:utext="'Die Suche ist benutzerfreundlich und schnell. Der Suchbegriff kann eingegeben und danach gesucht werden.
 			Besteht der Suchbegriff aus mehreren Worten, werden alle Worte als ein gesamter Suchbegriff verwendet.
 			<br><br>
-			Bei der Suche können auch einfache umschließende Anführungszeichen (z.B. \'Kinder\') für eine case sensitive Suche verwendet werden.
-			Es können doppelte umschließende Anführungszeichen (z.B. &quot;Kinder&quot;) für eine exakte Suche verwendet werden.
+			Bei der Suche können auch einfache umschließende Anführungszeichen (z.B. \'Kinder\') für eine <b>case sensitive Suche</b> verwendet werden.
+			Es können doppelte umschließende Anführungszeichen (z.B. &quot;Kinder&quot;) für eine <b>exakte Suche</b> verwendet werden.
 			Beide Möglichkeiten lassen sich auch miteinander kombinieren (z.B. &quot;\'Kinder\'&quot;).
+			<br><br>
+			Wird ein &quot;f&quot; zu Beginn der Suche verwendet (z.B. &quot;f Alle Kinder&quot;), 
+			wird nach allen Wörtern flutend gesucht und nur der Vers gefunden, in dem alle Wörter des Suchbegriffs in einer beliebigen Reihenfolge enthalten sind.
+			Die <b>Flut-Suche</b> ist case sensitive und berücksichtigt nicht die exakte Suche.
 			'">
 		</span>
-		<span th:if="${search.search != null}" th:utext="'Die Suche nach <b>' + ${search.search} + '</b>'"></span>
+		<span th:if="${search.search != null && searchResult.isFloodSearch}"
+			th:utext="'Die Flut-Suche nach <b>' + ${#strings.substring(search.search, 2, search.search.length)} + '</b>'"></span>
+		<span th:if="${search.search != null && !searchResult.isFloodSearch}"
+			th:utext="'Die Suche nach <b>' + ${search.search} + '</b>'"></span>
 		<span th:if="${search.section != null && search.section == 'Alle'}" th:text="'in allen Büchern '"></span>
 		<span th:if="${search.section != null && (search.section == 'AT' || search.section == 'NT')}"
 			th:text="'im ' + ${search.section}"></span>
@@ -95,9 +102,9 @@
 			th:text="'in ' + ${search.section}"></span>
 		<span th:if="${search.section != null}" th:text="'hat'"></span>
 		<span th:if="${search.section != null && searchResult.findings.size() == 1}"
-			th:text="'einen Vers getroffen und ingesamt ' + ${searchResult.count} + ' Treffer.'"></span>
+			th:text="'einen Vers getroffen und ingesamt ' + ${searchResult.hitCount} + ' Treffer.'"></span>
 		<span th:if="${search.section != null && searchResult.findings.size() > 1}"
-			th:text="${searchResult.findings.size()} + ' Verse getroffen und ingesamt ' + ${searchResult.count} + ' Treffer.'"></span>
+			th:text="${searchResult.findings.size()} + ' Verse getroffen und ingesamt ' + ${searchResult.hitCount} + ' Treffer.'"></span>
 		<span th:if="${search.section != null && searchResult.findings.size() == 0}"
 			th:text="' keinen Treffer.'"></span>
 		<br><br>

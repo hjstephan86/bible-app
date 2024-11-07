@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -22,7 +21,7 @@ import com.bible.app.text.Verse;
 
 public class Luther1912Strong extends Bible {
 
-	private Map<String, Item> concordance;
+	private LinkedHashMap<String, Item> concordance;
 
 	public Luther1912Strong(String name) throws IOException {
 		this.name = name;
@@ -94,7 +93,7 @@ public class Luther1912Strong extends Bible {
 						break;
 					case XMLStreamConstants.END_ELEMENT:
 						if (reader.getName().toString().equals("VERS")) {
-							verse.setText(ReplaceGrWithHyperlink(verseText, newBook));
+							verse.setText(replaceGrWithHyperlink(verseText, newBook));
 							verseText = "";
 						}
 						// System.out.println("End " + reader.getName());
@@ -169,7 +168,7 @@ public class Luther1912Strong extends Bible {
 		}
 	}
 
-	private String ReplaceGrWithHyperlink(String oldVerseText, Book book) {
+	private String replaceGrWithHyperlink(String oldVerseText, Book book) {
 		String concordancePrefix = book.getPosition() < 39 ? "H" : "G";
 		String verseText = oldVerseText.replaceAll("<gr str=\"",
 				"<a href=\"#\" onclick=\"showConcordanceEntry('" + concordancePrefix);
@@ -178,7 +177,7 @@ public class Luther1912Strong extends Bible {
 		return verseText;
 	}
 
-	public Map<String, Item> getConcordance() {
+	public LinkedHashMap<String, Item> getConcordance() {
 		return concordance;
 	}
 
