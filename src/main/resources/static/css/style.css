@@ -169,6 +169,11 @@ table.ignoreTable {
 	color: #777
 }
 
+th.concordance.parallel {
+	text-align: left;
+	width: 60%
+}
+
 span.wordsResultButton {
 	background: var(--ubuntu-brown);
 	border-radius: 5px;
@@ -215,5 +220,9 @@ span.wordsResultButton.disable {
 
 	div#concordanceWrapper {
 		width: 330px
+	}
+
+	th.concordance.parallel {
+		width: 50%
 	}
 }

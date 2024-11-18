@@ -193,8 +193,8 @@ function showConcordanceEntry(id, a) {
 	let html = "";
 	html += `<b><span style="color:var(--ubuntu-brown);">${a.innerHTML}</span> ${item.title} </b><span>${item.id}</span><br><br>`;
 	html += `${item.paragraph}<br><br>`;
-	html += "<table>";
-	html += "<tr><th style=\"text-align: center;\">#</th><th style=\"text-align: left;\">Übersetzt</th><th style=\"text-align: left;\">Parallelstellen</th></tr>";
+	html += "<table style=\"width: 100%;\">";
+	html += "<tr><th style=\"text-align: center;\">#</th><th style=\"text-align: left;\">Übersetzt</th><th class=\"concordance parallel\">Parallelstellen</th></tr>";
 
 	for (let i = 0; i < description.length; i++) {
 		html += "<tr>";

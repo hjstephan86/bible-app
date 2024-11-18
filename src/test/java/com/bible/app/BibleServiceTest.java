@@ -130,6 +130,19 @@ public class BibleServiceTest {
 
         assertEquals(expectedCount, searchResult.getHitCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());
+
+        // Now search only one character
+        search = new Search();
+
+        searchString = "e";
+        sectionString = "Alle";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        searchResult = defaultBibleService.search(search);
+
+        assertEquals(expectedCount, searchResult.getHitCount());
+        assertEquals(expectedSearchResults, searchResult.getFindings().size());
     }
 
     @Test
@@ -305,50 +318,6 @@ public class BibleServiceTest {
         search.setSection(sectionString);
 
         SearchResult searchResult = defaultBibleService.search(search);
-
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
-    }
-
-    @Test
-    public void testSearchAlleSpecialChar() {
-        int expectedCount = 1748;
-        int expectedSearchResults = 1546;
-
-        Search search = new Search();
-
-        // Test '
-        String searchString = Constants.SEARCH_MATCH_CASE_SYMBOL;
-        String sectionString = "Alle";
-        search.setSearch(searchString);
-        search.setSection(sectionString);
-
-        SearchResult searchResult = defaultBibleService.search(search);
-
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
-
-        // Test &
-        expectedCount = 0;
-        expectedSearchResults = 0;
-
-        searchString = "&";
-        sectionString = "Alle";
-        search.setSearch(searchString);
-        search.setSection(sectionString);
-
-        searchResult = defaultBibleService.search(search);
-
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
-
-        // Test %
-        searchString = "%";
-        sectionString = "Alle";
-        search.setSearch(searchString);
-        search.setSection(sectionString);
-
-        searchResult = defaultBibleService.search(search);
 
         assertEquals(expectedCount, searchResult.getHitCount());
         assertEquals(expectedSearchResults, searchResult.getFindings().size());

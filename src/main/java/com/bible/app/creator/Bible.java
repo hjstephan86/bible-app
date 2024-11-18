@@ -224,7 +224,7 @@ public abstract class Bible {
 		if (matcher.find()) {
 			return false;
 		}
-		return searchText.length() > 0 && !searchText.equals("\"");
+		return searchText.length() > 1;
 	}
 
 	private String getFormattedVerseText(List<Integer> indices, String[] hitOrder, String verseText, String searchText,
