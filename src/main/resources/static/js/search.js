@@ -1,12 +1,14 @@
 function init() {
-	var selectSearch = document.getElementById("selectSearch");
-	var submitSearch = document.getElementById("submitSearch");
-	populateSelectSearch(selectSearch);
-	if (inputSearch.value != '') {
-		selectSearch.disabled = false;
-		submitSearch.disabled = false;
-	}
-	// Set the bible name
+	const searchSelect = document.getElementById("selectSearch");
+	const searchSubmit = document.getElementById("submitSearch");
+
+	populateSelectSearch(searchSelect);
+
+	// Simplify conditional logic
+	const isInputEmpty = !inputSearch.value; // Assuming 'inputSearch' is defined elsewhere
+	searchSelect.disabled = isInputEmpty;
+	searchSubmit.disabled = isInputEmpty;
+
 	document.getElementById('inputBibleName').value = bibleName;
 }
 
@@ -15,32 +17,29 @@ function doSubmit() {
 	document.getElementById('searchForm').submit();
 }
 
-function populateSelectSearch(selectSearch) {
-	addOption(selectSearch, "Alle");
-	addOption(selectSearch, "AT");
-	addOption(selectSearch, "NT");
-	for (var i = 0; i < books.length; i++) {
-		addOption(selectSearch, books[i]);
-	}
-	if (selectedSearchValue != null) {
-		selectSearch.value = selectedSearchValue;
+function populateSelectSearch(searchSelect) {
+	// Use an array of options for cleaner code
+	const options = ["Alle", "AT", "NT", ...books]; // Assuming 'books' is defined elsewhere
+
+	options.forEach(option => {
+		searchSelect.add(new Option(option, option));
+	});
+
+	if (selectedSearchValue) { // Assuming 'selectedSearchValue' is defined elsewhere
+		searchSelect.value = selectedSearchValue;
 	}
 }
 
-function addOption(selectSearch, name) {
-	selectSearch.add(new Option(name, name));
-}
+// Remove the unnecessary addOption function
 
-var inputSearch = document.getElementById("inputSearch");
+const inputSearch = document.getElementById("inputSearch");
 
-inputSearch.addEventListener("input", function (event) {
-	var selectSearch = document.getElementById("selectSearch");
-	var submitSearch = document.getElementById("submitSearch");
-	if (inputSearch.value != '') {
-		selectSearch.disabled = false;
-		submitSearch.disabled = false;
-	} else {
-		selectSearch.disabled = true;
-		submitSearch.disabled = true;
-	}
+inputSearch.addEventListener("input", () => {
+	const searchSelect = document.getElementById("selectSearch");
+	const searchSubmit = document.getElementById("submitSearch");
+
+	// Simplify logic using a single variable
+	const isInputEmpty = !inputSearch.value;
+	searchSelect.disabled = isInputEmpty;
+	searchSubmit.disabled = isInputEmpty;
 });

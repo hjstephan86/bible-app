@@ -1,146 +1,150 @@
 function init() {
-	// Initialize the "from" form fields
-	var inputBookFrom = document.getElementById('inputBookFrom');
-	var selectChapterFrom = document.getElementById('selectChapterFrom');
-	var selectVerseFrom = document.getElementById('selectVerseFrom');
+	// Use more descriptive variable names
+	const bookFromInput = document.getElementById('inputBookFrom');
+	const chapterFromSelect = document.getElementById('selectChapterFrom');
+	const verseFromSelect = document.getElementById('selectVerseFrom');
 
-	if (inputBookFrom.value == '') {
-		selectChapterFrom.disabled = true;
-		selectVerseFrom.disabled = true;
-	} else {
-		populateChapters(inputBookFrom.value, inputBookFrom.name);
-		selectChapterFrom.value = chapterFrom;
+	// Simplify conditional logic
+	chapterFromSelect.disabled = verseFromSelect.disabled = !bookFromInput.value;
+
+	if (bookFromInput.value) {
+		populateChapters(bookFromInput.value, bookFromInput.name);
+		chapterFromSelect.value = chapterFrom; // Assuming 'chapterFrom' is defined elsewhere
 		populateVersesFrom();
-		selectVerseFrom.value = verseFrom;
+		verseFromSelect.value = verseFrom; // Assuming 'verseFrom' is defined elsewhere
 	}
-	// Initialize the "to" form fields
-	var inputBookTo = document.getElementById('inputBookTo');
-	var selectChapterTo = document.getElementById('selectChapterTo');
-	var selectVerseTo = document.getElementById('selectVerseTo');
 
-	if (inputBookTo.value == '') {
-		selectChapterTo.disabled = true;
-		selectVerseTo.disabled = true;
-	} else {
-		populateChapters(inputBookTo.value, inputBookTo.name);
-		selectChapterTo.value = chapterTo;
-		populateVersesTo()
-		selectVerseTo.value = verseTo;
+	// Repeat for "to" fields (consider refactoring into a function)
+	const bookToInput = document.getElementById('inputBookTo');
+	const chapterToSelect = document.getElementById('selectChapterTo');
+	const verseToSelect = document.getElementById('selectVerseTo');
+
+	chapterToSelect.disabled = verseToSelect.disabled = !bookToInput.value;
+
+	if (bookToInput.value) {
+		populateChapters(bookToInput.value, bookToInput.name);
+		chapterToSelect.value = chapterTo; // Assuming 'chapterTo' is defined elsewhere
+		populateVersesTo();
+		verseToSelect.value = verseTo; // Assuming 'verseTo' is defined elsewhere
 	}
-	// Initialize the submit button
+
 	checkSubmit();
-	// initialize word lists
 	initializeWordLists();
-	// Check the result size
 	checkResultSize();
-	// Set the bible name
 	document.getElementById('inputBibleName').value = bibleName;
 }
 
-var countWords = [];
-var ignoreWords = [];
-
-var sizeDelta = 10;
-var currentCountSize = 0;
-var currentIgnoreSize = 0;
-
-var countResultButton = null;
-var ignoreResultButton = null;
+const countWords = [];
+const ignoreWords = [];
+const sizeDelta = 10;
+let currentCountSize = 0;
+let currentIgnoreSize = 0;
+let countResultButton = null;
+let ignoreResultButton = null;
 
 function checkResultSize() {
 	countResultButton = document.getElementById("countResultButton");
 	ignoreResultButton = document.getElementById("ignoreResultButton");
 
-	currentCountSize = countWords.length < sizeDelta ? countWords.length : sizeDelta;
-	currentIgnoreSize = ignoreWords.length < sizeDelta ? ignoreWords.length : sizeDelta;
-	countResultButton.style.visibility = currentCountSize < countWords.length ? "visible" : "hidden";
-	ignoreResultButton.style.visibility = currentIgnoreSize < ignoreWords.length ? "visible" : "hidden";
+	currentCountSize = Math.min(countWords.length, sizeDelta);
+	currentIgnoreSize = Math.min(ignoreWords.length, sizeDelta);
+
+	// Use a helper function to set button visibility
+	setButtonVisibility(countResultButton, currentCountSize, countWords.length);
+	setButtonVisibility(ignoreResultButton, currentIgnoreSize, ignoreWords.length);
 
 	fillCountTable();
 	fillIgnoreTable();
 
+	// Use addEventListener instead of onclick for better separation of concerns
 	countResultButton.addEventListener("click", countResultButtonListener);
 	ignoreResultButton.addEventListener("click", ignoreResultButtonListener);
+}
+
+// Helper function to set button visibility
+function setButtonVisibility(button, currentSize, totalSize) {
+	button.style.visibility = currentSize < totalSize ? "visible" : "hidden";
 }
 
 function countResultButtonListener() {
 	if (currentCountSize + sizeDelta < countWords.length) {
 		currentCountSize += sizeDelta;
-		countResultButton.style.visibility = "visible";
-		countResultButton.className = "wordsResultButton";
-		fillCountTable();
-	} else if (currentCountSize < countWords.length) {
+	} else {
 		currentCountSize = countWords.length;
-		countResultButton.className += " disable";
-		fillCountTable();
+		countResultButton.classList.add("disable"); // Use classList for adding classes
 	}
+	setButtonVisibility(countResultButton, currentCountSize, countWords.length);
+	fillCountTable();
 }
 
 function ignoreResultButtonListener() {
+	// Similar logic as countResultButtonListener, consider refactoring into a single function
 	if (currentIgnoreSize + sizeDelta < ignoreWords.length) {
 		currentIgnoreSize += sizeDelta;
-		ignoreResultButton.style.visibility = "visible";
-		ignoreResultButton.className = "wordsResultButton";
-		fillIgnoreTable();
-	} else if (currentIgnoreSize < ignoreWords.length) {
+	} else {
 		currentIgnoreSize = ignoreWords.length;
-		ignoreResultButton.className += " disable";
-		fillIgnoreTable();
+		ignoreResultButton.classList.add("disable");
 	}
+	setButtonVisibility(ignoreResultButton, currentIgnoreSize, ignoreWords.length);
+	fillIgnoreTable();
 }
 
 function initializeWordLists() {
-	ignoreWords = [];
-	countWords = [];
-	if (words.length > 0) {
-		var indexIgnore = 0;
-		var indexCount = 0;
-		for (var i = 0; i < words.length; i++) {
-			words[i].index = i;
-			if (words[i].ignore) {
-				ignoreWords[indexIgnore] = words[i];
-				indexIgnore++;
-			} else {
-				countWords[indexCount] = words[i];
-				indexCount++;
-			}
-		}
+	ignoreWords.length = 0; // Clear arrays instead of reassigning
+	countWords.length = 0;
+
+	if (words.length > 0) { // Assuming 'words' is defined elsewhere
+		words.forEach((word, index) => {
+			word.index = index;
+			(word.ignore ? ignoreWords : countWords).push(word);
+		});
 	}
 }
 
 function fillCountTable() {
-	var table = document.getElementById('wordsTable');
+	const table = document.getElementById('wordsTable');
 	table.innerHTML = "";
+
 	if (countWords.length > 0) {
-		var t = "";
-		var tr = "<tr><th class=\"count\">#</th><th>Gezählt</th></tr>";
-		t += tr;
-		for (var i = 0; i < currentCountSize; i++) {
-			var tr = "<tr><td class=\"count\">" + countWords[i].count + "</td>";
-			tr += "<td>" + countWords[i].name + "<a href=\"javascript:void(0)\" onclick=\"removeWord('" + countWords[i].index + "');\"style=\"color: #c82c1c; font-weight:bold;\">&nbsp&#8722&nbsp</a></td></tr>";
-			t += tr;
+		let tableContent = "<tr><th class=\"count\">#</th><th>Gezählt</th></tr>";
+
+		for (let i = 0; i < currentCountSize; i++) {
+			tableContent += `
+		  <tr>
+			<td class="count">${countWords[i].count}</td>
+			<td>
+			  ${countWords[i].name}
+			  <a href="#" onclick="removeWord('${countWords[i].index}');" style="color: #c82c1c; font-weight:bold;">&nbsp;&#8722&nbsp</a>
+			</td>
+		  </tr>`;
 		}
-		var tr = "<tr><td colspan=\"2\" style=\"color:#aaa;\">" + currentCountSize + " von " + countWords.length + "</td></tr>";
-		t += tr;
-		table.innerHTML += t;
+
+		tableContent += `<tr><td colspan="2" style="color:#aaa;">${currentCountSize} von ${countWords.length}</td></tr>`;
+		table.innerHTML = tableContent;
 	}
 }
 
 function fillIgnoreTable() {
-	var table = document.getElementById('ignoreTable');
+	// Similar logic to fillCountTable, consider refactoring to avoid duplication
+	const table = document.getElementById('ignoreTable');
 	table.innerHTML = "";
+
 	if (ignoreWords.length > 0) {
-		var t = "";
-		var tr = "<tr><th class=\"ignore\">#</th><th>Ignoriert</th></tr>";
-		t += tr;
-		for (var i = 0; i < currentIgnoreSize; i++) {
-			var tr = "<tr><td class=\"ignore\">" + ignoreWords[i].count + "</td>";
-			tr += "<td>" + ignoreWords[i].name + "<a href=\"javascript:void(0)\" onclick=\"addWord('" + ignoreWords[i].index + "');\" style=\"color: green; font-weight:bold;\">&nbsp+&nbsp</a></td></tr>";
-			t += tr;
+		let tableContent = "<tr><th class=\"ignore\">#</th><th>Ignoriert</th></tr>";
+
+		for (let i = 0; i < currentIgnoreSize; i++) {
+			tableContent += `
+		  <tr>
+			<td class="ignore">${ignoreWords[i].count}</td>
+			<td>
+			  ${ignoreWords[i].name}
+			  <a href="#" onclick="addWord('${ignoreWords[i].index}');" style="color: green; font-weight:bold;">&nbsp;+&nbsp</a>
+			</td>
+		  </tr>`;
 		}
-		var tr = "<tr><td colspan=\"2\" style=\"color:#aaa;\">" + currentIgnoreSize + " von " + ignoreWords.length + "</td></tr>";
-		t += tr;
-		table.innerHTML += t;
+
+		tableContent += `<tr><td colspan="2" style="color:#aaa;">${currentIgnoreSize} von ${ignoreWords.length}</td></tr>`;
+		table.innerHTML = tableContent;
 	}
 }
 
@@ -148,171 +152,137 @@ function removeWord(index) {
 	words[index].ignore = !words[index].ignore;
 	initializeWordLists();
 
-	if (currentCountSize == countWords.length + 1) {
-		currentCountSize--;
-	}
-	if (currentIgnoreSize == ignoreWords.length - 1) {
-		currentIgnoreSize++;
-	}
+	// Simplify logic for updating currentCountSize and currentIgnoreSize
+	if (currentCountSize === countWords.length + 1) currentCountSize--;
+	if (currentIgnoreSize === ignoreWords.length - 1) currentIgnoreSize++;
 
-	if (currentCountSize <= sizeDelta && currentCountSize == countWords.length) {
-		countResultButton.style.visibility = "hidden";
-	} else if (currentCountSize == countWords.length) {
-		countResultButton.className += " disable";
-	}
-	if (currentIgnoreSize > sizeDelta && ignoreResultButton.style.visibility == "hidden") {
-		ignoreResultButton.style.visibility = "visible";
-		ignoreResultButton.className = "wordsResultButton";
-		currentIgnoreSize = sizeDelta;
-	}
+	// Update button visibility and state
+	updateButtonState(countResultButton, currentCountSize, countWords.length);
+	updateButtonState(ignoreResultButton, currentIgnoreSize, ignoreWords.length);
 
 	fillCountTable();
 	fillIgnoreTable();
 }
 
 function addWord(index) {
+	// Similar logic to removeWord, consider refactoring
 	words[index].ignore = !words[index].ignore;
 	initializeWordLists();
 
-	if (currentCountSize == countWords.length - 1) {
-		currentCountSize++;
-	}
-	if (currentIgnoreSize == ignoreWords.length + 1) {
-		currentIgnoreSize--;
-	}
+	if (currentCountSize === countWords.length - 1) currentCountSize++;
+	if (currentIgnoreSize === ignoreWords.length + 1) currentIgnoreSize--;
 
-	if (currentIgnoreSize <= sizeDelta && currentIgnoreSize == ignoreWords.length) {
-		ignoreResultButton.style.visibility = "hidden";
-	} else if (currentIgnoreSize == ignoreWords.length) {
-		ignoreResultButton.className += " disable";
-	}
-	if (currentCountSize > sizeDelta && countResultButton.style.visibility == "hidden") {
-		countResultButton.style.visibility = "visible";
-		countResultButton.className = "wordsResultButton";
-		currentCountSize = sizeDelta;
-	}
+	updateButtonState(ignoreResultButton, currentIgnoreSize, ignoreWords.length);
+	updateButtonState(countResultButton, currentCountSize, countWords.length);
 
 	fillCountTable();
 	fillIgnoreTable();
 }
 
+// Helper function to update button state
+function updateButtonState(button, currentSize, totalSize) {
+	if (currentSize <= sizeDelta && currentSize === totalSize) {
+		button.style.visibility = "hidden";
+	} else if (currentSize === totalSize) {
+		button.classList.add("disable");
+	} else if (currentSize > sizeDelta && button.style.visibility === "hidden") {
+		button.style.visibility = "visible";
+		button.className = "wordsResultButton"; // Reset class name
+	}
+}
+
 function populateVersesFrom() {
-	var inputBookFrom = document.getElementById('inputBookFrom');
-	var selectChapterFrom = document.getElementById('selectChapterFrom');
-	var selectVerseFrom = document.getElementById('selectVerseFrom');
+	const bookFromInput = document.getElementById('inputBookFrom');
+	const chapterFromSelect = document.getElementById('selectChapterFrom');
+	const verseFromSelect = document.getElementById('selectVerseFrom');
 
-	selectVerseFrom.disabled = false;
-	selectVerseFrom.options.length = 0;
+	verseFromSelect.disabled = false;
+	verseFromSelect.options.length = 0;
 
-	var bookValue = inputBookFrom.value;
-	var chapterValue = selectChapterFrom.value;
+	const bookValue = bookFromInput.value;
+	const chapterValue = parseInt(chapterFromSelect.value, 10); // Parse to integer
 
-	var numOfVerses = verses[books.indexOf(bookValue)][chapterValue - 1];
-	for (var v = 1; v <= numOfVerses; v++) {
-		selectVerseFrom.options.add(new Option(v));
+	const numOfVerses = verses[books.indexOf(bookValue)][chapterValue - 1]; // Assuming 'verses' and 'books' are defined elsewhere
+	for (let v = 1; v <= numOfVerses; v++) {
+		verseFromSelect.options.add(new Option(v));
 	}
 	checkSubmit();
 }
 
 function populateVersesTo() {
-	var inputBookTo = document.getElementById('inputBookTo');
-	var selectChapterTo = document.getElementById('selectChapterTo');
-	var selectVerseTo = document.getElementById('selectVerseTo');
+	// Similar logic to populateVersesFrom, consider refactoring
+	const bookToInput = document.getElementById('inputBookTo');
+	const chapterToSelect = document.getElementById('selectChapterTo');
+	const verseToSelect = document.getElementById('selectVerseTo');
 
-	selectVerseTo.disabled = false;
-	selectVerseTo.options.length = 0;
+	verseToSelect.disabled = false;
+	verseToSelect.options.length = 0;
 
-	var bookValue = inputBookTo.value;
-	var chapterValue = selectChapterTo.value;
+	const bookValue = bookToInput.value;
+	const chapterValue = parseInt(chapterToSelect.value, 10);
 
-	var numOfVerses = verses[books.indexOf(bookValue)][chapterValue - 1];
-	for (var v = 1; v <= numOfVerses; v++) {
-		selectVerseTo.options.add(new Option(v));
+	const numOfVerses = verses[books.indexOf(bookValue)][chapterValue - 1];
+	for (let v = 1; v <= numOfVerses; v++) {
+		verseToSelect.options.add(new Option(v));
 	}
 	checkSubmit();
 }
 
 function populateChapters(bookValue, inputName) {
-	if (inputName.endsWith('From')) {
-		var selectChapterFrom = document.getElementById('selectChapterFrom');
-		if (selectChapterFrom != null) {
-			selectChapterFrom.disabled = false;
-			selectChapterFrom.options.length = 0;
+	const chapterSelect = inputName.endsWith('From')
+		? document.getElementById('selectChapterFrom')
+		: document.getElementById('selectChapterTo');
 
-			var numOfChapter = chapters[books.indexOf(bookValue)];
-			for (var c = 1; c <= numOfChapter; c++) {
-				selectChapterFrom.options.add(new Option(c));
-			}
+	const verseSelect = inputName.endsWith('From')
+		? document.getElementById('selectVerseFrom')
+		: document.getElementById('selectVerseTo');
 
-			// In case the chapters are populated again, disable the verse selection in case a verse was selected.
-			// If the user selected a chapter, the verse selection will be activated again and verses populated.
-			var selectVerseFrom = document.getElementById('selectVerseFrom');
-			if (selectVerseFrom != null && selectVerseFrom.value != ' ') {
-				selectVerseFrom.disabled = true;
-				selectVerseFrom.options.length = 0;
-			}
+	if (chapterSelect) {
+		chapterSelect.disabled = false;
+		chapterSelect.options.length = 0;
+
+		const numOfChapters = chapters[books.indexOf(bookValue)]; // Assuming 'chapters' and 'books' are defined elsewhere
+		for (let c = 1; c <= numOfChapters; c++) {
+			chapterSelect.options.add(new Option(c));
 		}
-	} else if (inputName.endsWith('To')) {
-		var selectChapterTo = document.getElementById('selectChapterTo');
-		if (selectChapterTo != null) {
-			selectChapterTo.disabled = false;
-			selectChapterTo.options.length = 0;
 
-			var numOfChapter = chapters[books.indexOf(bookValue)];
-			for (var c = 1; c <= numOfChapter; c++) {
-				selectChapterTo.options.add(new Option(c));
-			}
-
-			// In case the chapters are populated again, disable the verse selection in case a verse was selected.
-			// If the user selected a chapter, the verse selection will be activated again and verses populated.
-			var selectVerseTo = document.getElementById('selectVerseTo');
-			if (selectVerseTo != null && selectVerseTo.value != "") {
-				selectVerseTo.disabled = true;
-				selectVerseTo.options.length = 0;
-			}
+		if (verseSelect && verseSelect.value) {
+			verseSelect.disabled = true;
+			verseSelect.options.length = 0;
 		}
-	} else { }
+	}
 	checkSubmit();
 }
 
+
 function autocomplete(input, possibleValues) {
-	/*the autocomplete function takes two arguments,
-	the text field element and an array of possible autocompleted values:*/
-	var currentFocus;
-	/*execute a function when someone writes in the text field:*/
+	let currentFocus;
+
 	input.addEventListener("input", function (e) {
-		var a, b, i, val = this.value;
-		/*close any already open lists of autocompleted values*/
+		let a, b, i, val = this.value;
 		closeAllLists();
 		if (!val) { return false; }
 		currentFocus = -1;
-		/*create a DIV element that will contain the items (values):*/
 		a = document.createElement("DIV");
 		a.setAttribute("id", this.id + "autocomplete-list");
 		a.setAttribute("class", "autocomplete-items");
-		/*append the DIV element as a child of the autocomplete container:*/
 		this.parentNode.appendChild(a);
-		/*for each item in the array...*/
+
 		for (i = 0; i < possibleValues.length; i++) {
-			/*check if the item starts with the same letters as the text field value:*/
-			if (possibleValues[i].toUpperCase().includes(val.toUpperCase()) /*arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()*/) {
-				/*create a DIV element for each matching element:*/
+			if (possibleValues[i].toUpperCase().includes(val.toUpperCase())) {
 				b = document.createElement("DIV");
-				/*make the matching letters bold:*/
-				var beginIndex = possibleValues[i].toUpperCase().indexOf(val.toUpperCase());
-				if (beginIndex == 0) {
-					b.innerHTML = "<strong>" + possibleValues[i].substring(0, val.length) + "</strong>";
+				const beginIndex = possibleValues[i].toUpperCase().indexOf(val.toUpperCase());
+				if (beginIndex === 0) {
+					b.innerHTML = `<strong>${possibleValues[i].substring(0, val.length)}</strong>`;
 					b.innerHTML += possibleValues[i].substring(val.length);
 				} else {
 					b.innerHTML = possibleValues[i].substring(0, beginIndex);
-					b.innerHTML += "<strong>" + possibleValues[i].substring(beginIndex, beginIndex + val.length) + "</strong>";
+					b.innerHTML += `<strong>${possibleValues[i].substring(beginIndex, beginIndex + val.length)}</strong>`;
 					b.innerHTML += possibleValues[i].substring(beginIndex + val.length);
 				}
-				/*insert a input field that will hold the current array item's value:*/
-				b.innerHTML += "<input type='hidden' value='" + possibleValues[i] + "'>";
-				/*execute a function when someone clicks on the item value (DIV element):*/
+				b.innerHTML += `<input type='hidden' value='${possibleValues[i]}'>`;
+
 				b.addEventListener("click", function (e) {
-					/*insert the value for the autocomplete text field:*/
 					input.value = this.getElementsByTagName("input")[0].value;
 					populateChapters(input.value, input.name);
 					if (input.name.endsWith('From')) {
@@ -320,93 +290,84 @@ function autocomplete(input, possibleValues) {
 					} else if (input.name.endsWith('To')) {
 						populateVersesTo();
 					}
-					/*close the list of autocompleted values,
-					(or any other open lists of autocompleted values:*/
 					closeAllLists();
 				});
 				a.appendChild(b);
 			}
 		}
 	});
-	/*execute a function presses a key on the keyboard:*/
+
 	input.addEventListener("keydown", function (e) {
-		var x = document.getElementById(this.id + "autocomplete-list");
+		let x = document.getElementById(this.id + "autocomplete-list");
 		if (x) x = x.getElementsByTagName("div");
-		if (e.keyCode == 40) {
-			/*If the arrow DOWN key is pressed,
-			increase the currentFocus variable:*/
+		if (e.keyCode === 40) {
 			currentFocus++;
-			/*and and make the current item more visible:*/
 			addActive(x);
-		} else if (e.keyCode == 38) { //up
-			/*If the arrow UP key is pressed,
-			decrease the currentFocus variable:*/
+		} else if (e.keyCode === 38) {
 			currentFocus--;
-			/*and and make the current item more visible:*/
 			addActive(x);
-		} else if (e.keyCode == 13) {
-			/*If the ENTER key is pressed, prevent the form from being submitted,*/
+		} else if (e.keyCode === 13) {
 			e.preventDefault();
 			if (currentFocus > -1) {
-				/*and simulate a click on the "active" item:*/
 				if (x) x[currentFocus].click();
 			}
 		}
 	});
 
 	function addActive(x) {
-		/*a function to classify an item as "active":*/
 		if (!x) return false;
-		/*start by removing the "active" class on all items:*/
 		removeActive(x);
 		if (currentFocus >= x.length) currentFocus = 0;
 		if (currentFocus < 0) currentFocus = (x.length - 1);
-		/*add class "autocomplete-active":*/
 		x[currentFocus].classList.add("autocomplete-active");
 	}
+
 	function removeActive(x) {
-		/*a function to remove the "active" class from all autocomplete items:*/
-		for (var i = 0; i < x.length; i++) {
+		for (let i = 0; i < x.length; i++) {
 			x[i].classList.remove("autocomplete-active");
 		}
 	}
+
 	function closeAllLists(elmnt) {
-		/*close all autocomplete lists in the document,
-		except the one passed as an argument:*/
-		var x = document.getElementsByClassName("autocomplete-items");
-		for (var i = 0; i < x.length; i++) {
-			if (elmnt != x[i] && elmnt != input) {
+		const x = document.getElementsByClassName("autocomplete-items");
+		for (let i = 0; i < x.length; i++) {
+			if (elmnt !== x[i] && elmnt !== input) {
 				x[i].parentNode.removeChild(x[i]);
 			}
 		}
 	}
-	/*execute a function when someone clicks in the document:*/
+
 	document.addEventListener("click", function (e) {
 		closeAllLists(e.target);
 	});
 }
 
-function checkSubmit() {
-	var inputBookFrom = document.getElementById('inputBookFrom');
-	var selectChapterFrom = document.getElementById('selectChapterFrom');
-	var selectVerseFrom = document.getElementById('selectVerseFrom');
-	var inputBookTo = document.getElementById('inputBookTo');
-	var selectChapterTo = document.getElementById('selectChapterTo');
-	var selectVerseTo = document.getElementById('selectVerseTo');
 
-	if (inputBookFrom.value != '' && selectChapterFrom.value != '' && selectVerseFrom.value != '' &&
-		inputBookTo.value != '' && selectChapterTo.value != '' && selectVerseTo.value != ''
-		&&
-		(
-			(books.indexOf(inputBookFrom.value) == books.indexOf(inputBookTo.value) && selectChapterFrom.value == selectChapterTo.value && selectVerseFrom.value <= selectVerseTo.value)
-			|| (books.indexOf(inputBookFrom.value) == books.indexOf(inputBookTo.value) && selectChapterFrom.value < selectChapterTo.value)
-			|| (books.indexOf(inputBookFrom.value) < books.indexOf(inputBookTo.value))
-		)
-	) {
-		document.getElementById('submitCount').disabled = false;
-	} else {
-		document.getElementById('submitCount').disabled = true;
-	}
+function checkSubmit() {
+	const bookFromInput = document.getElementById('inputBookFrom');
+	const chapterFromSelect = document.getElementById('selectChapterFrom');
+	const verseFromSelect = document.getElementById('selectVerseFrom');
+	const bookToInput = document.getElementById('inputBookTo');
+	const chapterToSelect = document.getElementById('selectChapterTo');
+	const verseToSelect = document.getElementById('selectVerseTo');
+
+	const bookFromIndex = books.indexOf(bookFromInput.value);
+	const bookToIndex = books.indexOf(bookToInput.value);
+	const chapterFromValue = parseInt(chapterFromSelect.value, 10);
+	const chapterToValue = parseInt(chapterToSelect.value, 10);
+	const verseFromValue = parseInt(verseFromSelect.value, 10);
+	const verseToValue = parseInt(selectVerseTo.value, 10);
+
+	// Simplify condition for enabling/disabling the submit button
+	const isValid =
+		bookFromInput.value && chapterFromValue && verseFromValue &&
+		bookToInput.value && chapterToValue && verseToValue && (
+			(bookFromIndex === bookToIndex && chapterFromValue === chapterToValue && verseFromValue <= verseToValue) ||
+			(bookFromIndex === bookToIndex && chapterFromValue < chapterToValue) ||
+			(bookFromIndex < bookToIndex)
+		);
+
+	document.getElementById('submitCount').disabled = !isValid;
 }
 
 function doSubmit() {
