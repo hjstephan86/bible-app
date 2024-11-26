@@ -69,12 +69,12 @@ public class DefaultBibleService implements BibleService {
 
     @Override
     public ArrayList<Verse> getVerses(Passage passage) {
-        return activeBible.getVerses(passage);
+        return activeBible.getVerses(activeBible, passage);
     }
 
     @Override
     public ArrayList<Verse> getVersesFromLuther1912Strong(Passage passage) {
-        return luther1912Strong.getVerses(passage);
+        return luther1912Strong.getVerses(luther1912Strong, passage);
     }
 
     @Override

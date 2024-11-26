@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.bible.app.Constants;
+import com.bible.app.creator.bible.Luther1912Strong;
 import com.bible.app.model.Finding;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
@@ -46,9 +47,23 @@ public abstract class Bible {
 		return bookMap;
 	}
 
-	public ArrayList<Verse> getVerses(Passage passage) {
-		return new ArrayList<Verse>(
+	public ArrayList<Verse> getVerses(Bible activeBible, Passage passage) {
+		ArrayList<Verse> verses = new ArrayList<Verse>(
 				bookMap.get(passage.getBook()).getChapter().get(passage.getChapter()).getVerses().values());
+		if (activeBible instanceof Luther1912Strong) {
+			return verses;
+		} else {
+			ArrayList<Verse> newVerses = new ArrayList<Verse>();
+			for (Verse v : verses) {
+				String verseText = v.getText();
+				String lang = bookMap.get(passage.getBook()).getPosition() < 39 ? "Heb" : "Gre";
+				String hyperlink = "<a href=\"/readStrBy?book=" + passage.getBook() + "&chapter=" + passage.getChapter()
+						+ "&verse=" + v.getNumber() + "\"> " + lang + " </a>";
+				Verse verse = new Verse(v.getNumber(), verseText + " " + hyperlink);
+				newVerses.add(verse);
+			}
+			return newVerses;
+		}
 	}
 
 	public ArrayList<String> getBooksAsList() {
