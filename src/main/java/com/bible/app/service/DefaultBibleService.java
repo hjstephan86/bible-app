@@ -11,11 +11,14 @@ import com.bible.app.Constants;
 import com.bible.app.concordance.Item;
 import com.bible.app.creator.Bible;
 import com.bible.app.creator.bible.Luther1912Strong;
+import com.bible.app.model.Parallel;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
 import com.bible.app.model.SearchResult;
 import com.bible.app.model.Section;
 import com.bible.app.model.Word;
+import com.bible.app.text.Book;
+import com.bible.app.text.Chapter;
 import com.bible.app.text.Verse;
 
 @Service
@@ -38,7 +41,7 @@ public class DefaultBibleService implements BibleService {
     }
 
     @Override
-    public void setActive(String bibleName) {
+    public void setActiveBible(String bibleName) {
         activeBible = defaultBiblesService.getBibleMap().get(bibleName);
     }
 
@@ -102,5 +105,39 @@ public class DefaultBibleService implements BibleService {
         if (luther1912Strong != null)
             return ((Luther1912Strong) luther1912Strong).getConcordance();
         return null;
+    }
+
+    @Override
+    public Parallel getParallel(Passage passage, String bibleName) {
+        Parallel parallel = new Parallel();
+
+        for (Bible bible : defaultBiblesService.getBibleMap().values()) {
+            if (bible.getName().equals(bibleName)) {
+                setParallelForBible(passage, parallel, bible);
+            }
+        }
+        for (Bible bible : defaultBiblesService.getBibleMap().values()) {
+            if (!bible.getName().equals(bibleName)) {
+                setParallelForBible(passage, parallel, bible);
+            }
+        }
+
+        return parallel;
+    }
+
+    private void setParallelForBible(Passage passage, Parallel parallel, Bible bible) {
+        if (!(bible instanceof Luther1912Strong)) {
+            Book book = bible.getBookMap().get(passage.getBook());
+            if (book != null) {
+                Chapter chapter = book.getChapter().get(passage.getChapter());
+                if (chapter != null) {
+                    Verse verse = chapter.getVerses().get(passage.getVerse());
+                    if (verse != null) {
+                        parallel.addVerse(verse);
+                        parallel.addBibleName(bible.getName());
+                    }
+                }
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bible.app.helper.Helper;
+import com.bible.app.model.Parallel;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
 import com.bible.app.model.SearchResult;
@@ -61,7 +62,7 @@ public class BibleRestController {
     @Operation(summary = "Set the active bible translation")
     public ResponseEntity<String> bible(@RequestParam String bible) {
         if (defaultBiblesService.getBibleMap().containsKey(bible)) {
-            defaultBibleService.setActive(bible);
+            defaultBibleService.setActiveBible(bible);
             return new ResponseEntity<>("Bible " + bible + " activated.", HttpStatus.OK);
         }
         LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + bible);
@@ -119,6 +120,18 @@ public class BibleRestController {
             return new ResponseEntity<>(defaultBibleService.countWords(section), HttpStatus.OK);
         }
         LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + section);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/parallel")
+    @Operation(summary = "Get parallel verses")
+    public ResponseEntity<Parallel> parallel(@RequestBody Passage passage) {
+        if (passage.getBook() != null && defaultBibleService.passageExists(passage)) {
+            return new ResponseEntity<>(
+                    defaultBibleService.getParallel(passage, defaultBibleService.getActiveBible().getName()),
+                    HttpStatus.OK);
+        }
+        LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + passage);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

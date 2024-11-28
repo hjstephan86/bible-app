@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bible.app.concordance.Item;
 import com.bible.app.helper.Helper;
+import com.bible.app.model.Parallel;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
 import com.bible.app.model.SearchResult;
@@ -45,7 +46,7 @@ public class BibleController {
 
 	@PostMapping({ "/", "/home" })
 	public String home(Model model, @RequestParam String bibleName) {
-		defaultBibleService.setActive(bibleName);
+		defaultBibleService.setActiveBible(bibleName);
 		model.addAttribute("bible", defaultBibleService.getActiveBible());
 		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
 		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
@@ -62,7 +63,7 @@ public class BibleController {
 
 	@PostMapping("/about")
 	public String about(Model model, @RequestParam String bibleName) {
-		defaultBibleService.setActive(bibleName);
+		defaultBibleService.setActiveBible(bibleName);
 		model.addAttribute("bible", defaultBibleService.getActiveBible());
 		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
 		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
@@ -135,7 +136,7 @@ public class BibleController {
 
 	@PostMapping("/read")
 	public String read(@ModelAttribute("passage") Passage passage, @RequestParam String bibleName, Model model) {
-		defaultBibleService.setActive(bibleName);
+		defaultBibleService.setActiveBible(bibleName);
 		model.addAttribute("bible", defaultBibleService.getActiveBible());
 		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
 		model.addAttribute("books", defaultBibleService.getBooksAsList());
@@ -152,6 +153,66 @@ public class BibleController {
 		return "read";
 	}
 
+	@GetMapping("/parallel")
+	public String parallel(Model model) {
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsList());
+		model.addAttribute("verses", defaultBibleService.getVersesAsListOfLists());
+		model.addAttribute("passage", new Passage());
+		model.addAttribute("parallel", new Parallel());
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL());
+		return "parallel";
+	}
+
+	@GetMapping("/parallelBy")
+	public String parallelBy(Model model, @RequestParam String book, @RequestParam int chapter,
+			@RequestParam int verse) {
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsList());
+		model.addAttribute("verses", defaultBibleService.getVersesAsListOfLists());
+
+		Passage passage = new Passage();
+		Parallel parallel = new Parallel();
+		if (book != null && chapter > 0) {
+			passage.setBook(book);
+			passage.setChapter(chapter);
+			passage.setVerse(verse);
+			if (defaultBibleService.passageExists(passage)) {
+				parallel = defaultBibleService.getParallel(passage, defaultBibleService.getActiveBible().getName());
+			} else {
+				passage = new Passage();
+			}
+		}
+		model.addAttribute("passage", passage);
+		model.addAttribute("parallel", parallel);
+		LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with no valid passage");
+		return "parallel";
+	}
+
+	@PostMapping("/parallel")
+	public String parallel(@ModelAttribute("passage") Passage passage, @RequestParam String bibleName, Model model) {
+		defaultBibleService.setActiveBible(bibleName);
+		model.addAttribute("bible", defaultBibleService.getActiveBible());
+		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
+		model.addAttribute("books", defaultBibleService.getBooksAsList());
+		model.addAttribute("chapters", defaultBibleService.getChaptersAsList());
+		model.addAttribute("verses", defaultBibleService.getVersesAsListOfLists());
+		if (passage.getBook() != null && defaultBibleService.passageExists(passage)) {
+			model.addAttribute("passage", passage);
+			model.addAttribute("parallel", defaultBibleService.getParallel(passage, bibleName));
+			LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with " + passage);
+		} else {
+			model.addAttribute("passage", new Passage());
+			model.addAttribute("parallel", new Parallel());
+			LOGGER.info(Helper.getRemoteAddrAndRequestURL() + " with no valid passage");
+		}
+		return "parallel";
+	}
+
 	@GetMapping("/search")
 	public String search(Model model) {
 		model.addAttribute("bible", defaultBibleService.getActiveBible());
@@ -165,7 +226,7 @@ public class BibleController {
 
 	@PostMapping("/search")
 	public String search(@ModelAttribute("search") Search search, @RequestParam String bibleName, Model model) {
-		defaultBibleService.setActive(bibleName);
+		defaultBibleService.setActiveBible(bibleName);
 		model.addAttribute("bible", defaultBibleService.getActiveBible());
 		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
 		model.addAttribute("books", defaultBibleService.getBooksAsList());
@@ -198,7 +259,7 @@ public class BibleController {
 
 	@PostMapping("/count")
 	public String count(@ModelAttribute("section") Section section, @RequestParam String bibleName, Model model) {
-		defaultBibleService.setActive(bibleName);
+		defaultBibleService.setActiveBible(bibleName);
 		model.addAttribute("bible", defaultBibleService.getActiveBible());
 		model.addAttribute("bibles", defaultBiblesService.getBiblesAsList());
 		model.addAttribute("books", defaultBibleService.getBooksAsList());

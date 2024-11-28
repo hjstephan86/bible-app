@@ -12,11 +12,11 @@
 	<div class="header">
 		<div class="topnav" id="topnav">
 			<a href="/home">Home</a>
-			<a href="/read" class="active">Lesen</a>
+			<a href="/read">Lesen</a>
 			<a href="/search">Suchen</a>
 			<a href="/count">Zählen</a>
 			<a href="/strong">Urtext</a>
-			<a href="/parallel">Parallel</a>
+			<a href="/parallel" class="active">Parallel</a>
 			<!--
 				<div class="dropdown">
 					<button class="dropbtn">Dropdown
@@ -34,7 +34,7 @@
 		</div>
 
 		<div class="headline">
-			<h2>Die Bibel lesen</h2>
+			<h2>Verse der Bibel vergleichen</h2>
 			<div class="translation">
 				<h5>Nach der Übersetzung von</h5>
 				<form th:action="@{/read}" method="POST" style="display: inline;" id="bibleNameForm">
@@ -56,42 +56,43 @@
 		</div>
 		<!--Make sure the form has the autocomplete function switched off:-->
 		<div class="form">
-			<form autocomplete="off" th:action="@{/read}" th:object="${passage}" method="POST" id="readForm">
+			<form autocomplete="off" th:action="@{/parallel}" th:object="${passage}" method="POST" id="parallelForm">
 				<div class="autocomplete">
 					<input id="inputBook" type="text" placeholder="Buch" name="book" th:field="*{book}">
 				</div>
 				<div class="select">
 					<select id="selectChapter" type="text" name="chapter" th:field="*{chapter}"
+						onchange="populateVerses('onchange')"></select>
+				</div>
+				<div class="select">
+					<select id="selectVerse" type="text" name="verse" th:field="*{verse}"
 						onchange="doSubmit()"></select>
-				</div>
-				<div class="navigation">
-					<span class="navigation disable" id="spanPrev" onclick="goToPrevChapter()">
-						<< </span>
-				</div>
-				<div class="navigation">
-					<span class="navigation disable" id="spanNext" onclick="goToNextChapter()">>></span>
 				</div>
 				<input type="hidden" th:value="${bibleName}" name="bibleName" id="inputBibleName">
 			</form>
 		</div>
 	</div>
 	<script type="text/javascript" charset="utf-8" src="js/top-navigation.js"></script>
-	<script type="text/javascript" charset="utf-8" src="js/read.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/parallel.js"></script>
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var books = /*[[${books}]]*/ "";
 		var chapters = /*[[${chapters}]]*/ "";
+		var verses = /*[[${verses}]]*/ "";
 		var selectedChapterValue = /*[[${passage.chapter}]]*/ "";
+		var selectedVerseValue = /*[[${passage.verse}]]*/ "";
 		/*]]>*/
 		autocomplete(document.getElementById("inputBook"), books);
 	</script>
-	<div class="readContent">
-		<span th:if="${verses.size() == 0}"
-			th:utext="'Zum Lesen eines Kapitels kann einfach das Buch eingegeben werden. Eine Liste mit passenden Büchern wird dann vorgeschlagen, aus der das Buch ausgewählt werden kann.'"></span>
+	<div class="parallelContent">
+		<span th:if="${parallel.verses.size() == 0}"
+			th:utext="'Zum Anzeigen der Parallelstellen eines Verses kann hier der Vers ausgewählt werden.'"></span>
 		<table>
-			<tr th:each="verse : ${verses}">
+			<tr th:each="verse, iterator : ${parallel.verses}">
+				<td style="vertical-align: top">
+					<span class="verse" th:text="${parallel.bibleNames[iterator.index]}"></span>
+				</td>
 				<td>
-					<span class="verse" th:id="${verse.number}" th:text="${verse.number}"></span>
 					<span class="verseText" th:utext="${verse.text}"></span>
 				</td>
 			</tr>

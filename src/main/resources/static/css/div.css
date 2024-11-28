@@ -130,6 +130,14 @@ div.countContent {
     text-align: justify
 }
 
+div.parallelContent {
+    margin-top: 204px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: justify
+}
+
 div#concordanceWrapper {
     background-color: #fff;
     border: 1px solid #ddd;

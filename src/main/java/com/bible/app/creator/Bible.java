@@ -57,9 +57,11 @@ public abstract class Bible {
 			for (Verse v : verses) {
 				String verseText = v.getText();
 				String lang = bookMap.get(passage.getBook()).getPosition() < 39 ? "Heb" : "Gre";
-				String hyperlink = "<a href=\"/readStrBy?book=" + passage.getBook() + "&chapter=" + passage.getChapter()
+				String linkStr = "<a href=\"/readStrBy?book=" + passage.getBook() + "&chapter=" + passage.getChapter()
 						+ "&verse=" + v.getNumber() + "\"> " + lang + " </a>";
-				Verse verse = new Verse(v.getNumber(), verseText + " " + hyperlink);
+				String linkPar = "<a href=\"/parallelBy?book=" + passage.getBook() + "&chapter=" + passage.getChapter()
+						+ "&verse=" + v.getNumber() + "\"> Par </a>";
+				Verse verse = new Verse(v.getNumber(), verseText + " " + linkStr + " " + linkPar);
 				newVerses.add(verse);
 			}
 			return newVerses;

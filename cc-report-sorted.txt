@@ -1,40 +1,46 @@
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:25: CyclomaticComplexity: The class 'Bible' has a total cyclomatic complexity of 88 (highest 11).
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:116: CyclomaticComplexity: The method 'readConcordance()' has a cyclomatic complexity of 25.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:48: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 17.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:26: CyclomaticComplexity: The class 'Bible' has a total cyclomatic complexity of 91 (highest 11).
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:115: CyclomaticComplexity: The method 'readConcordance()' has a cyclomatic complexity of 25.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:47: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 17.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912.java:42: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 16.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:144: CyclomaticComplexity: The method 'search(SearchResult, List<Finding>, int, Section, Passage, String, boolean, boolean)' has a cyclomatic complexity of 11.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:177: CyclomaticComplexity: The method 'isFloodSearch(String)' has a cyclomatic complexity of 10.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:254: CyclomaticComplexity: The method 'getListOfMatchingIndices(String, String[], String, boolean, boolean, boolean)' has a cyclomatic complexity of 10.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:161: CyclomaticComplexity: The method 'search(SearchResult, List<Finding>, int, Section, Passage, String, boolean, boolean)' has a cyclomatic complexity of 11.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:194: CyclomaticComplexity: The method 'isFloodSearch(String)' has a cyclomatic complexity of 10.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:271: CyclomaticComplexity: The method 'getListOfMatchingIndices(String, String[], String, boolean, boolean, boolean)' has a cyclomatic complexity of 10.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/BibleCreator.java:15: CyclomaticComplexity: The method 'getBible(String)' has a cyclomatic complexity of 8.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:107: CyclomaticComplexity: The method 'search(Search)' has a cyclomatic complexity of 6.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:230: CyclomaticComplexity: The method 'getFormattedVerseText(List<Integer>, String[], String, String, boolean)' has a cyclomatic complexity of 6.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:124: CyclomaticComplexity: The method 'search(Search)' has a cyclomatic complexity of 6.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:247: CyclomaticComplexity: The method 'getFormattedVerseText(List<Integer>, String[], String, String, boolean)' has a cyclomatic complexity of 6.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/AmericanStandardVersion.java:38: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 6.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Elberfelder1905.java:38: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 6.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Menge1939.java:38: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 6.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Schlachter1951.java:38: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 6.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/WorldEnglishBible.java:38: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 6.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:167: CyclomaticComplexity: The method 'search(Search, String, Model)' has a cyclomatic complexity of 5.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:104: CyclomaticComplexity: The method 'search(Search)' has a cyclomatic complexity of 5.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:309: CyclomaticComplexity: The method 'getCurrentSection(Search)' has a cyclomatic complexity of 5.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:73: CyclomaticComplexity: The method 'readBy(Model, String, int, int)' has a cyclomatic complexity of 4.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:98: CyclomaticComplexity: The method 'readStrBy(Model, String, int, int)' has a cyclomatic complexity of 4.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:200: CyclomaticComplexity: The method 'count(Section, String, Model)' has a cyclomatic complexity of 4.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:116: CyclomaticComplexity: The method 'count(Section)' has a cyclomatic complexity of 4.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:357: CyclomaticComplexity: The method 'goToNextPassage(Passage)' has a cyclomatic complexity of 4.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:403: CyclomaticComplexity: The method 'countWords(Section)' has a cyclomatic complexity of 4.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:137: CyclomaticComplexity: The method 'read(Passage, String, Model)' has a cyclomatic complexity of 3.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:232: CyclomaticComplexity: The method 'strong(Passage, String, Model)' has a cyclomatic complexity of 3.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:80: CyclomaticComplexity: The method 'read(Passage)' has a cyclomatic complexity of 3.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:90: CyclomaticComplexity: The method 'strong(Passage)' has a cyclomatic complexity of 3.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:289: CyclomaticComplexity: The method 'matchExact(int, String, String)' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:228: CyclomaticComplexity: The method 'search(Search, String, Model)' has a cyclomatic complexity of 5.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:105: CyclomaticComplexity: The method 'search(Search)' has a cyclomatic complexity of 5.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:326: CyclomaticComplexity: The method 'getCurrentSection(Search)' has a cyclomatic complexity of 5.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:111: CyclomaticComplexity: The method 'getParallel(Passage, String)' has a cyclomatic complexity of 5.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:128: CyclomaticComplexity: The method 'setParallelForBible(Passage, Parallel, Bible)' has a cyclomatic complexity of 5.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:74: CyclomaticComplexity: The method 'readBy(Model, String, int, int)' has a cyclomatic complexity of 4.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:99: CyclomaticComplexity: The method 'readStrBy(Model, String, int, int)' has a cyclomatic complexity of 4.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:170: CyclomaticComplexity: The method 'parallelBy(Model, String, int, int)' has a cyclomatic complexity of 4.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:261: CyclomaticComplexity: The method 'count(Section, String, Model)' has a cyclomatic complexity of 4.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:117: CyclomaticComplexity: The method 'count(Section)' has a cyclomatic complexity of 4.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:50: CyclomaticComplexity: The method 'getVerses(Bible, Passage)' has a cyclomatic complexity of 4.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:374: CyclomaticComplexity: The method 'goToNextPassage(Passage)' has a cyclomatic complexity of 4.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:420: CyclomaticComplexity: The method 'countWords(Section)' has a cyclomatic complexity of 4.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:138: CyclomaticComplexity: The method 'read(Passage, String, Model)' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:197: CyclomaticComplexity: The method 'parallel(Passage, String, Model)' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:293: CyclomaticComplexity: The method 'strong(Passage, String, Model)' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:81: CyclomaticComplexity: The method 'read(Passage)' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:91: CyclomaticComplexity: The method 'strong(Passage)' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:128: CyclomaticComplexity: The method 'parallel(Passage)' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:306: CyclomaticComplexity: The method 'matchExact(int, String, String)' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/AmericanStandardVersion.java:18: CyclomaticComplexity: The constructor 'AmericanStandardVersion(String)' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/AmericanStandardVersion.java:77: CyclomaticComplexity: The method 'readIgnore()' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Elberfelder1905.java:18: CyclomaticComplexity: The constructor 'Elberfelder1905(String)' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Elberfelder1905.java:77: CyclomaticComplexity: The method 'readIgnore()' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912.java:22: CyclomaticComplexity: The constructor 'Luther1912(String)' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912.java:140: CyclomaticComplexity: The method 'readIgnore()' has a cyclomatic complexity of 3.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:27: CyclomaticComplexity: The constructor 'Luther1912Strong(String)' has a cyclomatic complexity of 3.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:185: CyclomaticComplexity: The method 'readIgnore()' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:26: CyclomaticComplexity: The constructor 'Luther1912Strong(String)' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:184: CyclomaticComplexity: The method 'readIgnore()' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Menge1939.java:18: CyclomaticComplexity: The constructor 'Menge1939(String)' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Menge1939.java:77: CyclomaticComplexity: The method 'readIgnore()' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Schlachter1951.java:18: CyclomaticComplexity: The constructor 'Schlachter1951(String)' has a cyclomatic complexity of 3.
@@ -43,15 +49,15 @@
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/WorldEnglishBible.java:77: CyclomaticComplexity: The method 'readIgnore()' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Word.java:37: CyclomaticComplexity: The method 'compareTo(Word)' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBiblesService.java:45: CyclomaticComplexity: The method 'getBiblesAsList()' has a cyclomatic complexity of 3.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:286: CyclomaticComplexity: The method 'asJsonString(Object)' has a cyclomatic complexity of 3.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:334: CyclomaticComplexity: The method 'asJsonString(Object)' has a cyclomatic complexity of 3.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/LoggingAspect.java:20: CyclomaticComplexity: The method 'profileAllMethods(ProceedingJoinPoint)' has a cyclomatic complexity of 2.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:62: CyclomaticComplexity: The method 'bible(String)' has a cyclomatic complexity of 2.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:70: CyclomaticComplexity: The method 'passageExists(Passage)' has a cyclomatic complexity of 2.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:221: CyclomaticComplexity: The method 'isSearchValid(String)' has a cyclomatic complexity of 2.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:299: CyclomaticComplexity: The method 'getSearchText(String)' has a cyclomatic complexity of 2.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:172: CyclomaticComplexity: The method 'ReplaceGrWithHyperlink(String, Book)' has a cyclomatic complexity of 2.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:63: CyclomaticComplexity: The method 'bible(String)' has a cyclomatic complexity of 2.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:87: CyclomaticComplexity: The method 'passageExists(Passage)' has a cyclomatic complexity of 2.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:238: CyclomaticComplexity: The method 'isSearchValid(String)' has a cyclomatic complexity of 2.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:316: CyclomaticComplexity: The method 'getSearchText(String)' has a cyclomatic complexity of 2.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:171: CyclomaticComplexity: The method 'replaceGrWithHyperlink(String, Book)' has a cyclomatic complexity of 2.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Passage.java:54: CyclomaticComplexity: The method 'toString()' has a cyclomatic complexity of 2.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:99: CyclomaticComplexity: The method 'getConcordance()' has a cyclomatic complexity of 2.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:104: CyclomaticComplexity: The method 'getConcordance()' has a cyclomatic complexity of 2.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/BibleApplication.java:9: CyclomaticComplexity: The method 'main(String[])' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/SessionConfig.java:15: CyclomaticComplexity: The method 'initializer()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/concordance/Description.java:10: CyclomaticComplexity: The constructor 'Description()' has a cyclomatic complexity of 1.
@@ -68,48 +74,55 @@
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/concordance/Item.java:36: CyclomaticComplexity: The method 'setParagraph(String)' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/concordance/Item.java:40: CyclomaticComplexity: The method 'getDescription()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/concordance/Item.java:44: CyclomaticComplexity: The method 'setDescription(List<Description>)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:33: CyclomaticComplexity: The constructor 'BibleController(BibleService, BiblesService)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:39: CyclomaticComplexity: The method 'home(Model)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:47: CyclomaticComplexity: The method 'home(Model, String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:56: CyclomaticComplexity: The method 'about(Model)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:64: CyclomaticComplexity: The method 'about(Model, String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:125: CyclomaticComplexity: The method 'read(Model)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:156: CyclomaticComplexity: The method 'search(Model)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:187: CyclomaticComplexity: The method 'count(Model)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:221: CyclomaticComplexity: The method 'strong(Model)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:41: CyclomaticComplexity: The constructor 'BibleRestController(BibleService, BiblesService)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:48: CyclomaticComplexity: The method 'hello()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:55: CyclomaticComplexity: The method 'bibles()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:73: CyclomaticComplexity: The method 'books()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:39: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:42: CyclomaticComplexity: The method 'readIgnore()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:45: CyclomaticComplexity: The method 'getBookMap()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:49: CyclomaticComplexity: The method 'getVerses(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:54: CyclomaticComplexity: The method 'getBooksAsList()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:58: CyclomaticComplexity: The method 'getChaptersAsList()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:62: CyclomaticComplexity: The method 'getVersesAsListOfLists()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:66: CyclomaticComplexity: The method 'getName()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:79: CyclomaticComplexity: The method 'sectionIsValid(Section)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:199: CyclomaticComplexity: The method 'shouldMatchCase(String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:205: CyclomaticComplexity: The method 'shouldMatchExact(String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:211: CyclomaticComplexity: The method 'shouldMatchExactAndShouldMatchCase(String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:250: CyclomaticComplexity: The method 'insertString(String, String, int)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:371: CyclomaticComplexity: The method 'getNextBook(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:375: CyclomaticComplexity: The method 'getNextChapter(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:379: CyclomaticComplexity: The method 'getNextVerse(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:384: CyclomaticComplexity: The method 'getSection(Book)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:395: CyclomaticComplexity: The method 'getLastChapter(Book)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:399: CyclomaticComplexity: The method 'getLastVerse(Chapter)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:428: CyclomaticComplexity: The method 'ignore(String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:432: CyclomaticComplexity: The method 'getSplittedVerseText(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:438: CyclomaticComplexity: The method 'toPassageReached(Passage, Section)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:449: CyclomaticComplexity: The method 'getBookPosition(String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:181: CyclomaticComplexity: The method 'getConcordance()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:34: CyclomaticComplexity: The constructor 'BibleController(BibleService, BiblesService)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:40: CyclomaticComplexity: The method 'home(Model)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:48: CyclomaticComplexity: The method 'home(Model, String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:57: CyclomaticComplexity: The method 'about(Model)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:65: CyclomaticComplexity: The method 'about(Model, String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:126: CyclomaticComplexity: The method 'read(Model)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:157: CyclomaticComplexity: The method 'parallel(Model)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:217: CyclomaticComplexity: The method 'search(Model)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:248: CyclomaticComplexity: The method 'count(Model)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleController.java:282: CyclomaticComplexity: The method 'strong(Model)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:42: CyclomaticComplexity: The constructor 'BibleRestController(BibleService, BiblesService)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:49: CyclomaticComplexity: The method 'hello()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:56: CyclomaticComplexity: The method 'bibles()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/controller/BibleRestController.java:74: CyclomaticComplexity: The method 'books()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:40: CyclomaticComplexity: The method 'readBible()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:43: CyclomaticComplexity: The method 'readIgnore()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:46: CyclomaticComplexity: The method 'getBookMap()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:71: CyclomaticComplexity: The method 'getBooksAsList()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:75: CyclomaticComplexity: The method 'getChaptersAsList()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:79: CyclomaticComplexity: The method 'getVersesAsListOfLists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:83: CyclomaticComplexity: The method 'getName()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:96: CyclomaticComplexity: The method 'sectionIsValid(Section)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:216: CyclomaticComplexity: The method 'shouldMatchCase(String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:222: CyclomaticComplexity: The method 'shouldMatchExact(String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:228: CyclomaticComplexity: The method 'shouldMatchExactAndShouldMatchCase(String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:267: CyclomaticComplexity: The method 'insertString(String, String, int)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:388: CyclomaticComplexity: The method 'getNextBook(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:392: CyclomaticComplexity: The method 'getNextChapter(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:396: CyclomaticComplexity: The method 'getNextVerse(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:401: CyclomaticComplexity: The method 'getSection(Book)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:412: CyclomaticComplexity: The method 'getLastChapter(Book)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:416: CyclomaticComplexity: The method 'getLastVerse(Chapter)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:445: CyclomaticComplexity: The method 'ignore(String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:449: CyclomaticComplexity: The method 'getSplittedVerseText(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:455: CyclomaticComplexity: The method 'toPassageReached(Passage, Section)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/Bible.java:466: CyclomaticComplexity: The method 'getBookPosition(String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/creator/bible/Luther1912Strong.java:180: CyclomaticComplexity: The method 'getConcordance()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/helper/Helper.java:10: CyclomaticComplexity: The method 'getRemoteAddrAndRequestURL()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Finding.java:7: CyclomaticComplexity: The method 'getPassage()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Finding.java:11: CyclomaticComplexity: The method 'setPassage(Passage)' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Finding.java:15: CyclomaticComplexity: The method 'getVerseText()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Finding.java:19: CyclomaticComplexity: The method 'setVerseText(String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Parallel.java:12: CyclomaticComplexity: The constructor 'Parallel()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Parallel.java:17: CyclomaticComplexity: The method 'getVerses()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Parallel.java:21: CyclomaticComplexity: The method 'setVerses(ArrayList<Verse>)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Parallel.java:25: CyclomaticComplexity: The method 'getBibleNames()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Parallel.java:29: CyclomaticComplexity: The method 'setBibleNames(ArrayList<String>)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Parallel.java:33: CyclomaticComplexity: The method 'addVerse(Verse)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Parallel.java:38: CyclomaticComplexity: The method 'addBibleName(String)' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Passage.java:16: CyclomaticComplexity: The constructor 'Passage()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Passage.java:19: CyclomaticComplexity: The constructor 'Passage(String, int)' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Passage.java:24: CyclomaticComplexity: The constructor 'Passage(String, int, int)' has a cyclomatic complexity of 1.
@@ -159,36 +172,37 @@
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Word.java:47: CyclomaticComplexity: The method 'setIgnore(boolean)' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Word.java:51: CyclomaticComplexity: The method 'getIndex()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/model/Word.java:55: CyclomaticComplexity: The method 'setIndex(int)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:16: CyclomaticComplexity: The method 'getActiveBible()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:18: CyclomaticComplexity: The method 'setActive(String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:20: CyclomaticComplexity: The method 'getBooksAsList()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:22: CyclomaticComplexity: The method 'getChaptersAsList()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:24: CyclomaticComplexity: The method 'getBooksAsListFromLuther1912Strong()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:26: CyclomaticComplexity: The method 'getChaptersAsListFromLuther1912Strong()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:28: CyclomaticComplexity: The method 'getVersesAsListOfLists()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:30: CyclomaticComplexity: The method 'getVerses(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:32: CyclomaticComplexity: The method 'getVersesFromLuther1912Strong(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:34: CyclomaticComplexity: The method 'search(Search)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:36: CyclomaticComplexity: The method 'countWords(Section)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:38: CyclomaticComplexity: The method 'passageExists(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:40: CyclomaticComplexity: The method 'sectionIsValid(Section)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:42: CyclomaticComplexity: The method 'getConcordance()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:19: CyclomaticComplexity: The method 'getActiveBible()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:21: CyclomaticComplexity: The method 'setActiveBible(String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:23: CyclomaticComplexity: The method 'getBooksAsList()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:25: CyclomaticComplexity: The method 'getChaptersAsList()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:27: CyclomaticComplexity: The method 'getBooksAsListFromLuther1912Strong()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:29: CyclomaticComplexity: The method 'getChaptersAsListFromLuther1912Strong()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:31: CyclomaticComplexity: The method 'getVersesAsListOfLists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:33: CyclomaticComplexity: The method 'getVerses(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:35: CyclomaticComplexity: The method 'getVersesFromLuther1912Strong(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:37: CyclomaticComplexity: The method 'search(Search)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:39: CyclomaticComplexity: The method 'countWords(Section)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:41: CyclomaticComplexity: The method 'passageExists(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:43: CyclomaticComplexity: The method 'sectionIsValid(Section)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:45: CyclomaticComplexity: The method 'getConcordance()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BibleService.java:47: CyclomaticComplexity: The method 'getParallel(Passage, String)' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BiblesService.java:10: CyclomaticComplexity: The method 'getBibleMap()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/service/BiblesService.java:12: CyclomaticComplexity: The method 'getBiblesAsList()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:27: CyclomaticComplexity: The constructor 'DefaultBibleService(BiblesService)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:34: CyclomaticComplexity: The method 'getActiveBible()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:39: CyclomaticComplexity: The method 'setActive(String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:44: CyclomaticComplexity: The method 'getBooksAsList()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:49: CyclomaticComplexity: The method 'getChaptersAsList()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:54: CyclomaticComplexity: The method 'getBooksAsListFromLuther1912Strong()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:59: CyclomaticComplexity: The method 'getChaptersAsListFromLuther1912Strong()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:64: CyclomaticComplexity: The method 'getVersesAsListOfLists()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:69: CyclomaticComplexity: The method 'getVerses(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:74: CyclomaticComplexity: The method 'getVersesFromLuther1912Strong(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:79: CyclomaticComplexity: The method 'search(Search)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:84: CyclomaticComplexity: The method 'countWords(Section)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:89: CyclomaticComplexity: The method 'passageExists(Passage)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:94: CyclomaticComplexity: The method 'sectionIsValid(Section)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:32: CyclomaticComplexity: The constructor 'DefaultBibleService(BiblesService)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:39: CyclomaticComplexity: The method 'getActiveBible()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:44: CyclomaticComplexity: The method 'setActiveBible(String)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:49: CyclomaticComplexity: The method 'getBooksAsList()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:54: CyclomaticComplexity: The method 'getChaptersAsList()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:59: CyclomaticComplexity: The method 'getBooksAsListFromLuther1912Strong()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:64: CyclomaticComplexity: The method 'getChaptersAsListFromLuther1912Strong()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:69: CyclomaticComplexity: The method 'getVersesAsListOfLists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:74: CyclomaticComplexity: The method 'getVerses(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:79: CyclomaticComplexity: The method 'getVersesFromLuther1912Strong(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:84: CyclomaticComplexity: The method 'search(Search)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:89: CyclomaticComplexity: The method 'countWords(Section)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:94: CyclomaticComplexity: The method 'passageExists(Passage)' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBibleService.java:99: CyclomaticComplexity: The method 'sectionIsValid(Section)' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBiblesService.java:19: CyclomaticComplexity: The constructor 'DefaultBiblesService()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/service/DefaultBiblesService.java:40: CyclomaticComplexity: The method 'getBibleMap()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/text/Book.java:12: CyclomaticComplexity: The method 'getName()' has a cyclomatic complexity of 1.
@@ -209,35 +223,38 @@
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/text/Verse.java:22: CyclomaticComplexity: The method 'setNumber(int)' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/text/Verse.java:26: CyclomaticComplexity: The method 'getText()' has a cyclomatic complexity of 1.
 /home/stephan/Git/bible-app/src/main/java/com/bible/app/text/Verse.java:30: CyclomaticComplexity: The method 'setText(String)' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:58: CyclomaticComplexity: The method 'testHello()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:65: CyclomaticComplexity: The method 'testBibles()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:78: CyclomaticComplexity: The method 'testBibleExists()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:91: CyclomaticComplexity: The method 'testBibleNotExists()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:103: CyclomaticComplexity: The method 'testBooks()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:121: CyclomaticComplexity: The method 'testReadPassageExists()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:146: CyclomaticComplexity: The method 'testReadPassageNotExists()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:160: CyclomaticComplexity: The method 'testCountSectionIsValid()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:192: CyclomaticComplexity: The method 'testCountSectionIsNotValid()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:211: CyclomaticComplexity: The method 'testSearchSectionNotNull()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:235: CyclomaticComplexity: The method 'testSearchSectionNull()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:247: CyclomaticComplexity: The method 'testStrongPassageExists()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:273: CyclomaticComplexity: The method 'testStrongPassageNotExists()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:28: CyclomaticComplexity: The method 'testSearchDefault()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:58: CyclomaticComplexity: The method 'testSearchBook()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:88: CyclomaticComplexity: The method 'testSearchAlle()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:118: CyclomaticComplexity: The method 'testSearchAlleInvalid()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:136: CyclomaticComplexity: The method 'testSearchAlleCaseSensitive()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:190: CyclomaticComplexity: The method 'testSearchAlleMatchExcact()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:243: CyclomaticComplexity: The method 'testSearchAlleMatchExcactCaseSensitive()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:296: CyclomaticComplexity: The method 'testSearchAlleEmpty()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:314: CyclomaticComplexity: The method 'testSearchAlleSpecialChar()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:358: CyclomaticComplexity: The method 'testFloodSearchAlleKinder()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:404: CyclomaticComplexity: The method 'testFloodSearchAlle()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:434: CyclomaticComplexity: The method 'testFloodSearchAlleJoh316()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:480: CyclomaticComplexity: The method 'testFloodSearchAlleInvalid()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:527: CyclomaticComplexity: The method 'testSearchAlleCaseSensitiveEmpty()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:545: CyclomaticComplexity: The method 'testSearchAT()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:575: CyclomaticComplexity: The method 'testSearchNT()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:605: CyclomaticComplexity: The method 'testCountWords()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:630: CyclomaticComplexity: The method 'testIsSectionValid()' has a cyclomatic complexity of 1.
-/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:653: CyclomaticComplexity: The method 'testPassageExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:59: CyclomaticComplexity: The method 'testHello()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:66: CyclomaticComplexity: The method 'testBibles()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:79: CyclomaticComplexity: The method 'testBibleExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:92: CyclomaticComplexity: The method 'testBibleNotExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:104: CyclomaticComplexity: The method 'testBooks()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:122: CyclomaticComplexity: The method 'testReadPassageExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:147: CyclomaticComplexity: The method 'testReadPassageNotExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:161: CyclomaticComplexity: The method 'testCountSectionIsValid()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:193: CyclomaticComplexity: The method 'testCountSectionIsNotValid()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:212: CyclomaticComplexity: The method 'testSearchSectionNotNull()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:236: CyclomaticComplexity: The method 'testSearchSectionNull()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:248: CyclomaticComplexity: The method 'testStrongPassageExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:274: CyclomaticComplexity: The method 'testStrongPassageNotExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:288: CyclomaticComplexity: The method 'testParallelPassageExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleRestControllerTest.java:321: CyclomaticComplexity: The method 'testParallelPassageNotExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:29: CyclomaticComplexity: The method 'testSearchDefault()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:59: CyclomaticComplexity: The method 'testSearchBook()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:89: CyclomaticComplexity: The method 'testSearchAlle()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:119: CyclomaticComplexity: The method 'testSearchAlleInvalid()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:150: CyclomaticComplexity: The method 'testSearchAlleCaseSensitive()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:204: CyclomaticComplexity: The method 'testSearchAlleMatchExcact()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:257: CyclomaticComplexity: The method 'testSearchAlleMatchExcactCaseSensitive()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:310: CyclomaticComplexity: The method 'testSearchAlleEmpty()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:328: CyclomaticComplexity: The method 'testFloodSearchAlleKinder()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:374: CyclomaticComplexity: The method 'testFloodSearchAlle()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:404: CyclomaticComplexity: The method 'testFloodSearchAlleJoh316()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:450: CyclomaticComplexity: The method 'testFloodSearchAlleInvalid()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:497: CyclomaticComplexity: The method 'testSearchAlleCaseSensitiveEmpty()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:515: CyclomaticComplexity: The method 'testSearchAT()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:545: CyclomaticComplexity: The method 'testSearchNT()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:575: CyclomaticComplexity: The method 'testCountWords()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:600: CyclomaticComplexity: The method 'testIsSectionValid()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:623: CyclomaticComplexity: The method 'testPassageExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:639: CyclomaticComplexity: The method 'testGetParallelPassageExists()' has a cyclomatic complexity of 1.
+/home/stephan/Git/bible-app/src/test/java/com/bible/app/BibleServiceTest.java:654: CyclomaticComplexity: The method 'testGetParallelPassageNotExists()' has a cyclomatic complexity of 1.

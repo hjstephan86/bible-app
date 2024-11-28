@@ -87,6 +87,14 @@ select#selectChapter.white {
 	color: #fff;
 }
 
+select#selectVerse {
+	color: #444;
+}
+
+select#selectVerse.white {
+	color: #fff;
+}
+
 input {
 	background-color: #eee;
 	border-radius: 5px;

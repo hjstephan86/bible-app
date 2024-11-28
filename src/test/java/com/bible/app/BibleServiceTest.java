@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.bible.app.model.Finding;
+import com.bible.app.model.Parallel;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
 import com.bible.app.model.SearchResult;
@@ -632,5 +633,34 @@ public class BibleServiceTest {
 
         passage = new Passage(book, chapter, 100);
         assertFalse(defaultBibleService.passageExists(passage));
+    }
+
+    @Test
+    public void testGetParallelPassageExists() {
+        String book = "1. Mose";
+        int chapter = 1;
+        int verse = 1;
+
+        Passage passage = new Passage(book, chapter, verse);
+        Parallel parallel = defaultBibleService.getParallel(passage, defaultBibleService.getActiveBible().getName());
+
+        assertTrue(parallel != null);
+        assertTrue(parallel.getVerses().size() == 6);
+        assertTrue(parallel.getBibleNames().size() == 6);
+        assertEquals(parallel.getBibleNames().get(0), defaultBibleService.getActiveBible().getName());
+    }
+
+    @Test
+    public void testGetParallelPassageNotExists() {
+        String book = "1. Mose";
+        int chapter = 100;
+        int verse = 100;
+
+        Passage passage = new Passage(book, chapter, verse);
+        Parallel parallel = defaultBibleService.getParallel(passage, defaultBibleService.getActiveBible().getName());
+
+        assertTrue(parallel != null);
+        assertTrue(parallel.getVerses().size() == 0);
+        assertTrue(parallel.getBibleNames().size() == 0);
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.bible.app.concordance.Item;
 import com.bible.app.creator.Bible;
+import com.bible.app.model.Parallel;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
 import com.bible.app.model.SearchResult;
@@ -17,7 +18,7 @@ public interface BibleService {
 
     Bible getActiveBible();
 
-    void setActive(String bibleName);
+    void setActiveBible(String bibleName);
 
     ArrayList<String> getBooksAsList();
 
@@ -43,4 +44,5 @@ public interface BibleService {
 
     LinkedHashMap<String, Item> getConcordance();
 
+    Parallel getParallel(Passage passage, String bibleName);
 }

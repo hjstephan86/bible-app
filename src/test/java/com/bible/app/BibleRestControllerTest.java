@@ -27,6 +27,7 @@ import com.bible.app.controller.BibleRestController;
 import com.bible.app.creator.Bible;
 import com.bible.app.creator.BibleCreator;
 import com.bible.app.creator.bible.Luther1912Strong;
+import com.bible.app.model.Parallel;
 import com.bible.app.model.Passage;
 import com.bible.app.model.Search;
 import com.bible.app.model.Section;
@@ -49,7 +50,7 @@ public class BibleRestControllerTest {
     private BibleService activeBibleService;
 
     @MockBean
-    private BiblesService defaultBibleService;
+    private BiblesService defaultBiblesService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -67,7 +68,7 @@ public class BibleRestControllerTest {
         String bible = "Bible";
         bibles.add(bible);
 
-        when(defaultBibleService.getBiblesAsList()).thenReturn(bibles);
+        when(defaultBiblesService.getBiblesAsList()).thenReturn(bibles);
 
         this.mockMvc.perform(get(API_PATH + "bibles"))
                 .andExpect(status().isOk())
@@ -80,7 +81,7 @@ public class BibleRestControllerTest {
         Map<String, Bible> bibleMap = new HashMap<String, Bible>();
         bibleMap.put(luther1912.getName(), luther1912);
 
-        when(defaultBibleService.getBibleMap()).thenReturn(bibleMap);
+        when(defaultBiblesService.getBibleMap()).thenReturn(bibleMap);
 
         this.mockMvc.perform(post(API_PATH + "bible", luther1912.getName()).param("bible", luther1912.getName()))
                 .andExpect(status().isOk())
@@ -92,7 +93,7 @@ public class BibleRestControllerTest {
         Bible luther1912 = BibleCreator.getBible("Luther 1912");
         Map<String, Bible> bibleMap = new HashMap<String, Bible>();
 
-        when(defaultBibleService.getBibleMap()).thenReturn(bibleMap);
+        when(defaultBiblesService.getBibleMap()).thenReturn(bibleMap);
 
         this.mockMvc.perform(post(API_PATH + "bible", luther1912.getName()).param("bible", luther1912.getName()))
                 .andExpect(status().isBadRequest())
@@ -278,6 +279,53 @@ public class BibleRestControllerTest {
         when(activeBibleService.passageExists(any(Passage.class))).thenReturn(false);
 
         this.mockMvc.perform(post(API_PATH + "strong")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(passage)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testParallelPassageExists() throws Exception {
+        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Book book = luther1912.getBookMap().get("3. Mose");
+        Passage passage = new Passage(book.getName(), 2);
+
+        Parallel parallel = new Parallel();
+        parallel.addBibleName(luther1912.getName());
+        parallel.addVerse(book.getChapter()
+                .get(passage.getChapter()).getVerses().get(passage.getVerse()));
+
+        when(activeBibleService.passageExists(any(Passage.class))).thenReturn(true);
+        when(activeBibleService.getActiveBible()).thenReturn(luther1912);
+        when(defaultBiblesService.getBibleMap()).thenReturn(new HashMap<String, Bible>() {
+            {
+                put(luther1912.getName(), luther1912);
+            }
+        });
+        when(activeBibleService.getParallel(any(Passage.class), any(String.class))).thenReturn(parallel);
+
+        MvcResult result = this.mockMvc.perform(post(API_PATH + "parallel")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(passage)))
+                .andExpect(status().isOk()).andReturn();
+        assertTrue(result != null);
+
+        String json = result.getResponse().getContentAsString();
+        TypeToken<Parallel> typeToken = new TypeToken<>() {
+        };
+        Parallel parallelResult = new Gson().fromJson(json, typeToken.getType());
+        assertTrue(parallelResult.getVerses().size() == 1);
+    }
+
+    @Test
+    public void testParallelPassageNotExists() throws Exception {
+        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Book book = luther1912.getBookMap().get("3. Mose");
+        Passage passage = new Passage(book.getName(), 2);
+
+        when(activeBibleService.passageExists(any(Passage.class))).thenReturn(false);
+
+        this.mockMvc.perform(post(API_PATH + "parallel")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(passage)))
                 .andExpect(status().isBadRequest());
