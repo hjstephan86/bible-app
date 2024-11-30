@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -37,11 +38,9 @@ public abstract class Bible {
 
 	protected String name;
 
-	protected void readBible() throws IOException {
-	}
+	protected abstract void readBible() throws IOException;
 
-	protected void readIgnore() throws IOException {
-	}
+	protected abstract void readIgnore() throws IOException;
 
 	public Map<String, Book> getBookMap() {
 		return bookMap;
@@ -158,37 +157,13 @@ public abstract class Bible {
 		return searchResult;
 	}
 
-	private int search(SearchResult searchResult, List<Finding> findings, int hitCount, Section section,
-			Passage currentPassage, String searchText, boolean matchExact, boolean matchCase) {
-		searchText = searchResult.isFloodSearch() ? searchText.substring(2, searchText.length()) : searchText;
-		searchText = matchExact && matchCase ? searchText.substring(2, searchText.length() - 2) : searchText;
-		searchText = !matchExact && matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
-		searchText = matchExact && !matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
-
-		if (searchText.length() > 0) {
-			do {
-				String verseText = bookMap.get(currentPassage.getBook()).getChapter()
-						.get(currentPassage.getChapter())
-						.getVerses().get(currentPassage.getVerse()).getText();
-
-				String[] hitOrder = new String[verseText.length()];
-				List<Integer> indices = getListOfMatchingIndices(verseText, hitOrder, searchText,
-						searchResult.isFloodSearch(), matchCase, matchExact);
-				if (indices.size() > 0) {
-					hitCount += indices.size();
-					Finding finding = new Finding();
-					finding.setPassage(
-							new Passage(currentPassage.getBook(), currentPassage.getChapter(),
-									currentPassage.getVerse()));
-					finding.setVerseText(
-							getFormattedVerseText(indices, hitOrder, verseText, searchText,
-									searchResult.isFloodSearch()));
-					findings.add(finding);
-				}
-				goToNextPassage(currentPassage);
-			} while (!toPassageReached(currentPassage, section));
+	private boolean isSearchValid(String searchText) {
+		Pattern pattern = Pattern.compile("<[^>]+>");
+		Matcher matcher = pattern.matcher(searchText);
+		if (matcher.find()) {
+			return false;
 		}
-		return hitCount;
+		return searchText.length() > 1;
 	}
 
 	private boolean isFloodSearch(String searchText) {
@@ -235,48 +210,48 @@ public abstract class Bible {
 				&& searchText.length() > 3;
 	}
 
-	private boolean isSearchValid(String searchText) {
-		Pattern pattern = Pattern.compile("<[^>]+>");
-		Matcher matcher = pattern.matcher(searchText);
-		if (matcher.find()) {
-			return false;
-		}
-		return searchText.length() > 1;
-	}
+	private int search(SearchResult searchResult, List<Finding> findings, int hitCount, Section section,
+			Passage currentPassage, String searchText, boolean matchExact, boolean matchCase) {
+		searchText = searchResult.isFloodSearch() ? searchText.substring(2, searchText.length()) : searchText;
+		searchText = matchExact && matchCase ? searchText.substring(2, searchText.length() - 2) : searchText;
+		searchText = !matchExact && matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
+		searchText = matchExact && !matchCase ? searchText.substring(1, searchText.length() - 1) : searchText;
 
-	private String getFormattedVerseText(List<Integer> indices, String[] hitOrder, String verseText, String searchText,
-			boolean isFloodSearch) {
-		if (isFloodSearch) {
-			int verseHitCount = 0;
-			for (int i = 0; i < hitOrder.length; i++) {
-				if (hitOrder[i] != null && !hitOrder[i].isEmpty()) {
-					verseText = insertString(verseText, "<b>", i + (verseHitCount * 7));
-					verseText = insertString(verseText, "</b>", i + (verseHitCount * 7) + hitOrder[i].length() + 3);
-					verseHitCount++;
+		if (searchText.length() > 0) {
+			do {
+				String verseText = bookMap.get(currentPassage.getBook()).getChapter()
+						.get(currentPassage.getChapter())
+						.getVerses().get(currentPassage.getVerse()).getText();
+
+				String[] hitOrder = new String[verseText.length()];
+				LinkedHashSet<Integer> indices = getListOfMatchingIndices(verseText, hitOrder, searchText,
+						searchResult.isFloodSearch(), matchCase, matchExact);
+				if (indices.size() > 0) {
+					Finding finding = new Finding();
+					finding.setPassage(
+							new Passage(currentPassage.getBook(), currentPassage.getChapter(),
+									currentPassage.getVerse()));
+					finding.setVerseText(
+							getFormattedVerseText(indices, hitOrder, verseText, searchText,
+									searchResult.isFloodSearch(), finding));
+					findings.add(finding);
+					hitCount += finding.getVerseHitCount();
 				}
-			}
-		} else {
-			for (int i = 0; i < indices.size(); i++) {
-				verseText = insertString(verseText, "<b>", indices.get(i) + (i * 7));
-				verseText = insertString(verseText, "</b>", indices.get(i) + (i * 7) + searchText.length() + 3);
-			}
+				goToNextPassage(currentPassage);
+			} while (!toPassageReached(currentPassage, section));
 		}
-		return verseText;
+		return hitCount;
 	}
 
-	private String insertString(String originalString, String stringToBeInserted, int index) {
-		return originalString.substring(0, index) + stringToBeInserted + originalString.substring(index);
-	}
-
-	private List<Integer> getListOfMatchingIndices(String verseText, String[] hitOrder, String searchText,
+	private LinkedHashSet<Integer> getListOfMatchingIndices(String verseText, String[] hitOrder, String searchText,
 			boolean isFloodSearch, boolean shouldMatchCase, boolean shouldMatchExact) {
-		List<Integer> indices = new ArrayList<Integer>();
+		LinkedHashSet<Integer> indices = new LinkedHashSet<Integer>();
 		if (isFloodSearch) {
 			String[] searchTextArr = searchText.split(" ");
 			for (String searchTextElem : searchTextArr) {
 				int index = verseText.indexOf(searchTextElem);
 				if (index < 0) {
-					return new ArrayList<Integer>();
+					return new LinkedHashSet<Integer>();
 				}
 				while (index >= 0) {
 					hitOrder[index] = searchTextElem;
@@ -301,6 +276,34 @@ public abstract class Bible {
 			}
 		}
 		return indices;
+	}
+
+	private String getFormattedVerseText(LinkedHashSet<Integer> indices, String[] hitOrder, String verseText,
+			String searchText, boolean isFloodSearch, Finding finding) {
+		if (isFloodSearch) {
+			int verseHitCount = 0;
+			for (int i = 0; i < hitOrder.length; i++) {
+				if (hitOrder[i] != null && !hitOrder[i].isEmpty()) {
+					verseText = insertString(verseText, "<b>", i + (verseHitCount * 7));
+					verseText = insertString(verseText, "</b>", i + (verseHitCount * 7) + hitOrder[i].length() + 3);
+					verseHitCount++;
+					i = i + hitOrder[i].length() - 1;
+				}
+			}
+			finding.setVerseHitCount(verseHitCount);
+		} else {
+			ArrayList<Integer> indicesList = new ArrayList<>(indices);
+			for (int i = 0; i < indicesList.size(); i++) {
+				verseText = insertString(verseText, "<b>", indicesList.get(i) + (i * 7));
+				verseText = insertString(verseText, "</b>", indicesList.get(i) + (i * 7) + searchText.length() + 3);
+			}
+			finding.setVerseHitCount(indices.size());
+		}
+		return verseText;
+	}
+
+	private String insertString(String originalString, String stringToBeInserted, int index) {
+		return originalString.substring(0, index) + stringToBeInserted + originalString.substring(index);
 	}
 
 	private boolean matchExact(int index, String verseText, String searchText) {

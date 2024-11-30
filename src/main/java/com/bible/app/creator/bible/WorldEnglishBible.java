@@ -74,6 +74,7 @@ public class WorldEnglishBible extends Bible {
 		}
 	}
 
+	@Override
 	public void readIgnore() throws IOException {
 		ignore = new HashSet<String>();
 		try (InputStream inputStream = getClass().getResourceAsStream("/ignore/ignore-Eng.txt");

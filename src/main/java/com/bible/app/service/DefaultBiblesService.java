@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bible.app.Constants;
 import com.bible.app.creator.Bible;
-import com.bible.app.creator.BibleCreator;
+import com.bible.app.creator.BibleFactory;
 
 @Service
 public class DefaultBiblesService implements BiblesService {
@@ -19,13 +19,14 @@ public class DefaultBiblesService implements BiblesService {
 	public DefaultBiblesService() throws IOException {
 		bibleMap = new LinkedHashMap<String, Bible>();
 
-		Bible luther1912 = BibleCreator.getBible(Constants.BIBLE_LUTHER_1912);
-		Bible luterh1912strong = BibleCreator.getBible(Constants.BIBLE_LUTHER_1912_STRONG);
-		Bible elberfelder1905 = BibleCreator.getBible(Constants.BIBLE_ELBERFELDER);
-		Bible menge1939 = BibleCreator.getBible(Constants.BIBLE_MENGE);
-		Bible schlachter1951 = BibleCreator.getBible(Constants.BIBLE_SCHLACHTER);
-		Bible web = BibleCreator.getBible(Constants.BIBLE_WORLD_ENG);
-		Bible asv = BibleCreator.getBible(Constants.BIBLE_AMERICAN_STD);
+		BibleFactory bibleFactory = new BibleFactory();
+		Bible luther1912 = bibleFactory.getBible(Constants.BIBLE_LUTHER_1912);
+		Bible luterh1912strong = bibleFactory.getBible(Constants.BIBLE_LUTHER_1912_STRONG);
+		Bible elberfelder1905 = bibleFactory.getBible(Constants.BIBLE_ELBERFELDER);
+		Bible menge1939 = bibleFactory.getBible(Constants.BIBLE_MENGE);
+		Bible schlachter1951 = bibleFactory.getBible(Constants.BIBLE_SCHLACHTER);
+		Bible web = bibleFactory.getBible(Constants.BIBLE_WORLD_ENG);
+		Bible asv = bibleFactory.getBible(Constants.BIBLE_AMERICAN_STD);
 
 		bibleMap.put(luther1912.getName(), luther1912);
 		bibleMap.put(luterh1912strong.getName(), luterh1912strong);

@@ -27,8 +27,8 @@ public class BibleServiceTest {
 
     @Test
     public void testSearchDefault() {
-        int expectedCount = 2347;
-        int expectedSearchResults = 1989;
+        int expectedHitCount = 2347;
+        int expectedVerseHits = 1989;
 
         String expectedBook = "Offenbarung";
         int expectedChapter = 21;
@@ -45,10 +45,10 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -57,8 +57,8 @@ public class BibleServiceTest {
 
     @Test
     public void testSearchBook() {
-        int expectedCount = 138;
-        int expectedSearchResults = 121;
+        int expectedHitCount = 138;
+        int expectedVerseHits = 121;
 
         String expectedBook = "1. Mose";
         int expectedChapter = 50;
@@ -75,10 +75,10 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -87,8 +87,8 @@ public class BibleServiceTest {
 
     @Test
     public void testSearchAlle() {
-        int expectedCount = 2347;
-        int expectedSearchResults = 1989;
+        int expectedHitCount = 2347;
+        int expectedVerseHits = 1989;
 
         String expectedBook = "Offenbarung";
         int expectedChapter = 21;
@@ -105,10 +105,10 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -117,8 +117,8 @@ public class BibleServiceTest {
 
     @Test
     public void testSearchAlleInvalid() {
-        int expectedCount = 0;
-        int expectedSearchResults = 0;
+        int expectedHitCount = 0;
+        int expectedVerseHits = 0;
 
         Search search = new Search();
 
@@ -129,8 +129,8 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
         // Now search only one character
         search = new Search();
@@ -142,14 +142,14 @@ public class BibleServiceTest {
 
         searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
     }
 
     @Test
     public void testSearchAlleCaseSensitive() {
-        int expectedCount = 2347;
-        int expectedSearchResults = 1989;
+        int expectedHitCount = 2347;
+        int expectedVerseHits = 1989;
 
         String expectedBook = "Offenbarung";
         int expectedChapter = 21;
@@ -166,18 +166,18 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
         assertEquals(expectedVerseText, finding.getVerseText());
 
         // Now, search for 'kinder'
-        expectedCount = 54;
-        expectedSearchResults = 54;
+        expectedHitCount = 54;
+        expectedVerseHits = 54;
 
         expectedVerseText = "welches nicht kundgetan ist in den vorigen Zeiten den Menschen<b>kinder</b>n, wie es nun offenbart ist seinen heiligen Aposteln und Propheten durch den Geist,";
         expectedBook = "Epheser";
@@ -189,10 +189,10 @@ public class BibleServiceTest {
 
         searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -202,8 +202,8 @@ public class BibleServiceTest {
 
     @Test
     public void testSearchAlleMatchExcact() {
-        int expectedCount = 48575;
-        int expectedSearchResults = 23914;
+        int expectedHitCount = 48575;
+        int expectedVerseHits = 23914;
 
         String expectedBook = "Offenbarung";
         int expectedChapter = 22;
@@ -220,18 +220,18 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
         assertEquals(expectedVerseText, finding.getVerseText());
 
         // Now, search for "Und"
-        expectedCount = 46323;
-        expectedSearchResults = 23529;
+        expectedHitCount = 46323;
+        expectedVerseHits = 23529;
 
         expectedVerseText = "<b>Und</b> wenn jemand davontut von den Worten des Buchs dieser Weissagung, so wird Gott abtun sein Teil vom Holz des Lebens <b>und</b> von der heiligen Stadt, davon in diesem Buch geschrieben ist.";
         expectedBook = "Offenbarung";
@@ -243,10 +243,10 @@ public class BibleServiceTest {
 
         searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -255,8 +255,8 @@ public class BibleServiceTest {
 
     @Test
     public void testSearchAlleMatchExcactCaseSensitive() {
-        int expectedCount = 48575;
-        int expectedSearchResults = 23914;
+        int expectedHitCount = 48575;
+        int expectedVerseHits = 23914;
 
         String expectedBook = "Offenbarung";
         int expectedChapter = 22;
@@ -272,18 +272,18 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
         assertEquals(expectedVerseText, finding.getVerseText());
 
         // Now, search for "'Und'"
-        expectedCount = 7730;
-        expectedSearchResults = 7072;
+        expectedHitCount = 7730;
+        expectedVerseHits = 7072;
 
         expectedVerseText = "<b>Und</b> wenn jemand davontut von den Worten des Buchs dieser Weissagung, so wird Gott abtun sein Teil vom Holz des Lebens und von der heiligen Stadt, davon in diesem Buch geschrieben ist.";
         expectedBook = "Offenbarung";
@@ -296,10 +296,10 @@ public class BibleServiceTest {
 
         searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -308,8 +308,8 @@ public class BibleServiceTest {
 
     @Test
     public void testSearchAlleEmpty() {
-        int expectedCount = 0;
-        int expectedSearchResults = 0;
+        int expectedHitCount = 0;
+        int expectedVerseHits = 0;
 
         Search search = new Search();
 
@@ -320,14 +320,14 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
     }
 
     @Test
     public void testFloodSearchAlleKinder() {
-        int expectedCount = 45;
-        int expectedSearchResults = 22;
+        int expectedHitCount = 45;
+        int expectedVerseHits = 22;
 
         String expectedBook = "Lukas";
         int expectedChapter = 6;
@@ -344,18 +344,18 @@ public class BibleServiceTest {
         SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(searchResult.isFloodSearch(), true);
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
         assertEquals(expectedVerseText, finding.getVerseText());
 
         // Now search for f "Alle" Kinder
-        expectedCount = 0;
-        expectedSearchResults = 0;
+        expectedHitCount = 0;
+        expectedVerseHits = 0;
 
         search = new Search();
         searchString = "f \"Alle\" Kinder";
@@ -366,14 +366,14 @@ public class BibleServiceTest {
         searchResult = defaultBibleService.search(search);
 
         assertEquals(searchResult.isFloodSearch(), true);
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
     }
 
     @Test
     public void testFloodSearchAlle() {
-        int expectedCount = 1067;
-        int expectedSearchResults = 97;
+        int expectedHitCount = 1067;
+        int expectedVerseHits = 97;
 
         String expectedBook = "Offenbarung";
         int expectedChapter = 21;
@@ -390,10 +390,10 @@ public class BibleServiceTest {
         SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(searchResult.isFloodSearch(), true);
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -402,8 +402,8 @@ public class BibleServiceTest {
 
     @Test
     public void testFloodSearchAlleJoh316() {
-        int expectedCount = 0;
-        int expectedSearchResults = 0;
+        int expectedHitCount = 0;
+        int expectedVerseHits = 0;
 
         Search search = new Search();
 
@@ -415,12 +415,12 @@ public class BibleServiceTest {
         SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(searchResult.isFloodSearch(), false);
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
         // Now search for f Also hat Gott die Welt
-        expectedCount = 6;
-        expectedSearchResults = 1;
+        expectedHitCount = 6;
+        expectedVerseHits = 1;
 
         String expectedBook = "Johannes";
         int expectedChapter = 3;
@@ -436,10 +436,40 @@ public class BibleServiceTest {
         searchResult = defaultBibleService.search(search);
 
         assertEquals(searchResult.isFloodSearch(), true);
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
+        assertEquals(expectedBook, finding.getPassage().getBook());
+        assertEquals(expectedChapter, finding.getPassage().getChapter());
+        assertEquals(expectedVerse, finding.getPassage().getVerse());
+        assertEquals(expectedVerseText, finding.getVerseText());
+    }
+
+    @Test
+    public void testFloodSearchJerLandLand() {
+        int expectedHitCount = 17;
+        int expectedVerseHits = 4;
+
+        String expectedBook = "Jeremia";
+        int expectedChapter = 33;
+        int expectedVerse = 11;
+        String expectedVerseText = "wird man dennoch wiederum <b>höre</b>n Geschrei von Freude und Wonne, die Stimme <b>des</b> Bräutigams und der Braut und die Stimme derer, die da sagen: „Danket dem HERRN Zebaoth; denn er ist freundlich, und seine Güte währet ewiglich“, wenn sie Dankopfer bringen zum Hause <b>des</b> HERRN. Denn ich will <b>des</b> <b>Land</b>es Gefängnis wenden wie von Anfang, spricht der HERR.";
+
+        Search search = new Search();
+
+        String searchString = "f Land Land höre des";
+        String sectionString = "Jeremia";
+        search.setSearch(searchString);
+        search.setSection(sectionString);
+
+        SearchResult searchResult = defaultBibleService.search(search);
+
+        assertEquals(searchResult.isFloodSearch(), true);
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
+
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 2);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -448,8 +478,8 @@ public class BibleServiceTest {
 
     @Test
     public void testFloodSearchAlleInvalid() {
-        int expectedCount = 0;
-        int expectedSearchResults = 0;
+        int expectedHitCount = 0;
+        int expectedVerseHits = 0;
 
         Search search = new Search();
 
@@ -461,8 +491,8 @@ public class BibleServiceTest {
         SearchResult searchResult = defaultBibleService.search(search);
 
         assertEquals(searchResult.isFloodSearch(), false);
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
         // Now search for f "Alle Kinder"
         search = new Search();
@@ -475,8 +505,8 @@ public class BibleServiceTest {
         searchResult = defaultBibleService.search(search);
 
         assertEquals(searchResult.isFloodSearch(), false);
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
         // Now search for f 'Alle Kinder'
         search = new Search();
@@ -489,14 +519,14 @@ public class BibleServiceTest {
         searchResult = defaultBibleService.search(search);
 
         assertEquals(searchResult.isFloodSearch(), false);
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
     }
 
     @Test
     public void testSearchAlleCaseSensitiveEmpty() {
-        int expectedCount = 0;
-        int expectedSearchResults = 0;
+        int expectedHitCount = 0;
+        int expectedVerseHits = 0;
 
         Search search = new Search();
 
@@ -507,14 +537,14 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
     }
 
     @Test
     public void testSearchAT() {
-        int expectedCount = 2185;
-        int expectedSearchResults = 1838;
+        int expectedHitCount = 2185;
+        int expectedVerseHits = 1838;
 
         String expectedBook = "Maleachi";
         int expectedChapter = 3;
@@ -531,10 +561,10 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -543,8 +573,8 @@ public class BibleServiceTest {
 
     @Test
     public void testSearchNT() {
-        int expectedCount = 162;
-        int expectedSearchResults = 151;
+        int expectedHitCount = 162;
+        int expectedVerseHits = 151;
 
         String expectedBook = "Offenbarung";
         int expectedChapter = 21;
@@ -561,10 +591,10 @@ public class BibleServiceTest {
 
         SearchResult searchResult = defaultBibleService.search(search);
 
-        assertEquals(expectedCount, searchResult.getHitCount());
-        assertEquals(expectedSearchResults, searchResult.getFindings().size());
+        assertEquals(expectedHitCount, searchResult.getHitCount());
+        assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedSearchResults - 1);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 1);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
@@ -576,7 +606,7 @@ public class BibleServiceTest {
         int expectedWordSize = 22416;
 
         String expectedName = "HERR";
-        int expectedCount = 3727;
+        int expectedHitCount = 3727;
 
         Section section = new Section();
         section.setBookFrom("1. Mose");
@@ -593,7 +623,7 @@ public class BibleServiceTest {
 
         Word word = wordList.get(25);
         assertEquals(word.getName(), expectedName);
-        assertEquals(word.getCount(), expectedCount);
+        assertEquals(word.getCount(), expectedHitCount);
     }
 
     @Test

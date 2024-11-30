@@ -74,6 +74,7 @@ public class Schlachter1951 extends Bible {
 		}
 	}
 
+	@Override
 	public void readIgnore() throws IOException {
 		ignore = new HashSet<String>();
 		try (InputStream inputStream = getClass().getResourceAsStream("/ignore/ignore-Deu.txt");

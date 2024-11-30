@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.bible.app.controller.BibleRestController;
 import com.bible.app.creator.Bible;
-import com.bible.app.creator.BibleCreator;
+import com.bible.app.creator.BibleFactory;
 import com.bible.app.creator.bible.Luther1912Strong;
 import com.bible.app.model.Parallel;
 import com.bible.app.model.Passage;
@@ -77,7 +77,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testBibleExists() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
         Map<String, Bible> bibleMap = new HashMap<String, Bible>();
         bibleMap.put(luther1912.getName(), luther1912);
 
@@ -90,7 +90,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testBibleNotExists() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
         Map<String, Bible> bibleMap = new HashMap<String, Bible>();
 
         when(defaultBiblesService.getBibleMap()).thenReturn(bibleMap);
@@ -102,7 +102,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testBooks() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
 
         when(activeBibleService.getActiveBible()).thenReturn(luther1912);
 
@@ -120,7 +120,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testReadPassageExists() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
         Book book = luther1912.getBookMap().get("3. Mose");
         Passage passage = new Passage(book.getName(), 2);
 
@@ -145,7 +145,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testReadPassageNotExists() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
         Book book = luther1912.getBookMap().get("3. Mose");
         Passage passage = new Passage(book.getName(), 2);
 
@@ -159,7 +159,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testCountSectionIsValid() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
         Book book = luther1912.getBookMap().get("3. Mose");
         Section section = new Section();
         section.setBookFrom(book.getName());
@@ -191,7 +191,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testCountSectionIsNotValid() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
         Book book = luther1912.getBookMap().get("3. Mose");
         Section section = new Section();
         section.setBookFrom(book.getName());
@@ -210,7 +210,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testSearchSectionNotNull() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
         Search search = new Search();
         search.setSearch("Kinder");
         search.setSection("1. Mose");
@@ -246,7 +246,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testStrongPassageExists() throws Exception {
-        Bible luther1912Strong = BibleCreator.getBible("Luther 1912 Strong");
+        Bible luther1912Strong = new BibleFactory().getBible("Luther 1912 Strong");
         Book book = luther1912Strong.getBookMap().get("3. Mose");
         Passage passage = new Passage(book.getName(), 2);
 
@@ -272,7 +272,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testStrongPassageNotExists() throws Exception {
-        Bible luther1912Strong = BibleCreator.getBible("Luther 1912 Strong");
+        Bible luther1912Strong = new BibleFactory().getBible("Luther 1912 Strong");
         Book book = luther1912Strong.getBookMap().get("3. Mose");
         Passage passage = new Passage(book.getName(), 2);
 
@@ -286,7 +286,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testParallelPassageExists() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
         Book book = luther1912.getBookMap().get("3. Mose");
         Passage passage = new Passage(book.getName(), 2);
 
@@ -319,7 +319,7 @@ public class BibleRestControllerTest {
 
     @Test
     public void testParallelPassageNotExists() throws Exception {
-        Bible luther1912 = BibleCreator.getBible("Luther 1912");
+        Bible luther1912 = new BibleFactory().getBible("Luther 1912");
         Book book = luther1912.getBookMap().get("3. Mose");
         Passage passage = new Passage(book.getName(), 2);
 

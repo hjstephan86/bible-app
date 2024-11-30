@@ -11,8 +11,9 @@ import com.bible.app.creator.bible.Menge1939;
 import com.bible.app.creator.bible.Schlachter1951;
 import com.bible.app.creator.bible.WorldEnglishBible;
 
-public class BibleCreator {
-	public static Bible getBible(String name) throws IOException {
+public class BibleFactory {
+
+	public Bible getBible(String name) throws IOException {
 		if (Constants.BIBLE_LUTHER_1912.equalsIgnoreCase(name))
 			return new Luther1912(name);
 		else if (Constants.BIBLE_LUTHER_1912_STRONG.equalsIgnoreCase(name))
@@ -24,9 +25,9 @@ public class BibleCreator {
 		else if (Constants.BIBLE_SCHLACHTER.equalsIgnoreCase(name))
 			return new Schlachter1951(name);
 		else if (Constants.BIBLE_WORLD_ENG.equalsIgnoreCase(name))
-			return new WorldEnglishBible("World English");
+			return new WorldEnglishBible(name);
 		else if (Constants.BIBLE_AMERICAN_STD.equalsIgnoreCase(name))
-			return new AmericanStandardVersion("American Std");
+			return new AmericanStandardVersion(name);
 
 		return null;
 	}

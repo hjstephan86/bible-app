@@ -181,6 +181,7 @@ public class Luther1912Strong extends Bible {
 		return concordance;
 	}
 
+	@Override
 	public void readIgnore() throws IOException {
 		ignore = new HashSet<String>();
 		try (InputStream inputStream = getClass().getResourceAsStream("/ignore/ignore-Deu.txt");
