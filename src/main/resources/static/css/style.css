@@ -31,6 +31,10 @@ a:hover {
 	color: #000
 }
 
+a.strong {
+	text-decoration: line-through
+}
+
 h2 {
 	color: #fff;
 	font-weight: normal;
@@ -40,12 +44,7 @@ h2 {
 h3 {
 	color: var(--ubuntu-orange);
 	font-weight: bold;
-	margin-bottom: 5px;
-	margin-top: 128px
-}
-
-h3.text {
-	margin-top: 1em
+	margin-bottom: 5px
 }
 
 h5 {
@@ -59,7 +58,7 @@ h5 {
 select {
 	background-color: #fff;
 	border-radius: 5px;
-	border: 1px solid #ddd;
+	border: 1px solid #ccc;
 	box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.2);
 	color: #444;
 	font-family: 'Ubuntu';
@@ -76,29 +75,29 @@ select#selectBibleName {
 	font-size: 14px;
 	margin-left: 0px;
 	padding: 0px;
-	width: 130px
+	width: 110px
 }
 
 select#selectChapter {
-	color: #444;
+	color: #444
 }
 
 select#selectChapter.white {
-	color: #fff;
+	color: #fff
 }
 
 select#selectVerse {
-	color: #444;
+	color: #444
 }
 
 select#selectVerse.white {
-	color: #fff;
+	color: #fff
 }
 
 input {
 	background-color: #eee;
 	border-radius: 5px;
-	border: 1px solid #ddd;
+	border: 1px solid #ccc;
 	box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.2);
 	color: #444;
 	font-family: 'Ubuntu';
@@ -151,6 +150,13 @@ span.verse {
 
 span.verseText {
 	color: #333
+}
+
+span.chinese {
+	font-family: "SimSun", sans-serif;
+	letter-spacing: -0.0em;
+	line-height: 0;
+	word-spacing: -0.2em
 }
 
 th.count {

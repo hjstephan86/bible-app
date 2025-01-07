@@ -110,18 +110,9 @@ public class DefaultBibleService implements BibleService {
     @Override
     public Parallel getParallel(Passage passage, String bibleName) {
         Parallel parallel = new Parallel();
-
         for (Bible bible : defaultBiblesService.getBibleMap().values()) {
-            if (bible.getName().equals(bibleName)) {
-                setParallelForBible(passage, parallel, bible);
-            }
+            setParallelForBible(passage, parallel, bible);
         }
-        for (Bible bible : defaultBiblesService.getBibleMap().values()) {
-            if (!bible.getName().equals(bibleName)) {
-                setParallelForBible(passage, parallel, bible);
-            }
-        }
-
         return parallel;
     }
 

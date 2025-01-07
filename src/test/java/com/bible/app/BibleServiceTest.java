@@ -675,8 +675,8 @@ public class BibleServiceTest {
         Parallel parallel = defaultBibleService.getParallel(passage, defaultBibleService.getActiveBible().getName());
 
         assertTrue(parallel != null);
-        assertTrue(parallel.getVerses().size() == 6);
-        assertTrue(parallel.getBibleNames().size() == 6);
+        assertTrue(parallel.getVerses().size() == 8);
+        assertTrue(parallel.getBibleNames().size() == 8);
         assertEquals(parallel.getBibleNames().get(0), defaultBibleService.getActiveBible().getName());
     }
 

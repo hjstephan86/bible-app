@@ -26,7 +26,10 @@ public class DefaultBiblesService implements BiblesService {
 		Bible menge1939 = bibleFactory.getBible(Constants.BIBLE_MENGE);
 		Bible schlachter1951 = bibleFactory.getBible(Constants.BIBLE_SCHLACHTER);
 		Bible web = bibleFactory.getBible(Constants.BIBLE_WORLD_ENG);
-		Bible asv = bibleFactory.getBible(Constants.BIBLE_AMERICAN_STD);
+		Bible segond = bibleFactory.getBible(Constants.BIBLE_SEGOND);
+		// Bible asv = bibleFactory.getBible(Constants.BIBLE_AMERICAN_STD);
+		Bible synodal = bibleFactory.getBible(Constants.BIBLE_SYNODAL);
+		Bible chinese = bibleFactory.getBible(Constants.BIBLE_CHINESE);
 
 		bibleMap.put(luther1912.getName(), luther1912);
 		bibleMap.put(luterh1912strong.getName(), luterh1912strong);
@@ -34,7 +37,10 @@ public class DefaultBiblesService implements BiblesService {
 		bibleMap.put(menge1939.getName(), menge1939);
 		bibleMap.put(schlachter1951.getName(), schlachter1951);
 		bibleMap.put(web.getName(), web);
-		bibleMap.put(asv.getName(), asv);
+		bibleMap.put(segond.getName(), segond);
+		// bibleMap.put(asv.getName(), asv);
+		bibleMap.put(synodal.getName(), synodal);
+		bibleMap.put(chinese.getName(), chinese);
 	}
 
 	@Override

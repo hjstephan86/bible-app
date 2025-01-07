@@ -4,11 +4,14 @@ import java.io.IOException;
 
 import com.bible.app.Constants;
 import com.bible.app.creator.bible.AmericanStandardVersion;
+import com.bible.app.creator.bible.Chinese;
 import com.bible.app.creator.bible.Elberfelder1905;
 import com.bible.app.creator.bible.Luther1912;
 import com.bible.app.creator.bible.Luther1912Strong;
 import com.bible.app.creator.bible.Menge1939;
 import com.bible.app.creator.bible.Schlachter1951;
+import com.bible.app.creator.bible.Segond1910;
+import com.bible.app.creator.bible.Synodal;
 import com.bible.app.creator.bible.WorldEnglishBible;
 
 public class BibleFactory {
@@ -26,8 +29,14 @@ public class BibleFactory {
 			return new Schlachter1951(name);
 		else if (Constants.BIBLE_WORLD_ENG.equalsIgnoreCase(name))
 			return new WorldEnglishBible(name);
+		else if (Constants.BIBLE_SEGOND.equalsIgnoreCase(name))
+			return new Segond1910(name);
 		else if (Constants.BIBLE_AMERICAN_STD.equalsIgnoreCase(name))
 			return new AmericanStandardVersion(name);
+		else if (Constants.BIBLE_SYNODAL.equalsIgnoreCase(name))
+			return new Synodal(name);
+		else if (Constants.BIBLE_CHINESE.equalsIgnoreCase(name))
+			return new Chinese(name);
 
 		return null;
 	}

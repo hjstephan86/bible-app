@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.bible.app.Constants;
+import com.bible.app.creator.bible.Chinese;
 import com.bible.app.creator.bible.Luther1912Strong;
 import com.bible.app.model.Finding;
 import com.bible.app.model.Passage;
@@ -49,22 +50,26 @@ public abstract class Bible {
 	public ArrayList<Verse> getVerses(Bible activeBible, Passage passage) {
 		ArrayList<Verse> verses = new ArrayList<Verse>(
 				bookMap.get(passage.getBook()).getChapter().get(passage.getChapter()).getVerses().values());
-		if (activeBible instanceof Luther1912Strong) {
-			return verses;
-		} else {
-			ArrayList<Verse> newVerses = new ArrayList<Verse>();
-			for (Verse v : verses) {
-				String verseText = v.getText();
-				String lang = bookMap.get(passage.getBook()).getPosition() < 39 ? "Heb" : "Gre";
-				String linkStr = "<a href=\"/readStrBy?book=" + passage.getBook() + "&chapter=" + passage.getChapter()
-						+ "&verse=" + v.getNumber() + "\"> " + lang + " </a>";
-				String linkPar = "<a href=\"/parallelBy?book=" + passage.getBook() + "&chapter=" + passage.getChapter()
-						+ "&verse=" + v.getNumber() + "\"> Par </a>";
-				Verse verse = new Verse(v.getNumber(), verseText + " " + linkStr + " " + linkPar);
-				newVerses.add(verse);
-			}
-			return newVerses;
+		boolean isStrong = activeBible instanceof Luther1912Strong;
+		ArrayList<Verse> newVerses = new ArrayList<Verse>();
+		for (Verse v : verses) {
+			String verseText = v.getText();
+			// Set hyperlink for read mode (strong or not strong)
+			String lang = bookMap.get(passage.getBook()).getPosition() < 39 ? "Heb" : "Gre";
+			String linkClass = isStrong ? "strong" : "";
+			String linkPath = isStrong ? "readBy" : "readStrBy";
+			String linkStr = "<a href=\"/" + linkPath + "?book=" + passage.getBook() + "&chapter="
+					+ passage.getChapter() + "&verse=" + v.getNumber() + "\" class=\"" + linkClass + "\">" + lang
+					+ "</a>";
+			// Set hyperlink for parallel
+			String linkPar = "<a href=\"/parallelBy?book=" + passage.getBook() + "&chapter=" + passage.getChapter()
+					+ "&verse=" + v.getNumber() + "\">Par</a>";
+			// Add both hyperlinks to the new verse
+			verseText = verseText + " " + linkStr + " " + linkPar;
+			Verse verse = new Verse(v.getNumber(), verseText);
+			newVerses.add(verse);
 		}
+		return newVerses;
 	}
 
 	public ArrayList<String> getBooksAsList() {
@@ -222,6 +227,7 @@ public abstract class Bible {
 				String verseText = bookMap.get(currentPassage.getBook()).getChapter()
 						.get(currentPassage.getChapter())
 						.getVerses().get(currentPassage.getVerse()).getText();
+				verseText = remSpanTag(verseText);
 
 				String[] hitOrder = new String[verseText.length()];
 				LinkedHashSet<Integer> indices = getListOfMatchingIndices(verseText, hitOrder, searchText,
@@ -234,6 +240,7 @@ public abstract class Bible {
 					finding.setVerseText(
 							getFormattedVerseText(indices, hitOrder, verseText, searchText,
 									searchResult.isFloodSearch(), finding));
+					addSpanTag(finding);
 					findings.add(finding);
 					hitCount += finding.getVerseHitCount();
 				}
@@ -241,6 +248,22 @@ public abstract class Bible {
 			} while (!toPassageReached(currentPassage, section));
 		}
 		return hitCount;
+	}
+
+	private String remSpanTag(String verseText) {
+		// For Chin. Union verseText may begin with <span> and end with </span>
+		if (verseText.startsWith("<span") && verseText.endsWith("</span>")) {
+			int k = verseText.indexOf(">");
+			verseText = verseText.substring(k + 1, verseText.length() - 7);
+		}
+		return verseText;
+	}
+
+	private void addSpanTag(Finding finding) {
+		if (this instanceof Chinese) {
+			String verseText = finding.getVerseText();
+			finding.setVerseText("<span class=\"chinese\">" + verseText + "</span>");
+		}
 	}
 
 	private LinkedHashSet<Integer> getListOfMatchingIndices(String verseText, String[] hitOrder, String searchText,
@@ -429,7 +452,10 @@ public abstract class Bible {
 		currentPassage.setVerse(section.getVerseFrom());
 
 		do {
-			String[] arrWords = getSplittedVerseText(currentPassage);
+			String verseText = bookMap.get(currentPassage.getBook()).getChapter().get(currentPassage.getChapter())
+					.getVerses().get(currentPassage.getVerse()).getText();
+			verseText = remSpanTag(verseText);
+			String[] arrWords = getSplittedVerseText(verseText);
 			for (String s : arrWords) {
 				if (words.containsKey(s)) {
 					words.get(s).setCount(words.get(s).getCount() + 1);
@@ -449,9 +475,7 @@ public abstract class Bible {
 		return s.length() == 0 || ignore.contains(s.toLowerCase());
 	}
 
-	private String[] getSplittedVerseText(Passage currentPassage) {
-		String verseText = bookMap.get(currentPassage.getBook()).getChapter().get(currentPassage.getChapter())
-				.getVerses().get(currentPassage.getVerse()).getText();
+	private String[] getSplittedVerseText(String verseText) {
 		return verseText.replaceAll("[\\(\\)\\.\\;\\:\\,\\!\\?\\\"\\“\\”\\=\\–\\d]", "").split(" ");
 	}
 

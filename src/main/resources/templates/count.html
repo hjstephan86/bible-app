@@ -105,12 +105,11 @@
 		autocomplete(document.getElementById("inputBookTo"), books);
 	</script>
 	<div class="countContent">
-		<span th:if="${section.bookFrom == null}" th:utext="'Hier kann der Benutzer Worte in der Bibel zählen lassen. Dabei legt er 
-			den Bibelabschnitt interaktiv fest und erhält alle gezählten Worte in ihrer Häufigkeit absteigend sortiert. So lassen sich zum Beispiel die meisten Worte der
-			gesamten Bibel einer Übersetzung oder eines kurzen Textes zur Vorbereitung ermitteln. 
-			<br><br>
-			Gezählt werden die Worte in dem vom Benutzer bestimmten Abschnitt. Der Abschnitt wird bestimmt von der ersten Stelle mit 
-			Buch, Kapitel und Vers bis zur zweiten Stelle mit Buch, Kapitel und Vers.'"></span>
+		<span th:if="${section.bookFrom == null}"
+			th:utext="'Hier kann der Benutzer Worte in der Bibel zählen lassen. Dabei legt er 
+			den Bibelabschnitt interaktiv fest und erhält alle gezählten Worte in ihrer Häufigkeit absteigend sortiert. Der Abschnitt wird bestimmt von der ersten Stelle mit 
+			Buch, Kapitel und Vers bis zur zweiten Stelle mit Buch, Kapitel und Vers. So lassen sich zum Beispiel die meisten Worte der
+			gesamten Bibel einer Übersetzung ermitteln. Auch für kurze Abschnitte kann dies zur Vorbereitung hilfreich sein.'"></span>
 		<span th:if="${section.bookFrom != null}"
 			th:text="'Es wurden ' + ${words.size()} + ' unterschiedliche Wörter von ' + ${section.bookFrom} + ' ' + ${section.chapterFrom} + ', ' + ${section.verseFrom} + ' bis ' + ${section.bookTo} + ' ' +${section.chapterTo} + ', ' + ${section.verseTo} + ' gezählt.'"></span>
 		<span th:if="${section.bookFrom != null}"
