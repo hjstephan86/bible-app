@@ -30,6 +30,7 @@ public class DefaultBiblesService implements BiblesService {
 		// Bible asv = bibleFactory.getBible(Constants.BIBLE_AMERICAN_STD);
 		Bible synodal = bibleFactory.getBible(Constants.BIBLE_SYNODAL);
 		Bible chinese = bibleFactory.getBible(Constants.BIBLE_CHINESE);
+		// Bible japan = bibleFactory.getBible(Constants.BIBLE_JAPAN);
 
 		bibleMap.put(luther1912.getName(), luther1912);
 		bibleMap.put(luterh1912strong.getName(), luterh1912strong);
@@ -41,6 +42,7 @@ public class DefaultBiblesService implements BiblesService {
 		// bibleMap.put(asv.getName(), asv);
 		bibleMap.put(synodal.getName(), synodal);
 		bibleMap.put(chinese.getName(), chinese);
+		// bibleMap.put(japan.getName(), japan);
 	}
 
 	@Override

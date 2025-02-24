@@ -159,6 +159,13 @@ span.chinese {
 	word-spacing: -0.2em
 }
 
+span.japan {
+	font-family: "SimSun", sans-serif;
+	letter-spacing: -0.0em;
+	line-height: 0;
+	word-spacing: -0.2em
+}
+
 th.count {
 	padding: 0 10px;
 	text-align: center
