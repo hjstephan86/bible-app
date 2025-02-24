@@ -85,6 +85,7 @@ function autocomplete(input, possibleValues) {
 
 	input.addEventListener("input", function (e) {
 		let a, b, i, val = this.value;
+		let valÄÖÜ = val.toUpperCase().replaceAll('A', 'Ä').replaceAll('O', 'Ö').replaceAll('U', 'Ü');
 		closeAllLists();
 		if (!val) { return false; }
 		currentFocus = -1;
@@ -95,7 +96,7 @@ function autocomplete(input, possibleValues) {
 		this.parentNode.appendChild(a);
 
 		for (i = 0; i < possibleValues.length; i++) {
-			if (possibleValues[i].toUpperCase().includes(val.toUpperCase())) {
+			if (possibleValues[i].toUpperCase().includes(val.toUpperCase()) || possibleValues[i].toUpperCase().includes(valÄÖÜ.toUpperCase())) {
 				b = document.createElement("DIV");
 				const beginIndex = possibleValues[i].toUpperCase().indexOf(val.toUpperCase());
 

@@ -271,7 +271,9 @@ public abstract class Bible {
 		LinkedHashSet<Integer> indices = new LinkedHashSet<Integer>();
 		if (isFloodSearch) {
 			String[] searchTextArr = searchText.split(" ");
+			verseText = verseText.toLowerCase();
 			for (String searchTextElem : searchTextArr) {
+				searchTextElem = searchTextElem.toLowerCase();
 				int index = verseText.indexOf(searchTextElem);
 				if (index < 0) {
 					return new LinkedHashSet<Integer>();

@@ -11,6 +11,7 @@ public class Constants {
     public static final String BIBLE_AMERICAN_STD = "American Std";
     public static final String BIBLE_SYNODAL = "Russ. Synodal";
     public static final String BIBLE_CHINESE = "Chin. Union";
+    public static final String BIBLE_JAPAN = "Japan Bungo";
 
     public static final String SEARCH_MATCH_EXACT_SYMBOL = "\"";
     public static final String SEARCH_MATCH_CASE_SYMBOL = "'";

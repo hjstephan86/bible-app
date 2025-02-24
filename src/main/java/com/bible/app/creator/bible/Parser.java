@@ -35,7 +35,7 @@ public class Parser {
     }
 
     private void parseBookMap(LinkedHashMap<String, Book> bookMapSyn) throws IOException {
-        try (InputStream inputStream = getClass().getResourceAsStream("/bible/Chinese-Union-orig.txt");
+        try (InputStream inputStream = getClass().getResourceAsStream("/bible/Kougo-orig.txt");
                 BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             Book oldBook = null, newBook = null;
@@ -94,7 +94,7 @@ public class Parser {
     }
 
     private void exportBible(LinkedHashMap<String, Book> bookMap) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Chinese-Union.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Kougo.txt"))) {
             for (Book b : bookMap.values()) {
                 for (Chapter c : b.getChapter().values()) {
                     for (Verse v : c.getVerses().values()) {

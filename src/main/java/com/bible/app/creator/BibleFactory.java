@@ -6,6 +6,7 @@ import com.bible.app.Constants;
 import com.bible.app.creator.bible.AmericanStandardVersion;
 import com.bible.app.creator.bible.Chinese;
 import com.bible.app.creator.bible.Elberfelder1905;
+import com.bible.app.creator.bible.Japan;
 import com.bible.app.creator.bible.Luther1912;
 import com.bible.app.creator.bible.Luther1912Strong;
 import com.bible.app.creator.bible.Menge1939;
@@ -37,6 +38,8 @@ public class BibleFactory {
 			return new Synodal(name);
 		else if (Constants.BIBLE_CHINESE.equalsIgnoreCase(name))
 			return new Chinese(name);
+		else if (Constants.BIBLE_JAPAN.equalsIgnoreCase(name))
+			return new Japan(name);
 
 		return null;
 	}

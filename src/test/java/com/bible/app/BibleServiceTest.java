@@ -326,13 +326,14 @@ public class BibleServiceTest {
 
     @Test
     public void testFloodSearchAlleKinder() {
-        int expectedHitCount = 45;
-        int expectedVerseHits = 22;
+        int expectedHitCount = 795;
+        int expectedVerseHits = 337;
 
-        String expectedBook = "Lukas";
-        int expectedChapter = 6;
-        int expectedVerse = 35;
-        String expectedVerseText = "Vielmehr liebet eure Feinde; tut wohl und leihet, dass ihr nichts dafür hoffet, so wird euer Lohn groß sein, und ihr werdet <b>Kinder</b> des <b>Alle</b>rhöchsten sein; denn er ist gütig über die Undankbaren und Bösen.";
+        String expectedBook = "Offenbarung";
+        int expectedChapter = 7;
+        int expectedVerse = 4;
+
+        String expectedVerseText = "Und ich hörte die Zahl derer, die versiegelt wurden: hundertvierundvierzigtausend, die versiegelt waren von <b>alle</b>n Geschlechtern der <b>Kinder</b> Israel:";
 
         Search search = new Search();
 
@@ -372,13 +373,13 @@ public class BibleServiceTest {
 
     @Test
     public void testFloodSearchAlle() {
-        int expectedHitCount = 1067;
-        int expectedVerseHits = 97;
+        int expectedHitCount = 1440;
+        int expectedVerseHits = 129;
 
         String expectedBook = "Offenbarung";
         int expectedChapter = 21;
         int expectedVerse = 3;
-        String expectedVerseText = "Und ich hörte eine große Stimme von dem Stuhl, die sprach: Siehe da, die Hütte Gott<b>es</b> bei den Menschen! und <b>er</b> <b>wir</b>d bei <b>ihn</b>en wohnen, und <b>sie</b> w<b>er</b>den sein Volk sein, und <b>er</b> selbst, Gott mit <b>ihn</b>en, <b>wir</b>d ihr Gott sein;";
+        String expectedVerseText = "Und ich hörte eine große Stimme von dem Stuhl, die sprach: <b>Sie</b>he da, die Hütte Gott<b>es</b> bei den Menschen! und <b>er</b> <b>wir</b>d bei <b>ihn</b>en wohnen, und <b>sie</b> w<b>er</b>den sein Volk sein, und <b>er</b> selbst, Gott mit <b>ihn</b>en, <b>wir</b>d ihr Gott sein;";
 
         Search search = new Search();
 
@@ -448,8 +449,8 @@ public class BibleServiceTest {
 
     @Test
     public void testFloodSearchJerLandLand() {
-        int expectedHitCount = 17;
-        int expectedVerseHits = 4;
+        int expectedHitCount = 27;
+        int expectedVerseHits = 7;
 
         String expectedBook = "Jeremia";
         int expectedChapter = 33;
@@ -469,7 +470,7 @@ public class BibleServiceTest {
         assertEquals(expectedHitCount, searchResult.getHitCount());
         assertEquals(expectedVerseHits, searchResult.getFindings().size());
 
-        Finding finding = searchResult.getFindings().get(expectedVerseHits - 2);
+        Finding finding = searchResult.getFindings().get(expectedVerseHits - 5);
         assertEquals(expectedBook, finding.getPassage().getBook());
         assertEquals(expectedChapter, finding.getPassage().getChapter());
         assertEquals(expectedVerse, finding.getPassage().getVerse());
