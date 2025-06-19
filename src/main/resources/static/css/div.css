@@ -100,7 +100,7 @@ div.navigation {
 
 div.content {
     margin-top: 194px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
     text-align: justify
@@ -108,7 +108,7 @@ div.content {
 
 div.readContent {
     margin-top: 194px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
     text-align: justify
@@ -116,7 +116,7 @@ div.readContent {
 
 div.searchContent {
     margin-top: 194px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
     text-align: justify
@@ -124,7 +124,7 @@ div.searchContent {
 
 div.countContent {
     margin-top: 245px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
     text-align: justify
@@ -132,7 +132,7 @@ div.countContent {
 
 div.parallelContent {
     margin-top: 194px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
     text-align: justify
