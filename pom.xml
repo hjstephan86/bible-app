@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.0</version>
+		<version>3.5.3</version>
 		<relativePath/>
 	</parent>
 	<groupId>com.bible.app</groupId>
 	<artifactId>bible-app</artifactId>
-	<version>1.5.0</version>
+	<version>1.6.0</version>
 	<name>Bible Application</name>
 	<description>This is a simple Spring Boot bible application</description>
 	<properties>
